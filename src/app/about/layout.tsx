@@ -1,3 +1,4 @@
+import Page from "../components/Page";
 
 export const metadata = {
   title: "Foodies",
@@ -10,10 +11,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div>
-      {" "}
-      <h1>test</h1>
+    <Page>
+      <h1>Test</h1>
       {children}
-    </div>
+    </Page>
   );
 }

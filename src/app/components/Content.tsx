@@ -1,19 +1,12 @@
 "use client";
 
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import MuiDrawer from "@mui/material/Drawer";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Toolbar from "@mui/material/Toolbar";
-import { styled } from "@mui/material/styles";
-import * as React from "react";
 
-
-
-export default function Content() {
-
+export default function AppContent() {
   return (
     <Box
       component="main"
