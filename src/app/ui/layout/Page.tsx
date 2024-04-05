@@ -1,7 +1,8 @@
 "use client";
 
-import { Toolbar } from "@mui/material";
 import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Toolbar from "@mui/material/Toolbar";
 
 export default function Page({ children }: { children: React.ReactNode }) {
   return (
@@ -17,9 +18,9 @@ export default function Page({ children }: { children: React.ReactNode }) {
         overflow: "auto",
       }}>
       <Toolbar />
+      <Container maxWidth="lg" sx={{ mt: 4, mb: 4, minWidth: "100%" }}>
         {children}
-      {/* <Container  sx={{ mt: 1, mb: 1 }}>
-      </Container> */}
+      </Container>
     </Box>
   );
 }

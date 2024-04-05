@@ -11,11 +11,18 @@ import LayersIcon from "@mui/icons-material/Layers";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import Link from "next/link";
 
+export const routes = {
+  dashboard: "/",
+  orders: "orders",
+  customers: "customers",
+  reports: "reports",
+};
+
 const menuItems = [
-  { icon: <DashboardIcon />, text: "Dashboard", link: "/" },
-  { icon: <ShoppingCartIcon />, text: "Orders", link: "about" },
-  { icon: <PeopleIcon />, text: "Customers", link: "" },
-  { icon: <BarChartIcon />, text: "Reports", link: "" },
+  { icon: <DashboardIcon />, text: "Dashboard", link: routes.dashboard },
+  { icon: <ShoppingCartIcon />, text: "Orders", link: routes.orders },
+  { icon: <PeopleIcon />, text: "Customers", link: routes.customers },
+  { icon: <BarChartIcon />, text: "Reports", link: routes.reports },
   { icon: <LayersIcon />, text: "Integrations", link: "" },
 ];
 

@@ -6,9 +6,10 @@ import { roboto } from "@/app/ui/font";
 import { ThemeProvider } from "@emotion/react";
 import styled from "@emotion/styled";
 import { useState } from "react";
-import AppDrawer from "./components/Drawer";
-import AppHeader from "./components/Toolbar";
+import AppDrawer from "./ui/layout/Drawer";
+import AppHeader from "./ui/layout/Toolbar";
 import theme from "./ui/theme";
+import Page from "./ui/layout/Page";
 
 // export const metadata = {
 //   title: "Foodies",
@@ -34,7 +35,7 @@ export default function RootLayout({
           <AppContainer>
             <AppHeader setOpen={setOpen} isOpen={open} width={240} />
             <AppDrawer setOpen={setOpen} isOpen={open} width={240} />
-            {children}
+            <Page>{children}</Page>
           </AppContainer>
         </ThemeProvider>
       </body>
