@@ -1,0 +1,9 @@
+li.active {
+  border-color: #f6e35a;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+li.active .player-name,
+li.active .player-symbol {
+  color: #f6e35a;
+}

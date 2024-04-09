@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { Symbols } from "./types";
 
 interface BoardProps {
-  activePlayer : number,
-  onSelectSquare: () => void;
+  activePlayer : string,
+  onSelectSquare: (rowIndex: number, cellIndex: number) => void;
 }
 
 const initialGameState: string[][] = [
@@ -32,10 +31,10 @@ export default function GameBoard({ onSelectSquare, activePlayer }: BoardProps) 
     if (!gameState[rowIndex][cellIndex]) {
       
       setGameState((value) =>
-        updateGameState(value, rowIndex, cellIndex, Symbols[activePlayer])
+        updateGameState(value, rowIndex, cellIndex, activePlayer)
       );
 
-      onSelectSquare();
+      onSelectSquare(rowIndex, cellIndex);
     }
   }
 

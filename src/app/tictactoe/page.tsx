@@ -9,7 +9,8 @@ import { caprasimo } from "../ui/font";
 import AppContainer from "../ui/layout/Container";
 import GameBoard from "./GameBoard";
 import Players from "./Players";
-import { Moves, Symbols } from "./types";
+import { Moves, Symbols, Turn } from "./types";
+import Log from "./Log";
 
 const theme = createTheme({
   typography: {
@@ -51,12 +52,18 @@ const players = [
 ];
 
 export default function TicTacToe() {
-  const [activePlayer, setActivePlayer] = useState(Moves.MOVE_X);
-  const [movesLog, setMovesLog] = useState([] as Moves[]);
+  const [activePlayer, setActivePlayer] = useState<Moves>(Moves.MOVE_X);
+  const [gameTurns, setGamesTurns] = useState<Turn[]>([]);
 
-  function handleSelectSquare() {
-    setMovesLog((value) => [...value, activePlayer]);
+  function handleSelectSquare(rowIndex: number, cellIndex: number) {
     setActivePlayer((value) => value ^ (1 as Moves));
+    setGamesTurns((value) => [
+      ...value,
+      {
+        square: { rowIndex, cellIndex },
+        player: Symbols[activePlayer],
+      } as Turn,
+    ]);
   }
 
   return (
@@ -77,21 +84,13 @@ export default function TicTacToe() {
 
           <div className="flex justify-center gap-8">
             <BoardWrapper>
-              <Players players={players} />
+              <Players players={players} activePlayer={Symbols[activePlayer]} />
               <GameBoard
                 onSelectSquare={handleSelectSquare}
-                activePlayer={activePlayer}
+                activePlayer={Symbols[activePlayer]}
               />
             </BoardWrapper>
-
-            <div>
-              <Typography variant="h4">Moves</Typography>
-              {movesLog.map((move, index) => (
-                <Typography key={index} variant="h6">
-                  Selected : {Symbols[move]}
-                </Typography>
-              ))}
-            </div>
+            <Log turns={gameTurns} />
           </div>
         </AppContainer>
       </PageWrapper>

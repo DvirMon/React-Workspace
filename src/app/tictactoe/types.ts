@@ -1,3 +1,5 @@
+import { inter } from "../ui/font";
+
 export enum Moves {
   MOVE_X = 0,
   MOVE_O = 1,
@@ -15,6 +17,7 @@ export interface Player {
   move: string;
 }
 
-export interface PlyersPros {
-  players: Player[];
+export interface Turn {
+  square: { rowIndex: number; cellIndex: number };
+  player: string;
 }
