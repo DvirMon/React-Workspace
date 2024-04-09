@@ -45,12 +45,6 @@ const BoardWrapper = styled(MuiPaper)(({ theme }) => ({
   boxShadow: "0 0 20px rgba(0, 0, 0, 0.5)",
 }));
 
-const initialGameState: string[][] = [
-  ["", "", ""],
-  ["", "", ""],
-  ["", "", ""],
-];
-
 const players = [
   { name: "Player", move: "X" },
   { name: "Player", move: "O" },
@@ -59,29 +53,10 @@ const players = [
 export default function TicTacToe() {
   const [activePlayer, setActivePlayer] = useState(Moves.MOVE_X);
   const [movesLog, setMovesLog] = useState([] as Moves[]);
-  const [gameState, setGameState] = useState(initialGameState);
 
-  function updateGameState(
-    state: string[][],
-    rowIndex: number,
-    cellIndex: number,
-    nextMove: string
-  ) {
-    const newState = [...state.map((row) => [...row])];
-
-    newState[rowIndex][cellIndex] = nextMove;
-
-    return newState;
-  }
-
-  function handleSelectSquare(rowIndex: number, cellIndex: number) {
-    if (!gameState[rowIndex][cellIndex]) {
-      setMovesLog((value) => [...value, activePlayer]);
-      setGameState((value) =>
-        updateGameState(value, rowIndex, cellIndex, Symbols[activePlayer])
-      );
-      setActivePlayer((value) => value ^ (1 as Moves));
-    }
+  function handleSelectSquare() {
+    setMovesLog((value) => [...value, activePlayer]);
+    setActivePlayer((value) => value ^ (1 as Moves));
   }
 
   return (
@@ -103,7 +78,10 @@ export default function TicTacToe() {
           <div className="flex justify-center gap-8">
             <BoardWrapper>
               <Players players={players} />
-              <GameBoard matrix={gameState} onClick={handleSelectSquare} />
+              <GameBoard
+                onSelectSquare={handleSelectSquare}
+                activePlayer={activePlayer}
+              />
             </BoardWrapper>
 
             <div>
