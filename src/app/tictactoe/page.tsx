@@ -1,14 +1,26 @@
 "use client";
 
-import { styled } from "@mui/material";
-import Toolbar from "@mui/material/Toolbar";
+import { ThemeProvider, createTheme, styled } from "@mui/material";
+import MuiPaper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+import Image from "next/image";
 import { useState } from "react";
+import { caprasimo } from "../ui/font";
 import AppContainer from "../ui/layout/Container";
-import TicTacToeBoard from "./Board";
+import GameBoard from "./GameBoard";
+import Players from "./Players";
 import { Moves, Symbols } from "./types";
 
-const ContentWrapper = styled(
+const theme = createTheme({
+  typography: {
+    fontFamily: "Caprasimo",
+    h4: {
+      fontWeight: 700,
+    },
+  },
+});
+
+const PageWrapper = styled(
   "div",
   {}
 )(({ theme }) => ({
@@ -21,93 +33,90 @@ const ContentWrapper = styled(
   backgroundSize: "100% 100%, 30% 30%, 100% 100%",
 }));
 
-const matrix: string[][] = [
+const BoardWrapper = styled(MuiPaper)(({ theme }) => ({
+  background: "linear-gradient(#383624, #282617)",
+  width: "45rem",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  padding: theme.spacing(3),
+  gap: theme.spacing(4),
+  boxShadow: "0 0 20px rgba(0, 0, 0, 0.5)",
+}));
+
+const initialGameState: string[][] = [
   ["", "", ""],
   ["", "", ""],
   ["", "", ""],
 ];
 
-function matrixIndexToArrayIndex(
-  rowIndex: number,
-  cellIndex: number,
-  size: number
-) {
-  return rowIndex * size + cellIndex;
-}
-
-function DisplayObject({ data }: { data: unknown }) {
-  return <pre>{JSON.stringify(data, null, 2)}</pre>;
-}
+const players = [
+  { name: "Player", move: "X" },
+  { name: "Player", move: "O" },
+];
 
 export default function TicTacToe() {
+  const [activePlayer, setActivePlayer] = useState(Moves.MOVE_X);
   const [movesLog, setMovesLog] = useState([] as Moves[]);
-  const [movesMatrix, setMovesMatrix] = useState(matrix);
+  const [gameState, setGameState] = useState(initialGameState);
 
-  function getNextMove(moves: Moves[]) {
-    const lastMove = moves[moves.length - 1];
-    return (lastMove || 0) ^ (1 as Moves);
+  function updateGameState(
+    state: string[][],
+    rowIndex: number,
+    cellIndex: number,
+    nextMove: string
+  ) {
+    const newState = [...state.map((row) => [...row])];
+
+    newState[rowIndex][cellIndex] = nextMove;
+
+    return newState;
   }
 
-  function updateMatrix(rowIndex: number, cellIndex: number, nextMove: number) {
-    const newMatrix = movesMatrix.map((row, i) =>
-      i === rowIndex
-        ? row.map((cell, j) => (cellIndex === j ? Symbols[nextMove] : cell))
-        : row
-    );
-
-    return newMatrix;
-  }
-
-  function onClick(rowIndex: number, cellIndex: number) {
-    if (!movesMatrix[rowIndex][cellIndex]) {
-      const nextMove = getNextMove(movesLog);
-
-      setMovesLog((value) => [...value, nextMove]);
-
-      setMovesMatrix(updateMatrix(rowIndex, cellIndex, nextMove));
+  function handleSelectSquare(rowIndex: number, cellIndex: number) {
+    if (!gameState[rowIndex][cellIndex]) {
+      setMovesLog((value) => [...value, activePlayer]);
+      setGameState((value) =>
+        updateGameState(value, rowIndex, cellIndex, Symbols[activePlayer])
+      );
+      setActivePlayer((value) => value ^ (1 as Moves));
     }
   }
 
   return (
-    <ContentWrapper>
-      <AppContainer>
-        <Toolbar></Toolbar>
-        <Typography
-          className="font-bold"
-          variant="h2"
-          sx={{
-            fontFamily: "Caprasimo",
-          }}>
-          Tic-Tac-Toe
-        </Typography>
-
-        <div className="flex justify-center gap-8">
-          <DisplayObject data={movesMatrix}></DisplayObject>
-
-          <TicTacToeBoard matrix={movesMatrix} onClick={onClick} />
-          <div>
-            <Typography
-              className="font-bold"
-              variant="h4"
-              sx={{
-                fontFamily: "Caprasimo",
-              }}>
-              Moves
+    <ThemeProvider theme={theme}>
+      <PageWrapper className={`${caprasimo.className} antialiased`}>
+        <AppContainer>
+          <header className="w-full flex flex-col justify-center items-center gap-4 h-1/4">
+            <Image
+              src="/game-logo.png"
+              width={100}
+              height={100}
+              alt="logo img"
+            />
+            <Typography className="font-bold" variant="h2">
+              Tic-Tac-Toe
             </Typography>
-            {movesLog.map((move, index) => (
-              <Typography
-                key={index}
-                className="font-bold"
-                variant="h6"
-                sx={{
-                  fontFamily: "Caprasimo",
-                }}>
-                Selected : {Symbols[move]}
-              </Typography>
-            ))}
+          </header>
+
+          <div className="flex justify-center gap-8">
+            <BoardWrapper>
+              <Players players={players} />
+              <GameBoard matrix={gameState} onClick={handleSelectSquare} />
+            </BoardWrapper>
+
+            <div>
+              <Typography variant="h4">Moves</Typography>
+              {movesLog.map((move, index) => (
+                <Typography key={index} variant="h6">
+                  Selected : {Symbols[move]}
+                </Typography>
+              ))}
+            </div>
           </div>
-        </div>
-      </AppContainer>
-    </ContentWrapper>
+        </AppContainer>
+      </PageWrapper>
+    </ThemeProvider>
   );
 }
