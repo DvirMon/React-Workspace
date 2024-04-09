@@ -1,9 +1,7 @@
 "use client";
 
 import MenuIcon from "@mui/icons-material/Menu";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
-import Badge from "@mui/material/Badge";
+import MuiAppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -15,35 +13,29 @@ interface AppBarProps {
   setOpen: (value: boolean) => void;
 }
 
-interface AppBarStyledProps extends MuiAppBarProps {
-  open?: boolean;
-  width?: number;
-}
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})<{ open: boolean; width: number }>(({ theme, open, width }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(["width", "margin"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: width,
-    width: `calc(100% - ${width}px)`,
+const AppBar = styled(MuiAppBar)<{ open: boolean; width: number }>(
+  ({ theme, open, width }) => ({
+    zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
+      duration: theme.transitions.duration.leavingScreen,
     }),
-  }),
-}));
+    ...(open && {
+      marginLeft: width,
+      width: `calc(100% - ${width}px)`,
+      transition: theme.transitions.create(["width", "margin"], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    }),
+  })
+);
 
 export default function AppHeader({
   setOpen,
   isOpen = true,
   width = 240,
 }: AppBarProps) {
-  
   const toggleDrawer = () => {
     setOpen(!isOpen);
   };

@@ -13,6 +13,9 @@ import {
 } from "./definitions";
 import { formatCurrency } from "./utils";
 
+
+const formatDollar = formatCurrency()
+
 export async function fetchRevenue(): Promise<Revenue[]> {
   // Add noStore() here to prevent the response from being cached.
   // This is equivalent to in fetch(..., {cache: 'no-store'}).
@@ -46,7 +49,7 @@ export async function fetchLatestInvoices(): Promise<LatestInvoice[]> {
 
     const latestInvoices = data.rows.map((invoice) => ({
       ...invoice,
-      amount: formatCurrency(invoice.amount),
+      amount: formatDollar(invoice.amount),
     }));
     return latestInvoices;
   } catch (error) {
@@ -75,8 +78,8 @@ export async function fetchCardData(): Promise<CartData> {
 
     const numberOfInvoices = Number(data[0].rows[0].count ?? "0");
     const numberOfCustomers = Number(data[1].rows[0].count ?? "0");
-    const totalPaidInvoices = formatCurrency(data[2].rows[0].paid ?? "0");
-    const totalPendingInvoices = formatCurrency(data[2].rows[0].pending ?? "0");
+    const totalPaidInvoices = formatDollar(data[2].rows[0].paid ?? "0");
+    const totalPendingInvoices = formatDollar(data[2].rows[0].pending ?? "0");
 
     return {
       numberOfCustomers,
@@ -212,8 +215,8 @@ export async function fetchFilteredCustomers(query: string) {
 
     const customers = data.rows.map((customer) => ({
       ...customer,
-      total_pending: formatCurrency(customer.total_pending),
-      total_paid: formatCurrency(customer.total_paid),
+      total_pending: formatDollar(customer.total_pending),
+      total_paid: formatDollar(customer.total_paid),
     }));
 
     return customers;

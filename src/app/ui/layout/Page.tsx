@@ -18,7 +18,14 @@ export default function Page({ children }: { children: React.ReactNode }) {
         overflow: "auto",
       }}>
       <Toolbar />
-      <Container maxWidth="lg" sx={{ mt: 4, mb: 4, minWidth: "100%" }}>
+      <Container
+        maxWidth="lg"
+        sx={{
+          minWidth: "100%",
+          height: "calc(100% - 64px)",
+          pl: "0px !important",
+          pr: "0px !important",
+        }}>
         {children}
       </Container>
     </Box>

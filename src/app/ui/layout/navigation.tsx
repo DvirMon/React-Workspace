@@ -9,6 +9,7 @@ import PeopleIcon from "@mui/icons-material/People";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import LayersIcon from "@mui/icons-material/Layers";
 import AssignmentIcon from "@mui/icons-material/Assignment";
+import Grid3x3Icon from "@mui/icons-material/Grid3x3";
 import Link from "next/link";
 
 export const routes = {
@@ -16,6 +17,7 @@ export const routes = {
   orders: "orders",
   customers: "customers",
   reports: "reports",
+  ticTacToe: "tictactoe",
 };
 
 const menuItems = [
@@ -23,7 +25,9 @@ const menuItems = [
   { icon: <ShoppingCartIcon />, text: "Orders", link: routes.orders },
   { icon: <PeopleIcon />, text: "Customers", link: routes.customers },
   { icon: <BarChartIcon />, text: "Reports", link: routes.reports },
-  { icon: <LayersIcon />, text: "Integrations", link: "" },
+];
+const secondaryItems = [
+  { icon: <Grid3x3Icon />, text: "Tic Tac Toe", link: routes.ticTacToe },
 ];
 
 export const mainListItems = (
@@ -42,25 +46,15 @@ export const mainListItems = (
 export const secondaryListItems = (
   <React.Fragment>
     <ListSubheader component="div" inset>
-      Saved reports
+      Projects
     </ListSubheader>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Current month" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Last quarter" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItemButton>
+    {secondaryItems.map(({ icon, text, link }, index) => (
+      <Link href={link} key={index}>
+        <ListItemButton>
+          <ListItemIcon>{icon}</ListItemIcon>
+          <ListItemText primary={text} />
+        </ListItemButton>
+      </Link>
+    ))}
   </React.Fragment>
 );
