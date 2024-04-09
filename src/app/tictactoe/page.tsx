@@ -40,30 +40,31 @@ function DisplayObject({ data }: { data: unknown }) {
 }
 
 export default function TicTacToe() {
-  const [movesMap, setMovesMap] = useState({} as { [key: number]: string });
   const [movesLog, setMovesLog] = useState([] as Moves[]);
   const [movesMatrix, setMovesMatrix] = useState(matrix);
 
-  function handleMoves(moves: Moves[]) {
+  function getNextMove(moves: Moves[]) {
     const lastMove = moves[moves.length - 1];
     return (lastMove || 0) ^ (1 as Moves);
   }
 
+  function updateMatrix(rowIndex: number, cellIndex: number, nextMove: number) {
+    const newMatrix = movesMatrix.map((row, i) =>
+      i === rowIndex
+        ? row.map((cell, j) => (cellIndex === j ? Symbols[nextMove] : cell))
+        : row
+    );
+
+    return newMatrix;
+  }
+
   function onClick(rowIndex: number, cellIndex: number) {
-    const index = matrixIndexToArrayIndex(rowIndex, cellIndex, matrix.length);
+    if (!movesMatrix[rowIndex][cellIndex]) {
+      const nextMove = getNextMove(movesLog);
 
-    if (!movesMap[index]) {
-      const nextMove = handleMoves(movesLog);
       setMovesLog((value) => [...value, nextMove]);
-      setMovesMap((value) => ({ ...value, [index]: Symbols[nextMove] }));
 
-      const newMatrix = movesMatrix.map((row, i) =>
-        i === rowIndex
-          ? row.map((cell, j) => (cellIndex === j ? Symbols[nextMove] : cell))
-          : row
-      );
-
-      setMovesMatrix(newMatrix);
+      setMovesMatrix(updateMatrix(rowIndex, cellIndex, nextMove));
     }
   }
 
