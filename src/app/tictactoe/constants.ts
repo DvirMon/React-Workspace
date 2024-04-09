@@ -1,3 +1,10 @@
+export const GAME_STATE: string[][] = [
+    ["", "", ""],
+    ["", "", ""],
+    ["", "", ""],
+  ];
+  
+
 export const WINNING_COMBINATIONS = [
     [
       { row: 0, column: 0 },

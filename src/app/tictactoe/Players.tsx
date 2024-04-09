@@ -1,4 +1,4 @@
-import { styled } from "@mui/material";
+import { Typography, styled } from "@mui/material";
 import clsx from "clsx";
 import "./players.css";
 import { Player } from "./types";
@@ -22,12 +22,12 @@ function PlayerTab({
   return (
     <li
       className={clsx("flex grow justify-center p-4 gap-6", {
-        'border border-yellow-300 transition duration-300': isActive,
+        "border border-yellow-300 transition duration-300": isActive,
       })}>
-      <span>
+      <Typography variant="h4">
         {name} {++index} :
-      </span>
-      <span>{move} </span>
+      </Typography>
+      <Typography variant="h4">{move} </Typography>
     </li>
   );
 }

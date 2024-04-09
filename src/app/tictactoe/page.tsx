@@ -11,14 +11,14 @@ import GameBoard from "./GameBoard";
 import Log from "./Log";
 import Players from "./Players";
 import { Plays, Symbols, Turn } from "./types";
-import { WINNING_COMBINATIONS } from "./constants";
+import { GAME_STATE, WINNING_COMBINATIONS } from "./constants";
+import GameOver from "./GameOver";
+
+import './page.css'
 
 const theme = createTheme({
   typography: {
     fontFamily: "Caprasimo",
-    h4: {
-      fontWeight: 700,
-    },
   },
 });
 
@@ -36,6 +36,7 @@ const PageWrapper = styled(
 }));
 
 const BoardWrapper = styled(MuiPaper)(({ theme }) => ({
+  position: "relative",
   background: "linear-gradient(#383624, #282617)",
   width: "45rem",
   display: "flex",
@@ -82,32 +83,39 @@ function updateGameTurns(
 }
 
 function checkWinning(gameTurns: Turn[], board: string[][]): boolean {
-  let isWinning = false;
+  if (gameTurns.length < 5) {
+    return false;
+  }
 
-  if (gameTurns.length >= 5) {
-    for (const combination of WINNING_COMBINATIONS) {
-      const firstSquare = board[combination[0].row][combination[0].column];
-      const secondSquare = board[combination[1].row][combination[1].column];
-      const thirdSquare = board[combination[2].row][combination[2].column];
+  for (const combination of WINNING_COMBINATIONS) {
+    const [first, second, third] = combination.map(
+      ({ row, column }) => board[row][column]
+    );
 
-      isWinning =
-        firstSquare != "" &&
-        firstSquare === secondSquare &&
-        secondSquare === thirdSquare;
-
-      if (isWinning) {
-        break;
-      }
+    if (first !== "" && first === second && second === third) {
+      return true;
     }
   }
 
-  return isWinning;
+  return false;
+}
+
+function handleGameState(initState: string[][], turns: Turn[]) {
+  const newState = initState.map((innerArray) => [...innerArray]);
+  for (const turn of turns) {
+    const { square, player } = turn;
+    const { rowIndex, cellIndex } = square;
+    newState[rowIndex][cellIndex] = player;
+  }
+  return newState;
 }
 
 export default function TicTacToe() {
   const [gameTurns, setGamesTurns] = useState<Turn[]>([]);
 
   const activePlayer = computeActivePlay(gameTurns);
+  const gameState = handleGameState(GAME_STATE, gameTurns);
+  const isWinning = checkWinning(gameTurns, gameState);
 
   function handleSelectSquare(rowIndex: number, cellIndex: number) {
     setGamesTurns((state) => updateGameTurns(state, rowIndex, cellIndex));
@@ -119,7 +127,7 @@ export default function TicTacToe() {
 
   return (
     <ThemeProvider theme={theme}>
-      <PageWrapper className={`${caprasimo.className} antialiased`}>
+      <PageWrapper>
         <AppContainer>
           <header className="w-full flex flex-col justify-center items-center gap-4 h-1/4">
             <Image
@@ -128,25 +136,25 @@ export default function TicTacToe() {
               height={100}
               alt="logo img"
             />
-            <Typography className="font-bold" variant="h2">
-              Tic-Tac-Toe
-            </Typography>
+            <Typography variant="h2">Tic-Tac-Toe</Typography>
           </header>
 
           <article className="flex justify-center gap-8">
             <BoardWrapper>
               <Players players={players} activePlayer={activePlayer} />
+
               <GameBoard
-                turns={gameTurns}
+                board={gameState}
+                isWinning={isWinning}
                 onSelectSquare={handleSelectSquare}
-                checkWinning={checkWinning}
               />
               <Button
                 onClick={handleStartOver}
                 variant="contained"
-                className="text-4xl">
+                className="text-3xl">
                 Start Over
               </Button>
+              {isWinning && <GameOver onClick={handleStartOver} />}
             </BoardWrapper>
             <Log turns={gameTurns} />
           </article>
