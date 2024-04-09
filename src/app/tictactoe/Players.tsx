@@ -8,13 +8,6 @@ interface PlyersPros {
   activePlayer: string;
 }
 
-const ListItem = styled("li")(({ theme }) => ({
-  display: "flex",
-  flexGrow: 1,
-  justifyContent: "center",
-  gap: theme.spacing(4),
-}));
-
 function PlayerTab({
   name,
   move,

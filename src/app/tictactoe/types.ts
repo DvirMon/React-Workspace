@@ -1,4 +1,3 @@
-import { inter } from "../ui/font";
 
 export enum Moves {
   MOVE_X = 0,
@@ -12,6 +11,7 @@ export const Symbols: { [key: number]: Plays } = {
   [Moves.MOVE_O]: "o",
 };
 
+
 export interface Player {
   name: string;
   move: string;
@@ -19,5 +19,5 @@ export interface Player {
 
 export interface Turn {
   square: { rowIndex: number; cellIndex: number };
-  player: string;
+  player: Plays;
 }
