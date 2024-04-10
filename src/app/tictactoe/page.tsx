@@ -45,7 +45,7 @@ const PageWrapper = styled(
 const BoardWrapper = styled(MuiPaper)(({ theme }) => ({
   position: "relative",
   background: "linear-gradient(#383624, #282617)",
-  width: "45rem",
+  width: "50rem",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
