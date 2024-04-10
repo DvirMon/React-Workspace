@@ -1,5 +1,4 @@
-import Page from "../ui/layout/Page";
 
-export default function About() {
-  return <div>about page</div>;
+export default function Reports() {
+  return <div>Reports page</div>;
 }
