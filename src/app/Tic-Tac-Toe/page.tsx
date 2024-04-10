@@ -10,7 +10,6 @@ import { GAME_STATE, PLAYERS } from "./constants";
 import { Symbol, Turn } from "./types";
 
 import { BoardWrapper, Header } from "./layout";
-import "./page.css";
 import {
   computeActivePlay,
   computeWinner,

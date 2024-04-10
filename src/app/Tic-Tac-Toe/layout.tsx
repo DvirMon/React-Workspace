@@ -5,10 +5,10 @@ import Typography from "@mui/material/Typography";
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import createTheme from "@mui/material/styles/createTheme";
 import styled from "@mui/material/styles/styled";
-import AppContainer from "../ui/layout/Container";
+import PageContainer from "../ui/layout/Container";
 import Image from "next/image";
 
-import "./page.css";
+import "./theme.css";
 
 const theme = createTheme({
   typography: {
@@ -61,7 +61,7 @@ export default function TicTacToeLayout({
   return (
     <ThemeProvider theme={theme}>
       <PageWrapper>
-        <AppContainer>{children}</AppContainer>
+        <PageContainer>{children}</PageContainer>
       </PageWrapper>
     </ThemeProvider>
   );

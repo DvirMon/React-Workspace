@@ -1,23 +1,23 @@
-import * as React from "react";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import CalculateIcon from "@mui/icons-material/Calculate";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import Grid3x3Icon from "@mui/icons-material/Grid3x3";
+import PeopleIcon from "@mui/icons-material/People";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import PeopleIcon from "@mui/icons-material/People";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import LayersIcon from "@mui/icons-material/Layers";
-import AssignmentIcon from "@mui/icons-material/Assignment";
-import Grid3x3Icon from "@mui/icons-material/Grid3x3";
 import Link from "next/link";
+import * as React from "react";
 
 export const routes = {
   dashboard: "/",
   orders: "orders",
   customers: "customers",
   reports: "reports",
-  ticTacToe: "tictactoe",
+  ticTacToe: "Tic-Tac-Toe",
+  investment: "Investment-Calculator",
 };
 
 const menuItems = [
@@ -28,6 +28,7 @@ const menuItems = [
 ];
 const secondaryItems = [
   { icon: <Grid3x3Icon />, text: "Tic Tac Toe", link: routes.ticTacToe },
+  { icon: <CalculateIcon />, text: "Calculator", link: routes.investment },
 ];
 
 export const mainListItems = (

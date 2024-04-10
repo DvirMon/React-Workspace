@@ -12,7 +12,7 @@ const Container = styled(MuiBox)<{ theme?: Theme }>(({ theme }) => ({
   paddingRight: theme.spacing(7),
 }));
 
-export default function AppContainer({
+export default function PageContainer({
   children,
 }: {
   children: React.ReactNode;
