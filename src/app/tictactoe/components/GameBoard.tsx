@@ -1,14 +1,11 @@
+import { Typography } from "@mui/material";
+
 interface BoardProps {
   board: string[][];
-  isWinning: boolean;
   onSelectSquare: (rowIndex: number, cellIndex: number) => void;
 }
 
-export default function GameBoard({
-  board,
-  isWinning,
-  onSelectSquare,
-}: BoardProps) {
+export default function GameBoard({ board, onSelectSquare }: BoardProps) {
   function handleSelectSquare(rowIndex: number, cellIndex: number) {
     onSelectSquare(rowIndex, cellIndex);
   }
@@ -19,12 +16,14 @@ export default function GameBoard({
         <li key={rowIndex} className="flex gap-4">
           {row.map((cell, cellIndex) => (
             <button
-              disabled={!!cell || isWinning}
+              disabled={!!cell}
               style={{ background: "#aca788", fontWeight: 400 }}
               onClick={() => handleSelectSquare(rowIndex, cellIndex)}
               key={cellIndex}
-              className="w-32 h-32 flex justify-center items-center text-7xl">
-              {cell}
+              className="w-32 h-32 flex justify-center items-center">
+              <Typography sx={{ color: "#3f3b00" }} className="text-7xl">
+                {cell}
+              </Typography>
             </button>
           ))}
         </li>

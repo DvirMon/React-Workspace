@@ -4,9 +4,9 @@ export enum Moves {
   MOVE_O = 1,
 }
 
-export type Plays = "x" | "o";
+export type Symbol = "x" | "o";
 
-export const Symbols: { [key: number]: Plays } = {
+export const Symbols: { [key: number]: Symbol } = {
   [Moves.MOVE_X]: "x",
   [Moves.MOVE_O]: "o",
 };
@@ -19,5 +19,5 @@ export interface Player {
 
 export interface Turn {
   square: { rowIndex: number; cellIndex: number };
-  player: Plays;
+  player: Symbol;
 }

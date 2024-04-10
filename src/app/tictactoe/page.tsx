@@ -5,16 +5,23 @@ import MuiPaper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import { useState } from "react";
-import { caprasimo } from "../ui/font";
 import AppContainer from "../ui/layout/Container";
-import GameBoard from "./GameBoard";
-import Log from "./Log";
-import Players from "./Players";
-import { Plays, Symbols, Turn } from "./types";
-import { GAME_STATE, WINNING_COMBINATIONS } from "./constants";
-import GameOver from "./GameOver";
+import GameBoard from "./components/GameBoard";
+import GameOver from "./components/GameOver";
+import Log from "./components/Log";
+import Players from "./components/Players";
+import { GAME_STATE } from "./constants";
+import { Turn } from "./types";
 
-import './page.css'
+import "./page.css";
+import {
+  computeActivePlay,
+  getWinner,
+  handleGameState,
+  isDraw,
+  isWinner,
+  updateGameTurns,
+} from "./page.helpers";
 
 const theme = createTheme({
   typography: {
@@ -48,80 +55,22 @@ const BoardWrapper = styled(MuiPaper)(({ theme }) => ({
   boxShadow: "0 0 20px rgba(0, 0, 0, 0.5)",
 }));
 
-const players = [
-  { name: "Player", move: "X" },
-  { name: "Player", move: "O" },
-];
-
-function computeActivePlay(gameTurns: Turn[]): Plays {
-  let newPlay: Plays = "x";
-
-  if (gameTurns[0]) {
-    const { player } = gameTurns[0] as Turn;
-    newPlay = player === "x" ? "o" : "x";
-  }
-
-  return newPlay;
-}
-
-function updateGameTurns(
-  oldState: Turn[],
-  rowIndex: number,
-  cellIndex: number
-) {
-  const player = computeActivePlay(oldState);
-
-  const newState = [
-    {
-      square: { rowIndex, cellIndex },
-      player,
-    } as Turn,
-    ...oldState,
-  ];
-
-  return newState;
-}
-
-function checkWinning(gameTurns: Turn[], board: string[][]): boolean {
-  if (gameTurns.length < 5) {
-    return false;
-  }
-
-  for (const combination of WINNING_COMBINATIONS) {
-    const [first, second, third] = combination.map(
-      ({ row, column }) => board[row][column]
-    );
-
-    if (first !== "" && first === second && second === third) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-function handleGameState(initState: string[][], turns: Turn[]) {
-  const newState = initState.map((innerArray) => [...innerArray]);
-  for (const turn of turns) {
-    const { square, player } = turn;
-    const { rowIndex, cellIndex } = square;
-    newState[rowIndex][cellIndex] = player;
-  }
-  return newState;
-}
+const players = { x: "Player 1", o: "Player 2" };
 
 export default function TicTacToe() {
   const [gameTurns, setGamesTurns] = useState<Turn[]>([]);
 
   const activePlayer = computeActivePlay(gameTurns);
   const gameState = handleGameState(GAME_STATE, gameTurns);
-  const isWinning = checkWinning(gameTurns, gameState);
+  const hasWinner = isWinner(gameTurns, gameState);
+  const hasDraw = isDraw(gameTurns, hasWinner);
+  const winner = getWinner(gameTurns);
 
   function handleSelectSquare(rowIndex: number, cellIndex: number) {
     setGamesTurns((state) => updateGameTurns(state, rowIndex, cellIndex));
   }
 
-  function handleStartOver() {
+  function handleRematch() {
     setGamesTurns(() => []);
   }
 
@@ -136,7 +85,9 @@ export default function TicTacToe() {
               height={100}
               alt="logo img"
             />
-            <Typography variant="h2">Tic-Tac-Toe</Typography>
+            <Typography sx={{ color: "#3f3b00" }} variant="h2">
+              Tic-Tac-Toe
+            </Typography>
           </header>
 
           <article className="flex justify-center gap-8">
@@ -145,16 +96,17 @@ export default function TicTacToe() {
 
               <GameBoard
                 board={gameState}
-                isWinning={isWinning}
                 onSelectSquare={handleSelectSquare}
               />
               <Button
-                onClick={handleStartOver}
+                onClick={handleRematch}
                 variant="contained"
                 className="text-3xl">
-                Start Over
+                Rematch
               </Button>
-              {isWinning && <GameOver onClick={handleStartOver} />}
+              {(hasWinner || hasDraw) && (
+                <GameOver hasWinner={hasWinner} onClick={handleRematch} />
+              )}
             </BoardWrapper>
             <Log turns={gameTurns} />
           </article>
