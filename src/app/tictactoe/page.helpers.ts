@@ -30,7 +30,7 @@ export function updateGameTurns(
   return newState;
 }
 
-export function isWinner(gameTurns: Turn[], board: string[][]): boolean {
+export function computeHasWinner(gameTurns: Turn[], board: string[][]): boolean {
   if (gameTurns.length < 5) {
     return false;
   }
@@ -48,11 +48,11 @@ export function isWinner(gameTurns: Turn[], board: string[][]): boolean {
   return false;
 }
 
-export function isDraw(gameTurns: Turn[], hasWinner: boolean) {
+export function computeHasDraw(gameTurns: Turn[], hasWinner: boolean) {
   return gameTurns.length === 9 && !hasWinner;
 }
 
-export function getWinner(
+export function computeWinner(
   gameTurns: Turn[],
   players: { [key: string]: string }
 ): string {
@@ -60,7 +60,7 @@ export function getWinner(
   return players[winningSymbol];
 }
 
-export function handleGameState(initState: string[][], turns: Turn[]) {
+export function computeGameState(initState: string[][], turns: Turn[]) {
   const newState = [...initState.map((innerArray) => [...innerArray])];
   for (const turn of turns) {
     const { square, player } = turn;

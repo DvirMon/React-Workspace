@@ -1,3 +1,9 @@
+
+export const PLAYERS = {
+  x: "Player 1",
+  o: "Player 2",
+};
+
 export const GAME_STATE: string[][] = [
     ["", "", ""],
     ["", "", ""],
