@@ -52,8 +52,12 @@ export function isDraw(gameTurns: Turn[], hasWinner: boolean) {
   return gameTurns.length === 9 && !hasWinner;
 }
 
-export function getWinner(gameTurns: Turn[]) {
-  return gameTurns[0];
+export function getWinner(
+  gameTurns: Turn[],
+  players: { [key: string]: string }
+): string {
+  const winningSymbol = gameTurns[0]?.player;
+  return players[winningSymbol];
 }
 
 export function handleGameState(initState: string[][], turns: Turn[]) {

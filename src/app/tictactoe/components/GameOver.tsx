@@ -1,9 +1,18 @@
 import React from "react";
 import "./game-over.css";
 
-function Message({ hasWinner }: { hasWinner: boolean }) {
+interface MessageProps {
+  winner: string;
+  hasWinner: boolean;
+}
+
+interface GameOverProps extends MessageProps {
+  onClick: () => void;
+}
+
+function Message({ winner, hasWinner }: MessageProps) {
   if (hasWinner) {
-    return <p>won!</p>;
+    return <p>{winner} won!</p>;
   }
 
   return <p>It&apos;s a Draw</p>;
@@ -11,15 +20,13 @@ function Message({ hasWinner }: { hasWinner: boolean }) {
 
 export default function GameOver({
   hasWinner,
+  winner,
   ...props
-}: {
-    hasWinner: boolean;
-    onClick : () => void
-}) {
+}: GameOverProps) {
   return (
     <div className="game-over gap-12">
       <h2>Game Over!</h2>
-      <Message hasWinner={hasWinner} />
+      <Message hasWinner={hasWinner} winner={winner} />
       <button {...props}>Rematch</button>
     </div>
   );

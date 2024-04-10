@@ -22,16 +22,15 @@ import {
   updateGameTurns,
 } from "./page.helpers";
 
-const players = { x: "Player 1", o: "Player 2" };
-
 export default function TicTacToe() {
   const [gameTurns, setGamesTurns] = useState<Turn[]>([]);
+  const [players, setPlayers] = useState({ x: "Player 1", o: "Player 2" });
 
   const activePlayer = computeActivePlay(gameTurns);
   const gameState = handleGameState(GAME_STATE, gameTurns);
   const hasWinner = isWinner(gameTurns, gameState);
   const hasDraw = isDraw(gameTurns, hasWinner);
-  const winner = getWinner(gameTurns);
+  const winner = getWinner(gameTurns, players);
 
   function handleSelectSquare(rowIndex: number, cellIndex: number) {
     setGamesTurns((state) => updateGameTurns(state, rowIndex, cellIndex));
@@ -41,13 +40,21 @@ export default function TicTacToe() {
     setGamesTurns(() => []);
   }
 
+  function handleSave(symbol: string, playerName: string) {
+    setPlayers((value) => ({ ...value, [symbol]: playerName }));
+  }
+
   return (
     <div className="h-full flex justify-center">
       <section className="h-full">
         <Header />
 
         <BoardWrapper>
-          <Players players={players} activePlayer={activePlayer} />
+          <Players
+            players={players}
+            activePlayer={activePlayer}
+            handleSave={handleSave}
+          />
 
           <GameBoard board={gameState} onSelectSquare={handleSelectSquare} />
           <Button
@@ -57,7 +64,7 @@ export default function TicTacToe() {
             Rematch
           </Button>
           {(hasWinner || hasDraw) && (
-            <GameOver hasWinner={hasWinner} onClick={handleRematch} />
+            <GameOver hasWinner={hasWinner} onClick={handleRematch} winner={winner} />
           )}
         </BoardWrapper>
       </section>

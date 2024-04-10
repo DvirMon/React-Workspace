@@ -1,24 +1,36 @@
 import { TextField, Typography } from "@mui/material";
 import clsx from "clsx";
+import { ChangeEvent, useState } from "react";
 import "./players.css";
-import { useState } from "react";
+
+interface PlayerNameProps {
+  value: string;
+  isEditable: boolean;
+  handleChange(
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void;
+}
+
+interface PlayerTabProps {
+  name: string;
+  symbol: string;
+  isActive: boolean;
+  handleSave: (symbol: string, playerName: string) => void;
+}
 
 interface PlyersPros {
   players: { [key: string]: string };
   activePlayer: string;
+  handleSave: (symbol: string, playerName: string) => void;
 }
 
-function PlayerName({
-  defaultValue,
-  isEditable,
-}: {
-  defaultValue: string;
-  isEditable: boolean;
-}) {
+function PlayerName({ handleChange, value, isEditable }: PlayerNameProps) {
   if (isEditable) {
     return (
       <TextField
         autoFocus
+        value={value}
+        onChange={(event) => handleChange(event)}
         sx={{
           backgroundColor: "#46432f",
           input: {
@@ -27,31 +39,31 @@ function PlayerName({
             padding: (theme) => theme.spacing(2),
           },
         }}
-        defaultValue={defaultValue}
       />
     );
   }
 
   return (
     <Typography sx={{ padding: (theme) => theme.spacing(2) }} variant="h5">
-      {defaultValue}
+      {value}
     </Typography>
   );
 }
 
-function PlayerTab({
-  name,
-  symbol,
-  isActive,
-}: {
-  name: string;
-  symbol: string;
-  isActive: boolean;
-}) {
+function PlayerTab({ name, symbol, isActive, handleSave }: PlayerTabProps) {
+  const [playerName, setPlayerName] = useState(name);
+
   const [isEditable, setEdit] = useState(false);
 
   function handleEdit() {
     setEdit((value) => !value);
+    handleSave(symbol, playerName);
+  }
+
+  function handleChange(
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
+    setPlayerName(event.target.value);
   }
 
   return (
@@ -60,10 +72,14 @@ function PlayerTab({
         "border border-yellow-300 transition duration-300": isActive,
       })}>
       <div className="w-44">
-        <PlayerName defaultValue={name} isEditable={isEditable} />
+        <PlayerName
+          value={playerName}
+          isEditable={isEditable}
+          handleChange={handleChange}
+        />
       </div>
       <Typography className="flex grow" variant="h5">
-        {symbol}{" "}
+        {symbol}
       </Typography>
 
       <button className="w-16" onClick={handleEdit}>
@@ -73,7 +89,11 @@ function PlayerTab({
   );
 }
 
-export default function Players({ players, activePlayer }: PlyersPros) {
+export default function Players({
+  players,
+  activePlayer,
+  handleSave,
+}: PlyersPros) {
   const keys = Object.keys(players);
 
   return (
@@ -84,6 +104,7 @@ export default function Players({ players, activePlayer }: PlyersPros) {
           name={players[symbol]}
           symbol={symbol}
           isActive={activePlayer.toLowerCase() === symbol.toLowerCase()}
+          handleSave={handleSave}
         />
       ))}
     </ol>
