@@ -45,7 +45,7 @@ const PageWrapper = styled(
 const BoardWrapper = styled(MuiPaper)(({ theme }) => ({
   position: "relative",
   background: "linear-gradient(#383624, #282617)",
-  width: "50rem",
+  width: "45rem",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
@@ -78,38 +78,43 @@ export default function TicTacToe() {
     <ThemeProvider theme={theme}>
       <PageWrapper>
         <AppContainer>
-          <header className="w-full flex flex-col justify-center items-center gap-4 h-1/4">
-            <Image
-              src="/game-logo.png"
-              width={100}
-              height={100}
-              alt="logo img"
-            />
-            <Typography sx={{ color: "#3f3b00" }} variant="h2">
-              Tic-Tac-Toe
-            </Typography>
-          </header>
+          <div className="h-full flex justify-center">
+            <section className="h-full">
+              <header className="w-full h-1/4 flex flex-col justify-center items-center gap-4">
+                <Image
+                  src="/game-logo.png"
+                  width={100}
+                  height={100}
+                  alt="logo img"
+                />
+                <Typography sx={{ color: "#3f3b00" }} variant="h2">
+                  Tic-Tac-Toe
+                </Typography>
+              </header>
 
-          <article className="flex justify-center gap-8">
-            <BoardWrapper>
-              <Players players={players} activePlayer={activePlayer} />
+              <BoardWrapper>
+                <Players players={players} activePlayer={activePlayer} />
 
-              <GameBoard
-                board={gameState}
-                onSelectSquare={handleSelectSquare}
-              />
-              <Button
-                onClick={handleRematch}
-                variant="contained"
-                className="text-3xl">
-                Rematch
-              </Button>
-              {(hasWinner || hasDraw) && (
-                <GameOver hasWinner={hasWinner} onClick={handleRematch} />
-              )}
-            </BoardWrapper>
-            <Log turns={gameTurns} />
-          </article>
+                <GameBoard
+                  board={gameState}
+                  onSelectSquare={handleSelectSquare}
+                />
+                <Button
+                  onClick={handleRematch}
+                  variant="contained"
+                  className="text-3xl">
+                  Rematch
+                </Button>
+                {(hasWinner || hasDraw) && (
+                  <GameOver hasWinner={hasWinner} onClick={handleRematch} />
+                )}
+              </BoardWrapper>
+            </section>
+            <section className="w-1/5">
+              <header className="h-1/4"></header>
+              <Log turns={gameTurns} />
+            </section>
+          </div>
         </AppContainer>
       </PageWrapper>
     </ThemeProvider>
