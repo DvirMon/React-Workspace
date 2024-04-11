@@ -8,6 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { GridColDef } from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
+import { getTypedKeys } from "@/lib/utils";
 
 export default function InvestmentTable({ state }: { state: Investment[] }) {
   const fields = Object.keys(state[0]);
@@ -18,17 +19,14 @@ export default function InvestmentTable({ state }: { state: Investment[] }) {
 
   const rows = [...state.map((item) => ({ ...item }))];
 
-  const keys: (keyof Investment)[] = Object.keys(
-    state[0]
-  ) as (keyof Investment)[];
-
+  const keys: (keyof Investment)[] = getTypedKeys(state[0]);
   return (
-    <TableContainer component={Paper}>
+    <TableContainer className="result">
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
+        <TableHead >
           <TableRow>
             {columns.map((col, index) => (
-              <TableCell key={index}>{col.headerName}</TableCell>
+              <TableCell  key={index}>{col.headerName}</TableCell>
             ))}
           </TableRow>
         </TableHead>
