@@ -14,7 +14,7 @@ div.investment-calculator header img {
   background-color: transparent;
 }
 
-.user-input {
+div.user-input {
   padding: 1rem;
   max-width: 30rem;
   margin: 2rem auto;
@@ -28,7 +28,7 @@ div.investment-calculator header img {
   gap: 1.5rem;
 }
 
-.user-input label {
+div.user-input label {
   display: block;
   margin-bottom: 0.25rem;
   font-family: "Roboto Condensed", sans-serif;
@@ -37,14 +37,14 @@ div.investment-calculator header img {
   text-transform: uppercase;
 }
 
-.user-input input {
+div.user-input input {
   width: 100%;
   padding: 0.5rem;
-  border: 1px solid 76c0ae;
+  border: 1px solid #76c0ae;
   border-radius: 0.25rem;
   background-color: transparent;
-  color: c2e9e0;
-  font-size: 1rem;
+  color: #c2e9e0;
+  font-size: 1.5rem;
 }
 
 .result {

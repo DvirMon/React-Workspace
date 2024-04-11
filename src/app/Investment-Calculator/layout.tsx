@@ -38,7 +38,7 @@ export default function InvestmentCalculatorLayout({
       <div className="h-full investment-calculator">
         <PageContainer>
           <Header></Header>
-          {children}
+          <div className="h-5/6">{children}</div>
         </PageContainer>
       </div>
     </ThemeProvider>
