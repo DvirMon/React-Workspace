@@ -16,7 +16,7 @@ function View({ state }: { state: InvestmentData }) {
   if (state.duration >= 1) {
     return <InvestmentTable state={state} />;
   } else {
-    return <p>Please enter Duration greater then 0</p>;
+    return <p style={{padding : '16px'}}>Please enter Duration greater then 0</p>;
   }
 }
 
