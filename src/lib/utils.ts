@@ -39,3 +39,17 @@ export const generateYAxis = (revenue: Revenue[]) => {
 export function getTypedKeys<T>(obj: T) {
   return Object.keys(obj as object) as (keyof T)[];
 }
+
+export function toTitleCase(input: string): string {
+  // Regular expression to match camel case
+  const camelCaseRegex = /[A-Z]?[a-z]+/g;
+  // Use the regex to find all matches in the input string
+  const matches = input.match(camelCaseRegex);
+  // If there are no matches, return the input as is
+  if (!matches) return input;
+
+  // Capitalize the first letter of each word and join with a space
+  return matches
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}

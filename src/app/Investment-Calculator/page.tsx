@@ -3,9 +3,9 @@
 import { useState } from "react";
 import InvestmentForm from "./components/form";
 import InvestmentTable from "./components/table";
-import { Investment } from "./util/types";
+import { InvestmentData } from "./util/types";
 
-const state: Investment = {
+const state: InvestmentData = {
   initialInvestment: 0,
   annualInvestment: 0,
   expectedReturn: 0,
@@ -15,7 +15,7 @@ const state: Investment = {
 export default function InvestmentCalculator() {
   const [investmentState, setInvestmentState] = useState(state);
 
-  const tableState: Investment[] = [state];
+  const tableState: InvestmentData[] = [state];
 
   return (
     <div className="flex flex-col h-full">

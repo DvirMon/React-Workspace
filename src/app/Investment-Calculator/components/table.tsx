@@ -1,5 +1,5 @@
 import React from "react";
-import { Investment } from "../util/types";
+import { InvestmentData } from "../util/types";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,26 +7,36 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { GridColDef } from "@mui/x-data-grid";
-import Paper from "@mui/material/Paper";
-import { getTypedKeys } from "@/lib/utils";
+import { getTypedKeys, toTitleCase } from "@/lib/utils";
 
-export default function InvestmentTable({ state }: { state: Investment[] }) {
-  const fields = Object.keys(state[0]);
+export default function InvestmentTable({
+  state,
+}: {
+  state: InvestmentData[];
+  }) {
+  
+  const fields = [
+    "year",
+    "interestValue",
+    "interest",
+    "totalInterest",
+    "investedCapital",
+  ];
 
   const columns = fields.map(
-    (field) => ({ field, headerName: field.toUpperCase() } as GridColDef)
+    (field) => ({ field, headerName: toTitleCase(field) } as GridColDef)
   );
-
+  
   const rows = [...state.map((item) => ({ ...item }))];
 
-  const keys: (keyof Investment)[] = getTypedKeys(state[0]);
+  const keys: (keyof InvestmentData)[] = getTypedKeys(state[0]);
   return (
     <TableContainer className="result">
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead >
+        <TableHead>
           <TableRow>
             {columns.map((col, index) => (
-              <TableCell  key={index}>{col.headerName}</TableCell>
+              <TableCell key={index}>{col.headerName}</TableCell>
             ))}
           </TableRow>
         </TableHead>
