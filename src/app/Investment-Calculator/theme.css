@@ -14,12 +14,12 @@ div.investment-calculator header img {
   background-color: transparent;
 }
 
-div.user-input {
+form.user-input {
   padding: 1rem;
   max-width: 30rem;
   margin: 2rem auto;
   border-radius: 4px;
-  /* background: linear-gradient(180deg, #307e6c, #2b996d); */
+  background: linear-gradient(180deg, #307e6c, #2b996d);
 }
 
 .input-group {

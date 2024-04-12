@@ -6,24 +6,26 @@ import InvestmentTable from "./components/table";
 import { InvestmentData } from "./util/types";
 
 const state: InvestmentData = {
-  initialInvestment: 0,
-  annualInvestment: 0,
-  expectedReturn: 0,
-  duration: 0,
+  initialInvestment: 15000,
+  annualInvestment: 1200,
+  expectedReturn: 6,
+  duration: 10,
 };
 
 export default function InvestmentCalculator() {
   const [investmentState, setInvestmentState] = useState(state);
 
-  const tableState: InvestmentData[] = [state];
+  function handleInvestmentResultState(key : keyof InvestmentData, value : unknown) {
+    setInvestmentState((state) => ({ ...state, [key]: value }))
+  }
 
   return (
     <div className="flex flex-col h-full">
       <section className="flex flex-row justify-center items-center h-1/3">
-        <InvestmentForm state={investmentState} />
+        <InvestmentForm state={investmentState} change={handleInvestmentResultState} />
       </section>
-      <section className="flex flex-row justify-center h-1/3">
-        <InvestmentTable state={tableState} />
+      <section className="flex flex-row justify-center h-full">
+        <InvestmentTable state={investmentState} />
       </section>
     </div>
   );

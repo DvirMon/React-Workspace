@@ -1,37 +1,84 @@
-import React from "react";
-import { InvestmentData } from "../util/types";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import { GridColDef } from "@mui/x-data-grid";
 import { getTypedKeys, toTitleCase } from "@/lib/utils";
+import TableContainer from "@mui/material/TableContainer";
+import { DataGrid, GridRowIdGetter, GridValidRowModel } from "@mui/x-data-grid";
+import { GridBaseColDef } from "@mui/x-data-grid/internals";
+import { v4 as uuidv4 } from "uuid";
+import { formatText, mapData } from "../util/helpers";
+import { InvestmentData, InvestmentDataTable } from "../util/types";
+import { UUID } from "crypto";
+import {
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} from "@mui/material";
 
-export default function InvestmentTable({
-  state,
+interface Columns<T> extends GridBaseColDef {
+  key: keyof T;
+  format: string;
+}
+
+type FieldFormats = { [key: string]: string };
+
+function CellData<T>({
+  col,
+  row,
 }: {
-  state: InvestmentData[];
-  }) {
-  
-  const fields = [
-    "year",
-    "interestValue",
-    "interest",
-    "totalInterest",
-    "investedCapital",
-  ];
+  col: Columns<T>;
+  row: GridValidRowModel;
+}) {
+  const { format, valueFormatter, field } = col;
+
+  // const data = formatText(format, row[field]);
+
+  let data = row[field];
+
+  if (valueFormatter) {
+    data = valueFormatter(row[field] as never, row, col, {} as any);
+  }
+  return <>{data}</>;
+}
+
+export default function InvestmentTable({ state }: { state: InvestmentData }) {
+  const formats: FieldFormats = {
+    interest: "currency",
+    interestValue: "currency",
+    totalInterest: "currency",
+  };
+
+  const rows: InvestmentDataTable[] = mapData(state);
+
+  const fields = getTypedKeys(rows[0]);
 
   const columns = fields.map(
-    (field) => ({ field, headerName: toTitleCase(field) } as GridColDef)
+    (field) =>
+      ({
+        key: field,
+        field,
+        valueFormatter: (value, row, col) => {
+          return formatText(formats[col.field], value);
+        },
+        format: formats[field],
+        headerName: toTitleCase(field),
+        flex: 1,
+      } as Columns<InvestmentDataTable>)
   );
-  
-  const rows = [...state.map((item) => ({ ...item }))];
 
-  const keys: (keyof InvestmentData)[] = getTypedKeys(state[0]);
   return (
     <TableContainer className="result">
+      {/* <DataGrid
+        rows={rows}
+        getRowId={getRowId}
+        columns={columns}
+        initialState={{
+          columns: {
+            columnVisibilityModel: {
+              id: false,
+            },
+          },
+        }}
+      /> */}
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -45,9 +92,9 @@ export default function InvestmentTable({
             <TableRow
               key={index}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-              {keys.map((key, index) => (
+              {columns.map((col, index) => (
                 <TableCell key={index} component="th" scope="row">
-                  {row[key]}
+                  <CellData col={col} row={row} />
                 </TableCell>
               ))}
             </TableRow>
