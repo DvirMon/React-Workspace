@@ -14,6 +14,10 @@ div.investment-calculator header img {
   background-color: transparent;
 }
 
+section.calculator-view > p {
+  @apply p-4;
+}
+
 form.user-input {
   padding: 1rem;
   max-width: 30rem;
