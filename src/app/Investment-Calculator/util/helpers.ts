@@ -109,7 +109,7 @@ export function mapItem({
 export function mapData(state: InvestmentData): InvestmentDataTable[] {
   const data = calculateInvestmentDataResults(state);
   const initialInvestment =
-    data[0].valueEndOfYear - data[0].interest - data[0].annualInvestment;
+    data[0]?.valueEndOfYear - data[0]?.interest - data[0]?.annualInvestment;
   return [
     ...data.map((item) => ({
       ...mapItem({ ...item, initialInvestment } as InvestmentMapData),

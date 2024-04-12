@@ -41,7 +41,7 @@ export default function InvestmentForm({ state, change }: InvestmentFormProps) {
           <Grid key={index} item xs={6}>
             <label>{toTitleCase(key)}</label>
             <TextField
-        
+              value={state[key]}
               {...register(key, {
                 onChange: (e) => onChange(e),
                 required: true,

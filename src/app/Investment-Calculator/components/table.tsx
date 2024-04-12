@@ -1,18 +1,16 @@
 import { getTypedKeys, toTitleCase } from "@/lib/utils";
-import TableContainer from "@mui/material/TableContainer";
-import { DataGrid, GridRowIdGetter, GridValidRowModel } from "@mui/x-data-grid";
-import { GridBaseColDef } from "@mui/x-data-grid/internals";
-import { v4 as uuidv4 } from "uuid";
-import { formatText, mapData } from "../util/helpers";
-import { InvestmentData, InvestmentDataTable } from "../util/types";
-import { UUID } from "crypto";
 import {
   Table,
+  TableBody,
+  TableCell,
   TableHead,
   TableRow,
-  TableCell,
-  TableBody,
 } from "@mui/material";
+import TableContainer from "@mui/material/TableContainer";
+import { GridValidRowModel } from "@mui/x-data-grid";
+import { GridBaseColDef } from "@mui/x-data-grid/internals";
+import { formatText, mapData } from "../util/helpers";
+import { InvestmentData, InvestmentDataTable } from "../util/types";
 
 interface Columns<T> extends GridBaseColDef {
   key: keyof T;
@@ -29,8 +27,6 @@ function CellData<T>({
   row: GridValidRowModel;
 }) {
   const { format, valueFormatter, field } = col;
-
-  // const data = formatText(format, row[field]);
 
   let data = row[field];
 
@@ -49,7 +45,7 @@ export default function InvestmentTable({ state }: { state: InvestmentData }) {
 
   const rows: InvestmentDataTable[] = mapData(state);
 
-  const fields = getTypedKeys(rows[0]);
+  const fields = rows[0] ? getTypedKeys(rows[0]) : [];
 
   const columns = fields.map(
     (field) =>
