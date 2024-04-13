@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import React from "react";
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
-import PageContainer from "../ui/layout/Container";
+import PageContainer from "../../ui/layout/Container";
 import "./theme.css";
 
 const theme = createTheme({

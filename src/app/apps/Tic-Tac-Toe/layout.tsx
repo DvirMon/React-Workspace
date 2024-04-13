@@ -1,12 +1,9 @@
 "use client";
 
-import MuiPaper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import createTheme from "@mui/material/styles/createTheme";
 import styled from "@mui/material/styles/styled";
-import PageContainer from "../ui/layout/Container";
-import Image from "next/image";
+import PageContainer from "../../ui/layout/Container";
 
 import "./theme.css";
 

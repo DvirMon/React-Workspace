@@ -13,11 +13,11 @@ import * as React from "react";
 
 export const routes = {
   dashboard: "/",
-  orders: "orders",
-  customers: "customers",
-  reports: "reports",
-  ticTacToe: "Tic-Tac-Toe",
-  investment: "Investment-Calculator",
+  orders: "/orders",
+  customers: "/customers",
+  reports: "/reports",
+  ticTacToe: "/apps/Tic-Tac-Toe",
+  investment: "/apps/Investment-Calculator",
 };
 
 const menuItems = [
