@@ -9,7 +9,7 @@ const initState: InvestmentData = {
   initialInvestment: 15000,
   annualInvestment: 1200,
   expectedReturn: 6,
-  duration: 0,
+  duration: 10,
 };
 
 function View({ state }: { state: InvestmentData }) {
