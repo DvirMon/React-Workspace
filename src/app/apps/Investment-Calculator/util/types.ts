@@ -8,7 +8,7 @@ export interface InvestmentData {
 }
 
 export interface InvestmentResult {
-  id : UUID,
+  id : string,
   year: number;
   interest: number;
   valueEndOfYear: number;
