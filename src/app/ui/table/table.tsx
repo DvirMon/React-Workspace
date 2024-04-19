@@ -71,7 +71,7 @@ export default function MuiTable<Row extends GridValidRowModel>({
 
   return (
     <TableContainer className="result">
-      <DataGrid
+      {/* <DataGrid
         rows={rows}
         getRowId={getRowId}
         columns={columns}
@@ -82,7 +82,7 @@ export default function MuiTable<Row extends GridValidRowModel>({
             },
           },
         }}
-      />
+      /> */}
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
