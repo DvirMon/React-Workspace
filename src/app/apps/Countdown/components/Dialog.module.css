@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Handjet:wght@400;700&display=swap");
 
-.resultModal {
+dialog.resultModal {
   border: none;
   border-radius: 8px;
   padding: 2rem;
