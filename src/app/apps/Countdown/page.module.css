@@ -3,10 +3,14 @@
 
 section.player {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 section.player h4 {
   color: #54a399;
+  font-size: 24px;
 }
 
 section.player p {
@@ -43,7 +47,7 @@ section.player button:hover {
 
 
 
-#challenges {
+.challenges-wrapper {
   max-width: 50rem;
   margin: 3rem auto;
   display: flex;
@@ -57,6 +61,7 @@ div.challenge {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 8px;
   padding: 2rem;
   margin: 2rem auto;
   background: linear-gradient(#4df8df, #4df0f8);

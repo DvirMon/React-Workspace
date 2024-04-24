@@ -1,13 +1,14 @@
 "use client";
 
 import { Typography } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import classes from "./page.module.css";
+import { useCount } from "./useInterval";
 
 const CountdownForm = () => {
   return (
     <section className={classes.player}>
-      <Typography variant="h4">Welcome unknown entity</Typography>
+      <h4>Welcome unknown entity</h4>
       <p>
         <input type="text" />
         <button>Set Name</button>
@@ -18,27 +19,10 @@ const CountdownForm = () => {
 
 export default function CountdownPage() {
   const [isTimerOn, setIsTimerOn] = useState(false);
-  const [startTime, setStartTime] = useState<number | null>(null);
-  const [count, setCount] = useState(0);
-
-  const timer = useRef<NodeJS.Timeout>();
-
-  // function handleStart() {
-  //   setCount((value) => ++value);
-  //   timer.current = setInterval(() => {
-  //     setCount((value) => ++value);
-  //   }, 1000);
-
-  //   setIsTimerOn(() => true);
-  // }
-
-  // function handleStop() {
-  //   clearInterval(timer.current);
-  //   setIsTimerOn(() => false);
-  // }
+  const { count, setCount } = useCount(1000, isTimerOn);
 
   function handleStart() {
-    setStartTime(new Date().getTime());
+    setCount((value) => ++value);
     setIsTimerOn(true);
   }
 
@@ -46,33 +30,17 @@ export default function CountdownPage() {
     setIsTimerOn(false);
   }
 
-  function updateCount() {
-    if (startTime !== null) {
-      const currentTime = new Date().getTime();
-      const elapsedTime = Math.floor((currentTime - startTime) / 1000);
-      setCount(elapsedTime);
-    }
-  }
-
-  if (isTimerOn) {
-    updateCount();
-  }
-
-  useEffect(() => {
-    updateCount();
-  }, [count])
-
-
-
   return (
     <div>
       <CountdownForm />
 
       <div className={classes.challenge}>
-        <span>{count || ""}</span>
+        {/* <span>{startTime || ""}</span> */}
         <button onClick={isTimerOn ? handleStop : handleStart}>
           {isTimerOn ? "Stop" : !count ? "Start" : "Resume"}
         </button>
+
+        <span>{count || ""}</span>
       </div>
     </div>
   );
