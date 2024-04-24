@@ -8,6 +8,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
+import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 import Link from "next/link";
 import * as React from "react";
 
@@ -18,6 +19,7 @@ export const routes = {
   reports: "/reports",
   ticTacToe: "/apps/Tic-Tac-Toe",
   investment: "/apps/Investment-Calculator",
+  countdown: "/apps/Countdown",
 };
 
 const menuItems = [
@@ -29,6 +31,7 @@ const menuItems = [
 const secondaryItems = [
   { icon: <Grid3x3Icon />, text: "Tic Tac Toe", link: routes.ticTacToe },
   { icon: <CalculateIcon />, text: "Calculator", link: routes.investment },
+  { icon: <HourglassBottomIcon />, text: "Countdown", link: routes.countdown },
 ];
 
 export const mainListItems = (
