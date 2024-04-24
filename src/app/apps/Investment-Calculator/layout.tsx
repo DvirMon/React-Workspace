@@ -1,10 +1,9 @@
 "use client";
 
-import createTheme from "@mui/material/styles/createTheme";
-import Typography from "@mui/material/Typography";
+// import Typography from "@mui/material/Typography";
+import { ThemeProvider, Typography, createTheme } from "@mui/material";
 import Image from "next/image";
-import React from "react";
-import ThemeProvider from "@mui/material/styles/ThemeProvider";
+
 import PageContainer from "../../ui/layout/Container";
 import "./theme.css";
 

@@ -1,8 +1,6 @@
 "use client";
 
-import ThemeProvider from "@mui/material/styles/ThemeProvider";
-import createTheme from "@mui/material/styles/createTheme";
-import styled from "@mui/material/styles/styled";
+import { ThemeProvider, createTheme, styled } from "@mui/material";
 import PageContainer from "../../ui/layout/Container";
 
 import "./theme.css";

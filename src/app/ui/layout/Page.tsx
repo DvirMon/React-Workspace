@@ -7,6 +7,7 @@ import Toolbar from "@mui/material/Toolbar";
 export default function Page({ children }: { children: React.ReactNode }) {
   return (
     <Box
+      className="page"
       component="main"
       sx={{
         backgroundColor: (theme) =>

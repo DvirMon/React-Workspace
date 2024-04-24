@@ -1,4 +1,3 @@
-import React from "react";
 import "./game-over.css";
 
 interface MessageProps {
