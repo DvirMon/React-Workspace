@@ -7,7 +7,7 @@ const ResultDialog = forwardRef<HTMLDialogElement>(function ResultDialog(
   {},
   ref
 ) {
-  const dialog = useRef<HTMLDialogElement>();
+  const dialog = useRef<HTMLDialogElement>(null);
 
   useImperativeHandle(
     ref,

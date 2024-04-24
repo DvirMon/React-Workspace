@@ -10,7 +10,7 @@ export default function CountdownPage() {
   const [isTimerOn, setIsTimerOn] = useState(false);
   const { count, setCount } = useCount(1000, isTimerOn);
 
-  const dialog = useRef<HTMLDialogElement>();
+  const dialog = useRef<HTMLDialogElement>(null);
 
   function handleStart() {
     setCount((value) => ++value);
@@ -19,7 +19,7 @@ export default function CountdownPage() {
 
   function handleStop() {
     setIsTimerOn(false);
-    dialog.current?.opened();
+    // dialog.current?.opened();
   }
 
   return (
