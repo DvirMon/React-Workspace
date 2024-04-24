@@ -23,12 +23,12 @@ const ResultDialog = forwardRef<HTMLDialogElement>(function ResultDialog(
   );
 
   return (
-    <dialog ref={dialog} className={classes.resultModal} >
-          <h2>You</h2>
-          
-          <form method="dialog">
-              <button>Close</button>
-          </form>
+    <dialog ref={dialog} className={classes.resultModal}>
+      <h2>You Have Won!</h2>
+
+      <form method="dialog">
+        <button>Close</button>
+      </form>
     </dialog>
   );
 });
