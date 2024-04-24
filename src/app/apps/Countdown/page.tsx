@@ -1,21 +1,10 @@
 "use client";
 
-import { Typography } from "@mui/material";
 import { useState } from "react";
 import classes from "./page.module.css";
 import { useCount } from "./useInterval";
+import { CountdownForm } from "./components/Form";
 
-const CountdownForm = () => {
-  return (
-    <section className={classes.player}>
-      <h4>Welcome unknown entity</h4>
-      <p>
-        <input type="text" />
-        <button>Set Name</button>
-      </p>
-    </section>
-  );
-};
 
 export default function CountdownPage() {
   const [isTimerOn, setIsTimerOn] = useState(false);
