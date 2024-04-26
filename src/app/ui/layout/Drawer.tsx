@@ -9,7 +9,7 @@ import { mainListItems, secondaryListItems } from "./navigation";
 interface AppDrawerProps {
   width?: number;
   isOpen?: boolean;
-  setOpen: (value: boolean) => void;
+  setOpen?: (value: boolean) => void;
 }
 
 const Drawer = styled(MuiDrawer, {
@@ -44,7 +44,9 @@ export default function AppDrawer({
   setOpen,
 }: AppDrawerProps) {
   const toggleDrawer = () => {
-    setOpen(!isOpen);
+    if (setOpen) {
+      setOpen(!isOpen);
+    }
   };
 
   return (
