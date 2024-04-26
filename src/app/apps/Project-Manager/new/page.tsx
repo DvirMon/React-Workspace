@@ -1,70 +1,66 @@
 "use client";
 
-import TextField, { TextFieldProps } from "@mui/material/TextField";
-import { DesktopDatePicker } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { FieldValues, UseFormRegister, useForm } from "react-hook-form";
+import InputField, { InputFieldProps } from "@/app/ui/Form/input-field";
+import { Button } from "@mui/material";
+import { DateFieldProps } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
+import { useState } from "react";
+import { FieldValues, useForm } from "react-hook-form";
 
 interface ProjectForm extends FieldValues {
   title: string;
   description: string;
-  dueDate: Date;
+  dueDate: dayjs.Dayjs;
 }
 
-const InputWrapper = ({ children }: { children: React.ReactNode }) => {
-  return <section className="w-1/2">{children}</section>;
-};
-
-function BasicDatePicker() {
-  return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DemoContainer components={["DatePicker"]}>
-        <DatePicker label="Basic date picker" />
-      </DemoContainer>
-    </LocalizationProvider>
-  );
-}
-
-const formInputs: TextFieldProps[] = [
-  { label: "Title", type: "text" },
-  { label: "Description", multiline: true, minRows: 3, type: "text" },
+const formInputs: InputFieldProps[] = [
+  { label: "Title", type: "text", name: "title" },
+  {
+    label: "Description",
+    multiline: true,
+    minRows: 3,
+    type: "text",
+    name: "description",
+  },
+  {
+    label: "Due Date",
+    type: "date",
+    name: "dueDate",
+  } as DateFieldProps<dayjs.Dayjs>,
 ];
 
 export default function NewPage() {
+  const [data, setData] = useState<ProjectForm>({
+    description: "",
+    title: "",
+    dueDate: dayjs(new Date()),
+  } as ProjectForm);
+
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<ProjectForm>();
+  } = useForm<ProjectForm>({ defaultValues: data });
+
+  function onSubmit(formData: ProjectForm) {
+    setData((value) => ({ ...value, ...formData }));
+
+    console.log(formData);
+    console.log(data);
+  }
 
   return (
     <div className="flex flex-col justify-center h-full">
-      <form className="flex flex-col justify-center items-center gap-6">
+      <form
+        className="flex flex-col justify-center items-center gap-6"
+        onSubmit={handleSubmit((val) => onSubmit(val))}>
+        <section>
+          <Button type="submit">Submit</Button>
+        </section>
+
         {formInputs.map((props, index) => (
-          <InputWrapper key={index}>
-            <label>{props.label}</label>
-            <TextField fullWidth variant="outlined" {...props}></TextField>
-          </InputWrapper>
+          <InputField key={props.name} control={control} props={props} />
         ))}
-        <InputWrapper>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DesktopDatePicker />
-          </LocalizationProvider>
-        </InputWrapper>
-        {/* <InputWrapper>
-          <TextField
-            fullWidth
-            variant="outlined"
-            multiline
-            minRows={3}
-            label="description"></TextField>
-        </InputWrapper>
-        <InputWrapper>
-          <TextField fullWidth variant="outlined" label="title"></TextField>
-        </InputWrapper> */}
       </form>
     </div>
   );

@@ -1,54 +1,65 @@
-import { TextField, TextFieldProps } from "@mui/material";
-import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import {
-    Control,
-    Controller,
-    ControllerProps,
-    FieldValues
-} from "react-hook-form";
+  StandardTextFieldProps,
+  TextField,
+  TextFieldProps,
+} from "@mui/material";
+import {
+  DatePickerProps,
+  DesktopDatePicker,
+  LocalizationProvider,
+} from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
+import { Control, Controller, ControllerProps } from "react-hook-form";
+
+export type InputFieldProps = TextFieldProps | DatePickerProps<any>;
 
 const InputWrapper = ({ children }: { children: React.ReactNode }) => {
-  return <section className="w-1/2">{children}</section>;
+  return <section className="w-1/2 flex flex-col">{children}</section>;
 };
 
 export default function InputField({
   props,
   control,
-  controlProps,
 }: {
-  props: TextFieldProps;
-  control: Control<FieldValues, any>;
-  controlProps: ControllerProps;
+  props: InputFieldProps;
+  control: Control<any, any>;
 }) {
-  const { type, label } = props;
-  const { name } = controlProps;
+  const { type, name } = props as TextFieldProps;
 
   switch (type) {
     case "date":
       return (
         <InputWrapper>
-          <label>{label}</label>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DesktopDatePicker />
             <Controller
+              render={({ field }) => (
+                <DesktopDatePicker
+                  {...field}
+                  {...(props as DatePickerProps<dayjs.Dayjs>)}
+                />
+              )}
               control={control}
-              name={name}
-              render={({ field }) => <DesktopDatePicker {...field} />}
+              name={name as string}
             />
           </LocalizationProvider>
         </InputWrapper>
       );
-    default:
+    case "text":
       return (
         <InputWrapper>
-          <label>{label}</label>
+          {/* <label>{label}</label> */}
           <Controller
-            control={control}
-            name={name}
             render={({ field }) => (
-              <TextField fullWidth variant="outlined" {...props} {...field} />
+              <TextField
+                fullWidth
+                variant="outlined"
+                {...field}
+                {...(props as TextFieldProps)}
+              />
             )}
+            control={control}
+            name={name as string}
           />
         </InputWrapper>
       );
