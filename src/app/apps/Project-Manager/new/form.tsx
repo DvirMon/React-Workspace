@@ -28,22 +28,21 @@ const formInputs: InputFieldProps[] = [
   } as DateFieldProps<dayjs.Dayjs>,
 ];
 
-export default function ProjectForm({ setProjects }: ProjectFormProps) {
-  const [data, setData] = useState<Project>({
-    description: "",
-    title: "",
-    dueDate: dayjs(new Date()),
-  } as Project);
+const defaultValues = {
+  description: "",
+  title: "",
+  dueDate: dayjs(new Date()),
+};
 
+export default function ProjectForm({ setProjects }: ProjectFormProps) {
   const {
     control,
     reset,
     handleSubmit,
     formState: { errors },
-  } = useForm<Project>({ defaultValues: data });
+  } = useForm<Project>({ defaultValues });
 
   function onSubmit(formData: Project) {
-    setData((value) => ({ ...value, ...formData }));
     setProjects(formData);
   }
 
@@ -55,14 +54,14 @@ export default function ProjectForm({ setProjects }: ProjectFormProps) {
     <form
       className="flex flex-col justify-center items-center gap-6"
       onSubmit={handleSubmit((val) => onSubmit(val))}>
-      {formInputs.map((props, index) => (
+      {formInputs.map((props) => (
         <InputField key={props.name} control={control} props={props} />
       ))}
-      <footer className="flex justify-end w-1/2">
-        <Button type="button" onClick={handleReset}>
+      <footer className="flex justify-end gap-4 w-1/2">
+        <Button className="text-2xl" type="button" onClick={handleReset}>
           Reset
         </Button>
-        <Button variant="contained" type="submit">
+        <Button className="text-2xl" variant="contained" type="submit">
           Submit
         </Button>
       </footer>
