@@ -3,6 +3,7 @@
 import { Button, Typography } from "@mui/material";
 import Link from "next/link";
 import { useProjectStore } from "./store";
+import Sidebar from "./components/sidebar";
 
 export default function ProjectManagerPage() {
   const projects = useProjectStore((state) => state.projects);
@@ -23,5 +24,12 @@ export default function ProjectManagerPage() {
     );
   }
 
-  return "Prohjects";
+  return (
+    <div className="flex flex-row  h-full">
+      <nav className="w-1/4 flex flex-col justify-center">
+        <Sidebar projects={projects} />
+      </nav>
+      <article className="w-full flex flex-col justify-center h-full"></article>
+    </div>
+  );
 }

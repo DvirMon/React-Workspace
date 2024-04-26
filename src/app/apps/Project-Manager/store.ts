@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { Project } from "./types";
+import dayjs from "dayjs";
 
 type State = {
   projects: Project[];
@@ -10,7 +11,13 @@ type Action = {
 };
 
 export const useProjectStore = create<State & Action>((set) => ({
-  projects: [],
+  projects: [
+    {
+      title: "Learning React",
+      description: "Learn React from the group up",
+      dueDate: dayjs(new Date()),
+    },
+  ],
   addProject: (newProject: Project) =>
     set((state) => addProject(state, newProject)),
 }));
