@@ -1,13 +1,18 @@
 import { create } from "zustand";
 import { Project } from "./types";
 
-interface State {
+type State = {
   projects: Project[];
-}
+};
 
-export const useProjectStore = create<State>((set) => ({
+type Action = {
+  addProject: (newProject: Project) => void;
+};
+
+export const useProjectStore = create<State & Action>((set) => ({
   projects: [],
-  addProject: (newProject: Project) => set((state) => addProject(state, newProject)),
+  addProject: (newProject: Project) =>
+    set((state) => addProject(state, newProject)),
 }));
 
 const addProject = (state: State, newProject: Project): State => ({

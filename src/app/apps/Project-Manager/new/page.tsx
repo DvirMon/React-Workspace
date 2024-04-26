@@ -1,17 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useProjectStore } from "../store";
 import { Project } from "../types";
 import ProjectForm from "./form";
-import { useRouter } from "next/navigation";
 
 export default function NewProjectPage() {
-  const [projects, setProjects] = useState<Project[]>([{} as Project]);
+  const addProject = useProjectStore((state) => state.addProject);
+
   const router = useRouter();
 
   function handleSubmit(data: Project): void {
-    setProjects((oldState) => [...oldState, { ...data }]);
-    router.push('/apps/Project-Manager');
+    addProject(data);
+    router.push("/apps/Project-Manager");
   }
 
   return (
