@@ -12,7 +12,7 @@ export default function NewProjectPage() {
 
   function handleSubmit(data: Project): void {
     addProject(data);
-    router.push("/apps/Project-Manager");
+    router.push("/apps/Project-Manager/projects");
   }
 
   return (
