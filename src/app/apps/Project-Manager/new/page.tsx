@@ -38,15 +38,17 @@ export default function NewPage() {
 
   const {
     control,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<ProjectForm>({ defaultValues: data });
 
   function onSubmit(formData: ProjectForm) {
     setData((value) => ({ ...value, ...formData }));
+  }
 
-    console.log(formData);
-    console.log(data);
+  function handleReset() {
+    reset();
   }
 
   return (
@@ -54,8 +56,13 @@ export default function NewPage() {
       <form
         className="flex flex-col justify-center items-center gap-6"
         onSubmit={handleSubmit((val) => onSubmit(val))}>
-        <section>
-          <Button type="submit">Submit</Button>
+        <section className="flex justify-end w-1/2">
+          <Button type="button" onClick={handleReset}>
+            Reset
+          </Button>
+          <Button variant="contained" type="submit">
+            Submit
+          </Button>
         </section>
 
         {formInputs.map((props, index) => (

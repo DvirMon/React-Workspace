@@ -25,7 +25,7 @@ export default function InputField({
   props: InputFieldProps;
   control: Control<any, any>;
 }) {
-  const { type, name } = props as TextFieldProps;
+  const { type, label, name } = props as TextFieldProps;
 
   switch (type) {
     case "date":
@@ -45,10 +45,26 @@ export default function InputField({
           </LocalizationProvider>
         </InputWrapper>
       );
-    case "text":
+    case "number":
       return (
         <InputWrapper>
-          {/* <label>{label}</label> */}
+          <Controller
+            render={({ field }) => (
+              <TextField
+                fullWidth
+                variant="outlined"
+                {...field}
+                {...(props as TextFieldProps)}
+              />
+            )}
+            control={control}
+            name={name as string}
+          />
+        </InputWrapper>
+      );
+    default:
+      return (
+        <InputWrapper>
           <Controller
             render={({ field }) => (
               <TextField
