@@ -12,7 +12,7 @@ export default function Sidebar({ projects }: SidebarProps) {
     <>
       <Typography className="text-2xl">
         {projectsSize
-          ? "You have " + { projectsSize } + " projects"
+          ? "You have " + projectsSize + " Projects"
           : "No Project Exist"}
       </Typography>
       <List className="h-full p-4">

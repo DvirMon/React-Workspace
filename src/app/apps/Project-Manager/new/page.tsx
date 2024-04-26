@@ -5,18 +5,20 @@ import { Project } from "../types";
 import ProjectForm from "./form";
 import Sidebar from "./sidebar";
 
+export default function NewProjectPage() {
+  const [projects, setProjects] = useState<Project[]>([{} as Project]);
 
-
-export default function NewPage() {
-  const [projects, setProjects] = useState<Project[]>([]);
+  function handleSubmit(data: Project): void {
+    setProjects((oldState) => [...oldState, { ...data }]);
+  }
 
   return (
     <div className="flex flex-row  h-full">
-      <nav className="w-1/4 flex flex-col justify-center">
+      {/* <nav className="w-1/4 flex flex-col justify-center">
         <Sidebar projects={projects} />
-      </nav>
+      </nav> */}
       <article className="w-full flex flex-col justify-center h-full">
-        <ProjectForm />
+        <ProjectForm setProjects={handleSubmit} />
       </article>
     </div>
   );
