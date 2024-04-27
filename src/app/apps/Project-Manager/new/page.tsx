@@ -17,9 +17,6 @@ export default function NewProjectPage() {
 
   return (
     <div className="flex flex-row  h-full">
-      {/* <nav className="w-1/4 flex flex-col justify-center">
-        <Sidebar projects={projects} />
-      </nav> */}
       <article className="w-full flex flex-col justify-center h-full">
         <ProjectForm setProjects={handleSubmit} />
       </article>

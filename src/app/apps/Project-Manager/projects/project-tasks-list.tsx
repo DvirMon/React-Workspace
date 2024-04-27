@@ -35,7 +35,7 @@ export default function ProjectTasksList({ tasks, addNewTask }: TaskListProps) {
         </Button>
       </form>
 
-      <div className="w-1/3 flex flex-col">
+      <div className="w-1/3 flex flex-col gap-4">
         {tasks.map((task: Task) => (
           <TaskItem key={task.id} task={task} />
         ))}
