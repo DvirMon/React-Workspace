@@ -21,9 +21,9 @@ export const addTaskToProject = (
   ],
 });
 
-export const deleteProject = (state: State, indexToDelete: number): State => ({
+export const deleteProject = (state: State, id: string): State => ({
   ...state,
-  projects: [...deleteItem(state.projects, indexToDelete)],
+  projects: [...deleteItemById(state.projects, id)],
 });
 
 export const deleteTaskFromProject = (
@@ -35,18 +35,27 @@ export const deleteTaskFromProject = (
   projects: [
     ...updateProject(
       state.projects,
-      setProject(project, deleteItem(project.tasks, indexToDelete))
+      setProject(project, deleteItemByIndex(project.tasks, indexToDelete))
     ),
   ],
 });
 
-function deleteItem<T>(items: T[], indexToDelete: number): T[] {
+function deleteItemByIndex<T>(items: T[], indexToDelete: number): T[] {
   items.splice(indexToDelete, 1);
   return [...items];
 }
-function deleteTask(tasks: Task[], indexToDelete: number): Task[] {
-  tasks.splice(indexToDelete, 1);
-  return [...tasks];
+
+function deleteItemById<Entity extends { id: string }>(
+  items: Entity[],
+  id: string
+): Entity[] {
+  const indexToDelete = items.findIndex((item) => item.id === id);
+
+  if (indexToDelete < 0) {
+    return items;
+  }
+
+  return deleteItemByIndex(items, indexToDelete);
 }
 
 function setTasks(project: Project, newTask: Task): Task[] {

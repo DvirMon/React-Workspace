@@ -14,16 +14,21 @@ import Sidebar from "./sidebar";
 export default function ProjectsPage() {
   const projects = useProjects();
   const displayProject = useDisplayProject();
-  const { addTaskToProject, deleteTaskFromProject } = useProjectActions();
+  const { addTaskToProject, deleteTaskFromProject, deleteProject } =
+    useProjectActions();
 
   const { tasks } = displayProject;
 
-  function onAddTask(task: Task) {
+  function onAddTask(task: Task): void {
     addTaskToProject(displayProject, task);
   }
 
-  function onClearTask(indexToDelete: number) {
+  function onClearTask(indexToDelete: number): void {
     deleteTaskFromProject(displayProject, indexToDelete);
+  }
+
+  function onDeleteProject(id: string): void {
+    deleteProject(id);
   }
 
   return (
@@ -32,7 +37,7 @@ export default function ProjectsPage() {
         <Sidebar projects={projects} />
       </nav>
       <article className="w-full flex flex-col gap-4 h-full p-4">
-        <ProjectInfo {...displayProject} />
+        <ProjectInfo {...displayProject} onDeleteProject={onDeleteProject} />
         <Divider />
         <ProjectTasksList
           tasks={tasks}

@@ -21,7 +21,7 @@ type Action = {
     addProject: (newProject: Project) => void;
     addTaskToProject: (project: Project, newTask: Task) => void;
     deleteTaskFromProject: (project: Project, indexToDelete: number) => void;
-    deleteProject: (indexToDelete: number) => void;
+    deleteProject: (id: string) => void;
   };
 };
 
@@ -46,8 +46,8 @@ const useProjectStore = create<State & Action>((set) => ({
     deleteTaskFromProject: (project: Project, indexToDelete: number) =>
       set((state) => deleteTaskFromProject(state, project, indexToDelete)),
 
-    deleteProject: (indexToDelete: number) =>
-      set((state) => deleteProject(state, indexToDelete)),
+    deleteProject: (id: string) =>
+      set((state) => deleteProject(state, id)),
   },
 }));
 
