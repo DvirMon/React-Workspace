@@ -16,6 +16,7 @@ export const useProjectStore = create<State & Action>((set) => ({
       title: "Learning React",
       description: "Learn React from the group up",
       dueDate: dayjs(new Date()),
+      tasks: [],
     },
   ],
   addProject: (newProject: Project) =>

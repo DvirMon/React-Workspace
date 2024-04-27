@@ -16,9 +16,14 @@ export default function Sidebar({ projects }: SidebarProps) {
           : "No Project Exist"}
       </Typography>
       <List className="h-full">
-        {projects.map(({ title }: Project, index) => (
+        {projects.map(({ title, tasks }: Project, index) => (
           <ListItem key={index} disablePadding>
-            <ListItemText primary={title} />
+            <ListItemText
+              primary={title}
+              secondary={
+                "open tasks " + (tasks?.length > 0 ? `(${tasks?.length})` : "")
+              }
+            />
           </ListItem>
         ))}
       </List>
