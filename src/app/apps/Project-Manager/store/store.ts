@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { create } from "zustand";
 import { Project } from "../types";
 import { addProject, getCurrentProject, updateProject } from "./store-helpers";
+import { TASKS } from "../data";
 
 export type State = {
   projects: Project[];
@@ -23,7 +24,7 @@ const useProjectStore = create<State & Action>((set) => ({
       title: "Learning React",
       description: "Learn React from the group up",
       dueDate: dayjs(new Date()),
-      tasks: [],
+      tasks: [...TASKS],
     },
   ],
   selectedId: "",
