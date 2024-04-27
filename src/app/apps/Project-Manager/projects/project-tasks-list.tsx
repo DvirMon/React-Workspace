@@ -5,15 +5,15 @@ import { FieldValues, useForm } from "react-hook-form";
 
 interface TaskListProps {
   tasks: Task[];
-  addNewTask: (task: Task) => void;
+  addTaskToProject: (task: Task) => void;
 }
 
-export default function ProjectTasksList({ tasks, addNewTask }: TaskListProps) {
+export default function ProjectTasksList({ tasks, addTaskToProject }: TaskListProps) {
   const { register, handleSubmit } = useForm<Task>();
 
   function onSubmit(data: FieldValues) {
     const task = { ...data, id: "" } as Task;
-    addNewTask(task);
+    addTaskToProject(task);
   }
 
   return (

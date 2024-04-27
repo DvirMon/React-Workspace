@@ -6,7 +6,7 @@ import {
   useProjectActions,
   useProjects,
 } from "../store/store";
-import { Task } from "../types";
+import { Project, Task } from "../types";
 import ProjectInfo from "./project-info";
 import ProjectTasksList from "./project-tasks-list";
 import Sidebar from "./sidebar";
@@ -15,14 +15,23 @@ export default function ProjectsPage() {
   const projects = useProjects();
   const displayProject = useDisplayProject();
 
-  const { setProjects } = useProjectActions();
+  const { updateProjects } = useProjectActions();
 
   const tasks = displayProject.tasks;
 
-  function addNewTask(task: Task) {
+  function addTaskToProject(task: Task) {
     const newTasks = [...displayProject.tasks, { ...task }];
     const updateProject = { ...displayProject, tasks: newTasks };
-    setProjects(updateProject);
+    updateProjects(updateProject);
+  }
+
+
+  function setTasks(newTask: Task) {
+    return [...displayProject.tasks, { ...newTask }];
+  }
+
+  function setProject(project: Project, tasks: Task[]) {
+    return { ...project, ...tasks };
   }
 
   return (
@@ -33,7 +42,7 @@ export default function ProjectsPage() {
       <article className="w-full flex flex-col gap-4 h-full p-4">
         <ProjectInfo {...displayProject} />
         <Divider />
-        <ProjectTasksList tasks={tasks} addNewTask={addNewTask} />
+        <ProjectTasksList tasks={tasks} addTaskToProject={addTaskToProject} />
       </article>
     </div>
   );

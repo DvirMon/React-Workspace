@@ -7,13 +7,20 @@ export const addProject = (state: State, newProject: Project): State => ({
   projects: [...state.projects, { ...newProject, id: uuidv4() }],
 });
 
-export const updateProject = (state: State, updateProject: Project): State => ({
+export const updateProjects = (state: State, project: Project): State => ({
   ...state,
-  projects: [...updateProjects(state.projects, updateProject)],
+  projects: [...updateProject(state.projects, project)],
+});
+
+export const deleteProjectTask = (state: State, project: Project): State => ({
+  ...state,
+  projects: [...updateProject(state.projects, project)],
 });
 
 
-function updateProjects(items: Project[], project: Project): Project[] {
+
+
+function updateProject(items: Project[], project: Project): Project[] {
   const newState = items.map((p) => {
     if (compareById(p, project)) {
       return {
