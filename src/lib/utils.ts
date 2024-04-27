@@ -53,3 +53,27 @@ export function toTitleCase(input: string): string {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 }
+
+function deepCopyArray<T>(input: T[]): T[] {
+  return input.map(item => deepCopy(item));
+}
+
+function deepCopyObject<T extends object>(input: T): T {
+  const copy: Partial<T> = {};
+  for (const key in input) {
+      if (Object.prototype.hasOwnProperty.call(input, key)) {
+          copy[key] = deepCopy(input[key]);
+      }
+  }
+  return copy as T;
+}
+
+export function deepCopy<T>(input: T): T {
+  if (Array.isArray(input)) {
+      return deepCopyArray(input) as unknown as T;
+  } else if (typeof input === 'object' && input !== null) {
+      return deepCopyObject(input);
+  } else {
+      return input;
+  }
+}

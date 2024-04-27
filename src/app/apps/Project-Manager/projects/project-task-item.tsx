@@ -5,13 +5,19 @@ import {
   CardContent,
   Typography,
 } from "@mui/material";
+import { Task } from "../types";
 
-export default function TaskItem() {
+interface TaskProps {
+  task: Task;
+}
+
+export default function TaskItem({ task }: TaskProps) {
+  const { id, description } = task;
   return (
     <Card className="flex justify-between" sx={{ minWidth: 275 }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} gutterBottom>
-          Word of the Day
+          {description}{" "}
         </Typography>
       </CardContent>
       <CardActions>
