@@ -9,14 +9,14 @@ import { Task } from "../types";
 
 interface TaskProps {
   task: Task;
-  onClear: (task: Task) => void;
+  onClear: () => void;
 }
 
 export default function TaskItem({ task, onClear }: TaskProps) {
   const { id, description } = task;
 
   function handleClear() {
-    onClear(task);
+    onClear();
   }
 
   return (

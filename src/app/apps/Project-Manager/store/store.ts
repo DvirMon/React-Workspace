@@ -6,6 +6,7 @@ import {
   addProject,
   getCurrentProject,
   addTaskToProject,
+  deleteTaskFromProject,
 } from "./store-helpers";
 import { TASKS } from "../data";
 
@@ -18,6 +19,7 @@ type Action = {
   actions: {
     addProject: (newProject: Project) => void;
     addTaskToProject: (project: Project, newTask: Task) => void;
+    deleteTaskFromProject: (project: Project, indexToDelete: number) => void;
   };
 };
 
@@ -38,6 +40,9 @@ const useProjectStore = create<State & Action>((set) => ({
 
     addTaskToProject: (project: Project, newTask: Task) =>
       set((state) => addTaskToProject(state, project, newTask)),
+    
+    deleteTaskFromProject: (project: Project, indexToDelete: number) =>
+      set((state) => deleteTaskFromProject(state, project, indexToDelete)),
   },
 }));
 
