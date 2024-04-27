@@ -24,10 +24,10 @@ export default function ProjectTasksList({
   return (
     <div
       onSubmit={handleSubmit((data) => onSubmit(data))}
-      className="w-full flex flex-col gap-8">
+      className="w-1/2 flex flex-col gap-8">
       <Typography variant="h3">Tasks</Typography>
 
-      <form className="w-full flex gap-6">
+      <form className="w-full flex justify-between">
         <TextField
           {...register("description")}
           name="description"
@@ -40,7 +40,7 @@ export default function ProjectTasksList({
         </Button>
       </form>
 
-      <div className="w-1/3 flex flex-col gap-4">
+      <div className="flex flex-col gap-4">
         {tasks.map((task: Task, index) => (
           <TaskItem
             key={task.id}

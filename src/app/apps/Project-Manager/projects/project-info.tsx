@@ -14,7 +14,9 @@ export default function ProjectInfo({
       <section className="w-full flex flex-col gap-1">
         <section className="w-full flex justify-between">
           <Typography variant="h3">{title}</Typography>
-          <Button className="txt-1xl" variant="contained">Delete</Button>
+          <Button className="text-xl" variant="contained">
+            Delete
+          </Button>
         </section>
         <Typography variant="h6">{dueDate.format("MMM DD, YYYY")}</Typography>
       </section>

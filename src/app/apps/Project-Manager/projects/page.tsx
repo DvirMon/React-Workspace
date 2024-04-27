@@ -28,7 +28,7 @@ export default function ProjectsPage() {
 
   return (
     <div className="flex flex-row h-full">
-      <nav className="w-1/4 flex flex-col justify-start p-4">
+      <nav className="w-1/3 flex flex-col justify-start p-4">
         <Sidebar projects={projects} />
       </nav>
       <article className="w-full flex flex-col gap-4 h-full p-4">
