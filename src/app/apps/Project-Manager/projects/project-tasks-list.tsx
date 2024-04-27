@@ -5,15 +5,20 @@ import { FieldValues, useForm } from "react-hook-form";
 
 interface TaskListProps {
   tasks: Task[];
-  addTaskToProject: (task: Task) => void;
+  onAddTask: (task: Task) => void;
+  onClearTask: (indexToDelete: number) => void;
 }
 
-export default function ProjectTasksList({ tasks, addTaskToProject }: TaskListProps) {
+export default function ProjectTasksList({
+  tasks,
+  onAddTask,
+  onClearTask,
+}: TaskListProps) {
   const { register, handleSubmit } = useForm<Task>();
 
   function onSubmit(data: FieldValues) {
     const task = { ...data, id: "" } as Task;
-    addTaskToProject(task);
+    onAddTask(task);
   }
 
   return (
@@ -36,8 +41,12 @@ export default function ProjectTasksList({ tasks, addTaskToProject }: TaskListPr
       </form>
 
       <div className="w-1/3 flex flex-col gap-4">
-        {tasks.map((task: Task) => (
-          <TaskItem key={task.id} task={task} />
+        {tasks.map((task: Task, index) => (
+          <TaskItem
+            key={task.id}
+            task={task}
+            onClear={() => onClearTask(index)}
+          />
         ))}
       </div>
     </div>

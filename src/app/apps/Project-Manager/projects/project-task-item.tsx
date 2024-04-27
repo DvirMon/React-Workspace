@@ -9,10 +9,16 @@ import { Task } from "../types";
 
 interface TaskProps {
   task: Task;
+  onClear: (task: Task) => void;
 }
 
-export default function TaskItem({ task }: TaskProps) {
+export default function TaskItem({ task, onClear }: TaskProps) {
   const { id, description } = task;
+
+  function handleClear() {
+    onClear(task);
+  }
+
   return (
     <Card className="flex justify-between" sx={{ minWidth: 275 }}>
       <CardContent>
@@ -21,7 +27,9 @@ export default function TaskItem({ task }: TaskProps) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="large">Clear</Button>
+        <Button size="large" onClick={handleClear}>
+          Clear
+        </Button>
       </CardActions>
     </Card>
   );

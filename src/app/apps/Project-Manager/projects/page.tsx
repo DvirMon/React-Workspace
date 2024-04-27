@@ -18,8 +18,12 @@ export default function ProjectsPage() {
 
   const { tasks } = displayProject;
 
-  function handleSubmit(task: Task) {
+  function onAddTask(task: Task) {
     addTaskToProject(displayProject, task);
+  }
+
+  function onClearTask(indexToDelete: number) {
+    console.log(indexToDelete)
   }
 
   return (
@@ -30,7 +34,11 @@ export default function ProjectsPage() {
       <article className="w-full flex flex-col gap-4 h-full p-4">
         <ProjectInfo {...displayProject} />
         <Divider />
-        <ProjectTasksList tasks={tasks} addTaskToProject={handleSubmit} />
+        <ProjectTasksList
+          tasks={tasks}
+          onAddTask={onAddTask}
+          onClearTask={onClearTask}
+        />
       </article>
     </div>
   );

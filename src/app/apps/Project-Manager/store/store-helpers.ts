@@ -21,21 +21,33 @@ export const addTaskToProject = (
   ],
 });
 
-export const deleteProjectTask = (state: State, project: Project): State => ({
+export const deleteTaskFromProject = (
+  state: State,
+  project: Project,
+  indexToDelete: number
+): State => ({
   ...state,
-  projects: [...updateProject(state.projects, project)],
+  projects: [
+    ...updateProject(
+      state.projects,
+      setProject(project, deleteTask(project.tasks, indexToDelete))
+    ),
+  ],
 });
 
-function setTasks(project: Project, newTask: Task) {
+function deleteTask(tasks: Task[], indexToDelete: number): Task[] {
+  return [...tasks.splice(indexToDelete, 1)];
+}
+
+function setTasks(project: Project, newTask: Task): Task[] {
   return [...project.tasks, { ...newTask }];
 }
 
-function setProject(project: Project, tasks: Task[]) {
+function setProject(project: Project, tasks: Task[]): Project {
   return { ...project, tasks };
 }
 
 function updateProject(items: Project[], project: Project): Project[] {
-
   return items.map((p) => {
     if (compareById(p, project)) {
       return {
