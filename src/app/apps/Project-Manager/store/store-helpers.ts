@@ -36,7 +36,8 @@ export const deleteTaskFromProject = (
 });
 
 function deleteTask(tasks: Task[], indexToDelete: number): Task[] {
-  return [...tasks.splice(indexToDelete, 1)];
+  tasks.splice(indexToDelete, 1);
+  return [...tasks];
 }
 
 function setTasks(project: Project, newTask: Task): Task[] {

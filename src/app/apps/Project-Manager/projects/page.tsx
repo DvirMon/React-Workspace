@@ -14,7 +14,7 @@ import Sidebar from "./sidebar";
 export default function ProjectsPage() {
   const projects = useProjects();
   const displayProject = useDisplayProject();
-  const { addTaskToProject } = useProjectActions();
+  const { addTaskToProject, deleteTaskFromProject } = useProjectActions();
 
   const { tasks } = displayProject;
 
@@ -23,7 +23,7 @@ export default function ProjectsPage() {
   }
 
   function onClearTask(indexToDelete: number) {
-    console.log(indexToDelete)
+    deleteTaskFromProject(displayProject, indexToDelete);
   }
 
   return (
