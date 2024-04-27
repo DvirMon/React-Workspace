@@ -1,20 +1,21 @@
 "use client";
 
 import { Divider } from "@mui/material";
-import { getCurrentProject, useProjectStore } from "../store";
-import { Project, Task } from "../types";
+import {
+  useDisplayProject,
+  useProjectActions,
+  useProjects,
+} from "../store/store";
+import { Task } from "../types";
 import ProjectInfo from "./project-info";
 import ProjectTasksList from "./project-tasks-list";
 import Sidebar from "./sidebar";
 
 export default function ProjectsPage() {
-  const projects = useProjectStore((state) => state.projects);
+  const projects = useProjects();
+  const displayProject = useDisplayProject();
 
-  const displayProject = useProjectStore((state) =>
-    getCurrentProject(state.projects, state.selectedId)
-  ) as Project;
-
-  const setProjects = useProjectStore((state) => state.setProjects);
+  const { setProjects } = useProjectActions();
 
   const tasks = displayProject.tasks;
 

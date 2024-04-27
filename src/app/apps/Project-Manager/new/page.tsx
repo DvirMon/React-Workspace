@@ -1,12 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useProjectStore } from "../store";
+import { useProjectActions } from "../store/store";
 import { Project } from "../types";
 import ProjectForm from "./form";
 
 export default function NewProjectPage() {
-  const addProject = useProjectStore((state) => state.addProject);
+  const { addProject } = useProjectActions();
 
   const router = useRouter();
 

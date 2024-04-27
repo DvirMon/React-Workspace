@@ -2,11 +2,11 @@
 
 import { Button, Typography } from "@mui/material";
 import Link from "next/link";
-import { useProjectStore } from "./store";
 import { useRouter } from "next/navigation";
+import { useProjects } from "./store/store";
 
 export default function ProjectManagerPage() {
-  const projects = useProjectStore((state) => state.projects);
+  const projects = useProjects();
 
   const router = useRouter();
 
