@@ -1,6 +1,8 @@
 "use client";
 
 import { Divider } from "@mui/material";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import {
   useDisplayProject,
   useProjectActions,
@@ -8,16 +10,14 @@ import {
 } from "../store/store";
 import { Task } from "../types";
 import ProjectInfo from "./project-info";
-import ProjectTasksList from "./project-tasks-list";
 import Sidebar from "./sidebar";
+import ProjectTasksList from "./project-tasks-list";
 
 export default function ProjectsPage() {
   const projects = useProjects();
   const displayProject = useDisplayProject();
   const { addTaskToProject, deleteTaskFromProject, deleteProject } =
     useProjectActions();
-
-  const { tasks } = displayProject;
 
   function onAddTask(task: Task): void {
     addTaskToProject(displayProject, task);
@@ -40,7 +40,7 @@ export default function ProjectsPage() {
         <ProjectInfo {...displayProject} onDeleteProject={onDeleteProject} />
         <Divider />
         <ProjectTasksList
-          tasks={tasks}
+          tasks={displayProject.tasks}
           onAddTask={onAddTask}
           onClearTask={onClearTask}
         />

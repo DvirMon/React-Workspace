@@ -46,12 +46,14 @@ const useProjectStore = create<State & Action>((set) => ({
     deleteTaskFromProject: (project: Project, indexToDelete: number) =>
       set((state) => deleteTaskFromProject(state, project, indexToDelete)),
 
-    deleteProject: (id: string) =>
-      set((state) => deleteProject(state, id)),
+    deleteProject: (id: string) => set((state) => deleteProject(state, id)),
   },
 }));
 
 export const useProjects = () => useProjectStore((state) => state.projects);
+
+export const useHasProjects = () =>
+  useProjectStore((state) => state.projects.length > 0);
 
 export const useDisplayProject = () =>
   useProjectStore((state) =>
