@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import React from "react";
 import { Project } from "../types";
 
@@ -11,8 +11,13 @@ export default function ProjectInfo({
 }: ProjectInfoProps) {
   return (
     <div className="w-full flex flex-col gap-4">
-      <Typography variant="h3">{title}</Typography>
-      <Typography variant="h6">{dueDate.format("MMM DD, YYYY")}</Typography>
+      <section className="w-full flex flex-col gap-1">
+        <section className="w-full flex justify-between">
+          <Typography variant="h3">{title}</Typography>
+          <Button className="txt-1xl" variant="contained">Delete</Button>
+        </section>
+        <Typography variant="h6">{dueDate.format("MMM DD, YYYY")}</Typography>
+      </section>
       <Typography variant="h6">{description}</Typography>
     </div>
   );

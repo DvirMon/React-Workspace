@@ -4,7 +4,7 @@ import { Divider } from "@mui/material";
 import Sidebar from "./sidebar";
 import { useProjectStore } from "../store";
 import ProjectInfo from "./project-info";
-import ProjectTask from "./project-task";
+import ProjectTasksList from "./project-tasks-list";
 
 export default function ProjectsPage() {
 
@@ -18,7 +18,7 @@ export default function ProjectsPage() {
       <article className="w-full flex flex-col gap-4 h-full p-4">
         <ProjectInfo {...projects[0]} />
         <Divider />
-        <ProjectTask />
+        <ProjectTasksList />
       </article>
     </div>
   );
