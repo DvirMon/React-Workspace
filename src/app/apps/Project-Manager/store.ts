@@ -6,7 +6,6 @@ import dayjs from "dayjs";
 type State = {
   projects: Project[];
   selectedId: string;
-  project: Project | undefined;
 };
 
 type Action = {
@@ -24,7 +23,6 @@ export const useProjectStore = create<State & Action>((set, get) => ({
     },
   ],
   selectedId: "",
-  project: getCurrentProject(get()?.projects, get()?.selectedId),
   addProject: (newProject: Project) =>
     set((state) => addProject(state, newProject)),
 }));
@@ -38,12 +36,12 @@ function findProjectById(projects: Project[], id: string): Project | undefined {
   return projects.find((p) => p.id === id);
 }
 
-function getCurrentProject(
+export function getCurrentProject(
   projects: Project[],
   id: string
 ): Project | undefined {
   if (projects && id) {
     return findProjectById(projects, id);
   }
-  return projects[0];
+  return projects?.length > 0 ? projects[0] : undefined;
 }

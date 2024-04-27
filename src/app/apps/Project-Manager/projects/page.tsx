@@ -2,13 +2,18 @@
 
 import { Divider } from "@mui/material";
 import Sidebar from "./sidebar";
-import { useProjectStore } from "../store";
+import { getCurrentProject, useProjectStore } from "../store";
 import ProjectInfo from "./project-info";
 import ProjectTasksList from "./project-tasks-list";
+import { Project } from "../types";
 
 export default function ProjectsPage() {
-
   const projects = useProjectStore((state) => state.projects);
+  const displayProject = useProjectStore((state) =>
+    getCurrentProject(state.projects, state.selectedId)
+  ) as Project;
+
+  const tasks = displayProject.tasks;
 
   return (
     <div className="flex flex-row h-full">
@@ -16,9 +21,9 @@ export default function ProjectsPage() {
         <Sidebar projects={projects} />
       </nav>
       <article className="w-full flex flex-col gap-4 h-full p-4">
-        <ProjectInfo {...projects[0]} />
+        <ProjectInfo {...displayProject} />
         <Divider />
-        <ProjectTasksList />
+        <ProjectTasksList tasks={tasks} />
       </article>
     </div>
   );

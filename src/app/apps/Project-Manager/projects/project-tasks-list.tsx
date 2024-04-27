@@ -1,16 +1,12 @@
-import {
-  Button,
-  TextField,
-  Typography
-} from "@mui/material";
-import { useProjectStore } from "../store";
+import { Button, TextField, Typography } from "@mui/material";
 import TaskItem from "./project-task-item";
+import { Task } from "../types";
 
+interface TaskListProps {
+  tasks: Task[];
+}
 
-
-export default function ProjectTasksList() {
-
-  const tasks = useProjectStore((store) => store.projects)
+export default function ProjectTasksList({ tasks }: TaskListProps) {
 
   return (
     <div className="w-full flex flex-col gap-8">
