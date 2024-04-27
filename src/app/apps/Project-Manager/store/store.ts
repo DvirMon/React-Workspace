@@ -1,8 +1,12 @@
 import dayjs from "dayjs";
 import { v4 as uuidv4 } from "uuid";
 import { create } from "zustand";
-import { Project } from "../types";
-import { addProject, getCurrentProject, updateProjects } from "./store-helpers";
+import { Project, Task } from "../types";
+import {
+  addProject,
+  getCurrentProject,
+  addTaskToProject,
+} from "./store-helpers";
 import { TASKS } from "../data";
 
 export type State = {
@@ -13,7 +17,7 @@ export type State = {
 type Action = {
   actions: {
     addProject: (newProject: Project) => void;
-    updateProjects: (project: Project) => void;
+    addTaskToProject: (project: Project, newTask: Task) => void;
   };
 };
 
@@ -32,8 +36,8 @@ const useProjectStore = create<State & Action>((set) => ({
     addProject: (newProject: Project) =>
       set((state) => addProject(state, newProject)),
 
-    updateProjects: (project: Project) =>
-      set((state) => updateProjects(state, project)),
+    addTaskToProject: (project: Project, newTask: Task) =>
+      set((state) => addTaskToProject(state, project, newTask)),
   },
 }));
 
