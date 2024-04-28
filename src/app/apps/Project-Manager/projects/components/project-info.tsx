@@ -19,7 +19,7 @@ export default function ProjectInfo({
         <section className="w-full flex justify-between">
           <Typography variant="h3">{title}</Typography>
           <Button
-            className="text-xl"
+            className="text-lg"
             variant="contained"
             onClick={() => onDeleteProject(id)}>
             Delete

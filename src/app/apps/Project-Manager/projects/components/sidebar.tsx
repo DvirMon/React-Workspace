@@ -1,4 +1,5 @@
 import {
+  Button,
   List,
   ListItem,
   ListItemButton,
@@ -7,6 +8,7 @@ import {
 } from "@mui/material";
 import { useProjectActions, useSelectedId } from "../../store/store";
 import { Project } from "../../util/types";
+import Link from "next/link";
 
 interface SidebarProps {
   projects: Project[];
@@ -24,11 +26,16 @@ export default function Sidebar({ projects }: SidebarProps) {
 
   return (
     <>
-      <Typography className="text-2xl">
-        {projectsSize
-          ? "You have " + projectsSize + " Open Projects"
-          : "No Project Exist"}
-      </Typography>
+      <section className="flex flex-col gap-4">
+        <Typography className="text-2xl">
+          {projectsSize
+            ? "You have " + projectsSize + " Open Projects"
+            : "No Project Exist"}
+        </Typography>
+        <Button variant="contained" className="text-lg">
+          <Link href={"/apps/Project-Manager/new"}>Add New Project</Link>
+        </Button>
+      </section>
       <List className="h-full">
         {projects.map(({ title, tasks, id }: Project, index) => (
           <ListItemButton
