@@ -1,26 +1,23 @@
 "use client";
 
-import useGuard from "@/hooks/useGuard";
+import RouteGuard from "@/lib/route-guard";
 import React from "react";
 import { useHasProjects } from "../store/store";
 
-function RouteGuard({ children }: { children: React.ReactNode }) {
-  const hasProjects = useHasProjects();
 
-  useGuard(!hasProjects, "/apps/Project-Manager");
-
-  if (hasProjects) {
-    return <>{children}</>;
-  }
-}
 
 export default function ProjectManagerLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const hasProjects = useHasProjects();
+
   return (
-    <RouteGuard>
+    <RouteGuard
+      shouldRedirect={!hasProjects}
+      shouldRender={hasProjects}
+      destination="/apps/Project-Manager">
       <div className="h-full">
         <header className="h-16"></header>
         <main className="flex justify-center">
