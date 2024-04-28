@@ -1,5 +1,5 @@
 import { List, ListItem, ListItemText, Typography } from "@mui/material";
-import { Project } from "../types";
+import { Project } from "../../util/types";
 
 interface SidebarProps {
   projects: Project[];

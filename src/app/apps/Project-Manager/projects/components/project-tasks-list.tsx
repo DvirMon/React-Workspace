@@ -1,28 +1,33 @@
 import { Button, TextField, Typography } from "@mui/material";
 import TaskItem from "./project-task-item";
-import { Task } from "../types";
+import { Task } from "../../util/types";
 import { FieldValues, useForm } from "react-hook-form";
 
 interface TaskListProps {
   tasks: Task[];
-  addNewTask: (task: Task) => void;
+  onAddTask: (task: Task) => void;
+  onClearTask: (indexToDelete: number) => void;
 }
 
-export default function ProjectTasksList({ tasks, addNewTask }: TaskListProps) {
+export default function ProjectTasksList({
+  tasks,
+  onAddTask,
+  onClearTask,
+}: TaskListProps) {
   const { register, handleSubmit } = useForm<Task>();
 
   function onSubmit(data: FieldValues) {
     const task = { ...data, id: "" } as Task;
-    addNewTask(task);
+    onAddTask(task);
   }
 
   return (
     <div
       onSubmit={handleSubmit((data) => onSubmit(data))}
-      className="w-full flex flex-col gap-8">
+      className="w-1/2 flex flex-col gap-8">
       <Typography variant="h3">Tasks</Typography>
 
-      <form className="w-full flex gap-6">
+      <form className="w-full flex justify-between">
         <TextField
           {...register("description")}
           name="description"
@@ -35,9 +40,13 @@ export default function ProjectTasksList({ tasks, addNewTask }: TaskListProps) {
         </Button>
       </form>
 
-      <div className="w-1/3 flex flex-col gap-4">
-        {tasks.map((task: Task) => (
-          <TaskItem key={task.id} task={task} />
+      <div className="flex flex-col gap-4">
+        {tasks.map((task: Task, index) => (
+          <TaskItem
+            key={task.id}
+            task={task}
+            onClear={() => onClearTask(index)}
+          />
         ))}
       </div>
     </div>

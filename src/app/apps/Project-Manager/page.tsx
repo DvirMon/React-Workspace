@@ -2,18 +2,11 @@
 
 import { Button, Typography } from "@mui/material";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useProjects } from "./store/store";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useHasProjects } from "./store/store";
 
 export default function ProjectManagerPage() {
-  const projects = useProjects();
-
-  const router = useRouter();
-
-  if (projects.length > 0) {
-    router.push("/apps/Project-Manager/projects");
-  }
-
   return (
     <div className="flex flex-col justify-center h-full">
       <section className="flex flex-col justify-center items-center gap-6">
