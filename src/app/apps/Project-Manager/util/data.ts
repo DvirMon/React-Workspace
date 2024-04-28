@@ -1,4 +1,5 @@
-import { Task } from "./types";
+import { Project, Task } from "./types";
+import dayjs from "dayjs";
 
 export const TASKS: Task[] = [
   {
@@ -51,4 +52,47 @@ export const TASKS: Task[] = [
   //   description:
   //     "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.\n\nMorbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.",
   // },
+];
+
+export const PROJECTS: Project[] = [
+  {
+    id: "3285e09c-7D63-4a3c-8c05-25e6fc4d2a61",
+    title: "Learning React",
+    description: "Learn React from the group up",
+    dueDate: dayjs(new Date()),
+    tasks: [...TASKS],
+  },
+  {
+    id: "328se09a-7D63-4jk4-8c05-25e6fc4d2a61",
+    title: "Learning Angular",
+    description: "Learn Angaulr",
+    dueDate: dayjs(new Date()),
+    tasks: [
+      {
+        id: "530c282f-6d0f-4e0a-aa19-842f8943b3af",
+        description:
+          "Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.\n\nMaecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.",
+      },
+      {
+        id: "c3e726ec-f7d1-4ec0-b6ef-90ade242ac08",
+        description:
+          "In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.",
+      },
+      {
+        id: "512a89c0-d723-47be-8caf-4fad34eee1ed",
+        description:
+          "Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.\n\nDuis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.\n\nMauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.",
+      },
+      {
+        id: "8d3dadf8-9e1d-4375-8b74-43cbe644e8be",
+        description:
+          "Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.",
+      },
+      {
+        id: "efa1a633-e6c1-4321-ab30-cb6009323760",
+        description:
+          "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.\n\nMorbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.",
+      },
+    ],
+  },
 ];

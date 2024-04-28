@@ -17,12 +17,18 @@ import ProjectTasksList from "./components/project-tasks-list";
 export default function ProjectsPage() {
   const projects = useProjects();
   const displayProject = useDisplayProject();
-  const router = useRouter();
-  const hasProjects = useHasProjects();
 
-  const { addTaskToProject, deleteTaskFromProject, deleteProject } =
-    useProjectActions();
+  const {
+    addTaskToProject,
+    deleteTaskFromProject,
+    deleteProject,
+    setSelectedId,
+    setFirstItemId,
+  } = useProjectActions();
 
+  useEffect(() => {
+    setSelectedId(displayProject.id);
+  });
 
   function onAddTask(task: Task): void {
     addTaskToProject(displayProject, task);
@@ -34,6 +40,7 @@ export default function ProjectsPage() {
 
   function onDeleteProject(id: string): void {
     deleteProject(id);
+    setFirstItemId();
   }
 
   return (

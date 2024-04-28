@@ -96,3 +96,7 @@ export function getCurrentProject(
   }
   return projects?.length > 0 ? projects[0] : undefined;
 }
+
+export function setFirstItemId(projects: Project[]): string {
+  return projects.length > 0 ? projects[0].id : "";
+}

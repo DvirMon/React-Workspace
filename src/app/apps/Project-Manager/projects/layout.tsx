@@ -4,8 +4,6 @@ import RouteGuard from "@/lib/route-guard";
 import React from "react";
 import { useHasProjects } from "../store/store";
 
-
-
 export default function ProjectManagerLayout({
   children,
 }: {

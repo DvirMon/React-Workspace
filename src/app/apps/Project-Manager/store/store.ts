@@ -1,15 +1,15 @@
-import dayjs from "dayjs";
-import { v4 as uuidv4 } from "uuid";
 import { create } from "zustand";
+
+import { PROJECTS } from "../util/data";
 import { Project, Task } from "../util/types";
 import {
   addProject,
-  getCurrentProject,
   addTaskToProject,
-  deleteTaskFromProject,
   deleteProject,
+  deleteTaskFromProject,
+  getCurrentProject,
+  setFirstItemId,
 } from "./store-helpers";
-import { TASKS } from "../util/data";
 
 export type State = {
   projects: Project[];
@@ -18,6 +18,8 @@ export type State = {
 
 type Action = {
   actions: {
+    setSelectedId: (id: string) => void;
+    setFirstItemId: () => void;
     addProject: (newProject: Project) => void;
     addTaskToProject: (project: Project, newTask: Task) => void;
     deleteTaskFromProject: (project: Project, indexToDelete: number) => void;
@@ -26,17 +28,21 @@ type Action = {
 };
 
 const useProjectStore = create<State & Action>((set) => ({
-  projects: [
-    {
-      id: "3285e09c-7D63-4a3c-8c05-25e6fc4d2a61",
-      title: "Learning React",
-      description: "Learn React from the group up",
-      dueDate: dayjs(new Date()),
-      tasks: [...TASKS],
-    },
-  ],
+  projects: [...PROJECTS],
   selectedId: "",
   actions: {
+    setSelectedId: (id: string) =>
+      set((state) => ({
+        ...state,
+        selectedId: id,
+      })),
+
+    setFirstItemId: () =>
+      set((state) => ({
+        ...state,
+        selectedId: setFirstItemId(state.projects),
+      })),
+
     addProject: (newProject: Project) =>
       set((state) => addProject(state, newProject)),
 
@@ -59,6 +65,8 @@ export const useDisplayProject = () =>
   useProjectStore((state) =>
     getCurrentProject(state.projects, state.selectedId)
   ) as Project;
+
+export const useSelectedId = () => useProjectStore((state) => state.selectedId);
 
 export const useProjectActions = () =>
   useProjectStore((state) => state.actions);
