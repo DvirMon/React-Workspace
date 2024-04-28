@@ -1,20 +1,13 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import useGuard from "@/hooks/useGuard";
+import React from "react";
 import { useHasProjects } from "../store/store";
 
 function RouteGuard({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
   const hasProjects = useHasProjects();
 
-  console.log("called", hasProjects);
-
-  useEffect(() => {
-    if (!hasProjects) {
-      router.push("/apps/Project-Manager");
-    }
-  }, [hasProjects, router]);
+  useGuard(!hasProjects, "/apps/Project-Manager");
 
   if (hasProjects) {
     return <>{children}</>;

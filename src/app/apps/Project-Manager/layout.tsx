@@ -4,16 +4,19 @@ import PageContainer from "@/app/ui/layout/Container";
 import { useRouter } from "next/navigation";
 import { ReactNode, useEffect } from "react";
 import { useHasProjects } from "./store/store";
+import useGuard from "@/hooks/useGuard";
 
 const RouteGuard = ({ children }: { children: React.ReactNode }) => {
-  const router = useRouter();
+  // const router = useRouter();
   const hasProjects = useHasProjects();
 
-  useEffect(() => {
-    if (hasProjects) {
-      router.push("/apps/Project-Manager/projects");
-    }
-  }, [hasProjects]);
+  useGuard(hasProjects, "/apps/Project-Manager/projects");
+
+  // useEffect(() => {
+  //   if (hasProjects) {
+  //     router.push("/apps/Project-Manager/projects");
+  //   }
+  // }, [hasProjects]);
 
   return <>{children}</>;
 };

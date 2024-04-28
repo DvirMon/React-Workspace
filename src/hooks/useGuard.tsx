@@ -1,12 +1,8 @@
 import { useEffect } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
-const useGuard = (
-  condition: () => boolean,
-  destination: string
-) => {
+const useGuard = (shouldRedirect: boolean, destination: string) => {
   const router = useRouter();
-  const shouldRedirect = condition();
 
   useEffect(() => {
     if (shouldRedirect) {
