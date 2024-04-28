@@ -1,4 +1,10 @@
-import { List, ListItem, ListItemText, Typography } from "@mui/material";
+import {
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 import { Project } from "../../util/types";
 
 interface SidebarProps {
@@ -17,14 +23,17 @@ export default function Sidebar({ projects }: SidebarProps) {
       </Typography>
       <List className="h-full">
         {projects.map(({ title, tasks }: Project, index) => (
-          <ListItem key={index} disablePadding>
-            <ListItemText
-              primary={title}
-              secondary={
-                "open tasks " + (tasks?.length > 0 ? `(${tasks?.length})` : "")
-              }
-            />
-          </ListItem>
+          <ListItemButton key={index}>
+            <ListItem disablePadding>
+              <ListItemText
+                primary={title}
+                secondary={
+                  "open tasks " +
+                  (tasks?.length > 0 ? `(${tasks?.length})` : "")
+                }
+              />
+            </ListItem>
+          </ListItemButton>
         ))}
       </List>
     </>
