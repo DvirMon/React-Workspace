@@ -1,6 +1,6 @@
 import { Button, TextField, Typography } from "@mui/material";
 import TaskItem from "./project-task-item";
-import { Task } from "../types";
+import { Task } from "../../util/types";
 import { FieldValues, useForm } from "react-hook-form";
 
 interface TaskListProps {

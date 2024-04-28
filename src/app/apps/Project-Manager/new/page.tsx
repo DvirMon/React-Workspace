@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useProjectActions } from "../store/store";
-import { Project } from "../types";
+import { Project } from "../util/types";
 import ProjectForm from "./form";
 
 export default function NewProjectPage() {

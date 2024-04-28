@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { Project, Task } from "../types";
+import { Project, Task } from "../util/types";
 import { State } from "./store";
 
 export const addProject = (state: State, newProject: Project): State => ({
@@ -14,11 +14,16 @@ export const addTaskToProject = (
 ): State => ({
   ...state,
   projects: [
-    ...updateProject(
+    ...updateProjects(
       state.projects,
       setProject(project, setTasks(project, newTask))
     ),
   ],
+});
+
+export const deleteProject = (state: State, id: string): State => ({
+  ...state,
+  projects: [...deleteItemById(state.projects, id)],
 });
 
 export const deleteTaskFromProject = (
@@ -28,16 +33,29 @@ export const deleteTaskFromProject = (
 ): State => ({
   ...state,
   projects: [
-    ...updateProject(
+    ...updateProjects(
       state.projects,
-      setProject(project, deleteTask(project.tasks, indexToDelete))
+      setProject(project, deleteItemByIndex(project.tasks, indexToDelete))
     ),
   ],
 });
 
-function deleteTask(tasks: Task[], indexToDelete: number): Task[] {
-  tasks.splice(indexToDelete, 1);
-  return [...tasks];
+function deleteItemByIndex<T>(items: T[], indexToDelete: number): T[] {
+  items.splice(indexToDelete, 1);
+  return [...items];
+}
+
+function deleteItemById<Entity extends { id: string }>(
+  items: Entity[],
+  id: string
+): Entity[] {
+  const indexToDelete = items.findIndex((item) => item.id === id);
+
+  if (indexToDelete < 0) {
+    return items;
+  }
+
+  return deleteItemByIndex(items, indexToDelete);
 }
 
 function setTasks(project: Project, newTask: Task): Task[] {
@@ -48,7 +66,7 @@ function setProject(project: Project, tasks: Task[]): Project {
   return { ...project, tasks };
 }
 
-function updateProject(items: Project[], project: Project): Project[] {
+function updateProjects(items: Project[], project: Project): Project[] {
   return items.map((p) => {
     if (compareById(p, project)) {
       return {
@@ -56,6 +74,7 @@ function updateProject(items: Project[], project: Project): Project[] {
         ...project,
       };
     }
+
     return p;
   });
 }
