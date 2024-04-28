@@ -12,7 +12,6 @@ import {
 
 export type State = {
   projects: Project[];
-  tasksMap: Map<string, Task[]>;
   selectedId: string;
 };
 
@@ -30,7 +29,6 @@ type Action = {
 
 const useProjectStore = create<State & Action>((set) => ({
   projects: [],
-  tasksMap: new Map(),
   selectedId: "",
   actions: {
     loadProjects: (data: Project[]) =>

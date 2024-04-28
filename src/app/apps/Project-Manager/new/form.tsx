@@ -21,10 +21,6 @@ export default function ProjectForm({ setProjects }: ProjectFormProps) {
     setProjects(formData);
   }
 
-  function handleReset() {
-    reset();
-  }
-
   return (
     <form
       className="w-full flex flex-col justify-center items-center gap-6"
@@ -33,9 +29,6 @@ export default function ProjectForm({ setProjects }: ProjectFormProps) {
         <InputField key={props.name} control={control} props={props} />
       ))}
       <footer className="w-full flex flex-row justify-end gap-4">
-        {/* <Button className="text-2xl" type="button" onClick={handleReset}>
-          Reset
-        </Button> */}
         <Link href={routes.root}>
           <Button className="text-2xl " type="button">
             Cancel
