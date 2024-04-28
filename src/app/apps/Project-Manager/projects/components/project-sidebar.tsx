@@ -15,7 +15,7 @@ interface SidebarProps {
   projects: Project[];
 }
 
-export default function Sidebar({ projects }: SidebarProps) {
+export default function ProjectSidebar({ projects }: SidebarProps) {
   const selectedId = useSelectedId();
   const { setSelectedId } = useProjectActions();
 
@@ -25,14 +25,14 @@ export default function Sidebar({ projects }: SidebarProps) {
     setSelectedId(id);
   }
 
+  const title = projectsSize
+    ? "You have " + projectsSize + " Open Projects"
+    : "No Project Exist";
+  
   return (
     <>
       <section className="flex flex-col gap-4">
-        <Typography className="text-2xl">
-          {projectsSize
-            ? "You have " + projectsSize + " Open Projects"
-            : "No Project Exist"}
-        </Typography>
+        <Typography className="text-2xl">{title}</Typography>
         <Button variant="contained" className="text-lg">
           <Link href={routes.new}>Add New Project</Link>
         </Button>

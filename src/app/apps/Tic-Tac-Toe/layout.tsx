@@ -1,6 +1,6 @@
 "use client";
 
-import { ThemeProvider, createTheme, styled } from "@mui/material";
+import { AppBar, ThemeProvider, Toolbar, createTheme, styled } from "@mui/material";
 import PageContainer from "../../ui/layout/Container";
 
 import "./theme.css";
@@ -8,6 +8,10 @@ import "./theme.css";
 const theme = createTheme({
   typography: {
     fontFamily: "Caprasimo",
+  },
+
+  palette: {
+    primary: { main: "#fcd256" },
   },
 });
 
@@ -32,6 +36,9 @@ export default function TicTacToeLayout({
   return (
     <ThemeProvider theme={theme}>
       <PageWrapper>
+      <AppBar>
+        <Toolbar />
+      </AppBar>
         <PageContainer>{children}</PageContainer>
       </PageWrapper>
     </ThemeProvider>

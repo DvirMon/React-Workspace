@@ -28,7 +28,7 @@ type Action = {
 };
 
 const useProjectStore = create<State & Action>((set) => ({
-  projects: [],
+  projects: [...PROJECTS],
   selectedId: "",
   actions: {
     setSelectedId: (id: string) =>

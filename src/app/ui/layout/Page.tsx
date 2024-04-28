@@ -1,5 +1,6 @@
 "use client";
 
+import { AppBar } from "@mui/material";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Toolbar from "@mui/material/Toolbar";
@@ -18,6 +19,7 @@ export default function Page({ children }: { children: React.ReactNode }) {
         height: "100vh",
         overflow: "auto",
       }}>
+   
       <Toolbar />
       <Container
         maxWidth="lg"

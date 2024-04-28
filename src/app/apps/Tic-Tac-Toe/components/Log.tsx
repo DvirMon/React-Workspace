@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import { Turn } from "../types";
+import { Turn } from "../util/types";
 
 interface LogProps {
   turns: Turn[];

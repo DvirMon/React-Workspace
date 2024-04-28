@@ -30,7 +30,7 @@ export default function RootLayout({
         suppressHydrationWarning={true}>
         <ThemeProvider theme={theme}>
           <PageContainer>
-            <AppHeader setOpen={setOpen} isOpen={open} width={240} />
+            {/* <AppHeader setOpen={setOpen} isOpen={open} width={240} /> */}
             <AppDrawer setOpen={setOpen} isOpen={open} width={240} />
             <Page>{children}</Page>
           </PageContainer>

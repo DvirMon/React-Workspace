@@ -27,7 +27,7 @@ export default function ProjectInfo({
         </section>
         <Typography variant="h6">{dueDate.format("MMM DD, YYYY")}</Typography>
       </section>
-      <Typography variant="h6">{description}</Typography>
+      <Typography className="whitespace-pre-line"  variant="h6">{description}</Typography>
     </div>
   );
 }

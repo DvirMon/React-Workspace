@@ -30,7 +30,10 @@ export function updateGameTurns(
   return newState;
 }
 
-export function computeHasWinner(gameTurns: Turn[], board: string[][]): boolean {
+export function computeHasWinner(
+  gameTurns: Turn[],
+  board: string[][]
+): boolean {
   if (gameTurns.length < 5) {
     return false;
   }
