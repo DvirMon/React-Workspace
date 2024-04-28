@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { Project, Task } from "../types";
+import { Project, Task } from "../util/types";
 import { State } from "./store";
 
 export const addProject = (state: State, newProject: Project): State => ({

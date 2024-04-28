@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { v4 as uuidv4 } from "uuid";
 import { create } from "zustand";
-import { Project, Task } from "../types";
+import { Project, Task } from "../util/types";
 import {
   addProject,
   getCurrentProject,
@@ -9,7 +9,7 @@ import {
   deleteTaskFromProject,
   deleteProject,
 } from "./store-helpers";
-import { TASKS } from "../data";
+import { TASKS } from "../util/data";
 
 export type State = {
   projects: Project[];
@@ -27,6 +27,13 @@ type Action = {
 
 const useProjectStore = create<State & Action>((set) => ({
   projects: [
+    {
+      id: uuidv4(),
+      title: "Learning React",
+      description: "Learn React from the group up",
+      dueDate: dayjs(new Date()),
+      tasks: [...TASKS],
+    },
     {
       id: uuidv4(),
       title: "Learning React",

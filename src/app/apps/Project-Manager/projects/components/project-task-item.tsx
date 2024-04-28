@@ -5,7 +5,7 @@ import {
   CardContent,
   Typography,
 } from "@mui/material";
-import { Task } from "../types";
+import { Task } from "../../util/types";
 
 interface TaskProps {
   task: Task;

@@ -4,6 +4,23 @@ import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { useHasProjects, useProjects } from "../store/store";
 
+function RouteGuard({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+  const hasProjects = useHasProjects();
+
+  console.log("called", hasProjects);
+
+  useEffect(() => {
+    if (!hasProjects) {
+      router.push("/apps/Project-Manager");
+    }
+  }, [hasProjects, router]);
+
+  if (hasProjects) {
+    return <>{children}</>;
+  }
+}
+
 export default function ProjectManagerLayout({
   children,
 }: {
@@ -12,20 +29,20 @@ export default function ProjectManagerLayout({
   const router = useRouter();
   const hasProjects = useHasProjects();
 
-  useEffect(() => {
-    if (!hasProjects) {
-      router.push("/apps/Project-Manager");
-    }
-  }, [hasProjects]);
+  console.log("projects");
 
-  if (hasProjects) {
-    return (
-      <div className="h-full">
-        <header className="h-16"></header>
-        <main className="flex justify-center">
-          <article className="w-3/4">{children}</article>
-        </main>
-      </div>
-    );
-  }
+  // useEffect(() => {
+  //   if (!hasProjects) {
+  //     router.push("/apps/Project-Manager");
+  //   }
+  // }, [hasProjects]);
+
+  return (
+    <div className="h-full">
+      <header className="h-16"></header>
+      <main className="flex justify-center">
+        <article className="w-3/4">{children}</article>
+      </main>
+    </div>
+  );
 }

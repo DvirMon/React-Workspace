@@ -8,14 +8,15 @@ import {
   useProjectActions,
   useProjects,
 } from "../store/store";
-import { Task } from "../types";
-import ProjectInfo from "./project-info";
-import Sidebar from "./sidebar";
-import ProjectTasksList from "./project-tasks-list";
+import { Task } from "../util/types";
+import ProjectInfo from "./components/project-info";
+import Sidebar from "./components/sidebar";
+import ProjectTasksList from "./components/project-tasks-list";
 
 export default function ProjectsPage() {
   const projects = useProjects();
   const displayProject = useDisplayProject();
+  
   const { addTaskToProject, deleteTaskFromProject, deleteProject } =
     useProjectActions();
 

@@ -4,7 +4,7 @@ import { DateFieldProps } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Project } from "../types";
+import { Project } from "../util/types";
 
 interface ProjectFormProps {
   setProjects: (data: Project) => void;
@@ -35,8 +35,6 @@ const defaultValues = {
 };
 
 export default function ProjectForm({ setProjects }: ProjectFormProps) {
-
-
   const {
     control,
     reset,
