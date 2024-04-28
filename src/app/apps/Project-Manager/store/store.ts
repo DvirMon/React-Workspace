@@ -1,6 +1,5 @@
 import { create } from "zustand";
 
-import { PROJECTS } from "../util/data";
 import { Project, Task } from "../util/types";
 import {
   addProject,
@@ -13,11 +12,13 @@ import {
 
 export type State = {
   projects: Project[];
+  tasksMap: Map<string, Task[]>;
   selectedId: string;
 };
 
 type Action = {
   actions: {
+    loadProjects: (data: Project[]) => void;
     setSelectedId: (id: string) => void;
     setFirstItemId: () => void;
     addProject: (newProject: Project) => void;
@@ -28,18 +29,23 @@ type Action = {
 };
 
 const useProjectStore = create<State & Action>((set) => ({
-  projects: [...PROJECTS],
+  projects: [],
+  tasksMap: new Map(),
   selectedId: "",
   actions: {
+    loadProjects: (data: Project[]) =>
+      set(() => ({
+        projects: data,
+        selectedId: data[0]?.id || "",
+      })),
+
     setSelectedId: (id: string) =>
-      set((state) => ({
-        ...state,
+      set(() => ({
         selectedId: id,
       })),
 
     setFirstItemId: () =>
       set((state) => ({
-        ...state,
         selectedId: setFirstItemId(state.projects),
       })),
 
