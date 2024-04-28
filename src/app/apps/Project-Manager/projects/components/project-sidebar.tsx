@@ -46,6 +46,7 @@ export default function ProjectSidebar({ projects }: SidebarProps) {
             onClick={() => handleIemClick(id)}>
             <ListItem disablePadding>
               <ListItemText
+                className="capitalize"
                 primary={title}
                 secondary={
                   "open tasks " +

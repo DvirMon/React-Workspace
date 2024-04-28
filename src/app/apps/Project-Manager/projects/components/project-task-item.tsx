@@ -22,7 +22,7 @@ export default function TaskItem({ task, onClear }: TaskProps) {
   return (
     <Card className="flex justify-between">
       <CardContent>
-        <Typography sx={{ fontSize: 14 }} gutterBottom>
+        <Typography  sx={{ fontSize: 14 }} gutterBottom>
           {description}{" "}
         </Typography>
       </CardContent>
