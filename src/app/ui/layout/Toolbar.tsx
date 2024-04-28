@@ -1,7 +1,7 @@
 "use client";
 
 import MenuIcon from "@mui/icons-material/Menu";
-import { Breadcrumbs } from "@mui/material";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
 import MuiAppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
@@ -37,7 +37,7 @@ function separateRoute(route: string) {
   return route.split("/").filter((path) => !!path);
 }
 
-export default function AppHeader({
+export default function AppToolbar({
   setOpen,
   isOpen = true,
   width = 240,
@@ -76,10 +76,7 @@ export default function AppHeader({
           sx={{ flexGrow: 1 }}>
           <Breadcrumbs separator="›" aria-label="breadcrumb">
             {breadcrumbs.map((path) => (
-              <Typography
-                className="capitalize"
-                key={path}
-                color="text.primary">
+              <Typography className="capitalize text-lg" key={path}>
                 {path}
               </Typography>
             ))}

@@ -9,7 +9,7 @@ import MuiBox from "@mui/material/Box";
 import { useState } from "react";
 import AppDrawer from "./ui/layout/Drawer";
 import Page from "./ui/layout/Page";
-import AppHeader from "./ui/layout/Toolbar";
+import AppToolbar from "./ui/layout/Toolbar";
 import theme, { appThemes } from "./ui/theme";
 
 const PageContainer = styled(MuiBox)(({ theme }) => ({
@@ -33,7 +33,7 @@ export default function RootLayout({
         suppressHydrationWarning={true}>
         <ThemeProvider theme={appThemes[pathTheme] || theme}>
           <PageContainer>
-            <AppHeader setOpen={setOpen} isOpen={open} width={240} />
+            <AppToolbar setOpen={setOpen} isOpen={open} width={240} />
             <AppDrawer setOpen={setOpen} isOpen={open} width={240} />
             <Page>{children}</Page>
           </PageContainer>
