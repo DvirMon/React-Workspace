@@ -18,6 +18,7 @@ export type State = {
 type Action = {
   actions: {
     setSelectedId: (id: string) => void;
+    setFirstItem: () => void;
     addProject: (newProject: Project) => void;
     addTaskToProject: (project: Project, newTask: Task) => void;
     deleteTaskFromProject: (project: Project, indexToDelete: number) => void;
@@ -33,6 +34,12 @@ const useProjectStore = create<State & Action>((set) => ({
       set((state) => ({
         ...state,
         selectedId: id,
+      })),
+
+    setFirstItem: () =>
+      set((state) => ({
+        ...state,
+        selectedId: state.projects.length > 0 ? state.projects[0].id : "",
       })),
 
     addProject: (newProject: Project) =>
@@ -58,8 +65,7 @@ export const useDisplayProject = () =>
     getCurrentProject(state.projects, state.selectedId)
   ) as Project;
 
-export const useSelectedId = () =>
-  useProjectStore((state) => state.selectedId);
+export const useSelectedId = () => useProjectStore((state) => state.selectedId);
 
 export const useProjectActions = () =>
   useProjectStore((state) => state.actions);
