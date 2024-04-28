@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import { useProjectActions } from "../store/store";
 import { Project } from "../util/types";
 import ProjectForm from "./form";
+import { routes } from "../routes";
+import { Button } from "@mui/material";
 
 export default function NewProjectPage() {
   const { addProject } = useProjectActions();
@@ -12,14 +14,12 @@ export default function NewProjectPage() {
 
   function handleSubmit(data: Project): void {
     addProject(data);
-    router.push("/apps/Project-Manager/projects");
+    router.push(routes.projects);
   }
 
   return (
-    <div className="flex flex-row  h-full">
-      <article className="w-full flex flex-col justify-center h-full">
-        <ProjectForm setProjects={handleSubmit} />
-      </article>
+    <div className="w-1/2 flex flex-col gap-4">
+      <ProjectForm setProjects={handleSubmit} />
     </div>
   );
 }

@@ -1,18 +1,16 @@
 "use client";
 
 import { Divider } from "@mui/material";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import {
   useDisplayProject,
-  useHasProjects,
   useProjectActions,
-  useProjects,
+  useProjects
 } from "../store/store";
 import { Task } from "../util/types";
 import ProjectInfo from "./components/project-info";
-import Sidebar from "./components/sidebar";
 import ProjectTasksList from "./components/project-tasks-list";
+import ProjectSidebar from "./components/project-sidebar";
 
 export default function ProjectsPage() {
   const projects = useProjects();
@@ -30,15 +28,15 @@ export default function ProjectsPage() {
     setSelectedId(displayProject.id);
   });
 
-  function onAddTask(task: Task): void {
+  function handleAddTask(task: Task): void {
     addTaskToProject(displayProject, task);
   }
 
-  function onClearTask(indexToDelete: number): void {
+  function handleClearTask(indexToDelete: number): void {
     deleteTaskFromProject(displayProject, indexToDelete);
   }
 
-  function onDeleteProject(id: string): void {
+  function handleDeleteProject(id: string): void {
     deleteProject(id);
     setFirstItemId();
   }
@@ -46,15 +44,15 @@ export default function ProjectsPage() {
   return (
     <div className="flex flex-row h-full">
       <nav className="w-1/3 flex flex-col justify-start p-4">
-        <Sidebar projects={projects} />
+        <ProjectSidebar projects={projects} />
       </nav>
       <article className="w-full flex flex-col gap-4 h-full p-4">
-        <ProjectInfo {...displayProject} onDeleteProject={onDeleteProject} />
+        <ProjectInfo {...displayProject} onDeleteProject={handleDeleteProject} />
         <Divider />
         <ProjectTasksList
           tasks={displayProject.tasks}
-          onAddTask={onAddTask}
-          onClearTask={onClearTask}
+          onAddTask={handleAddTask}
+          onClearTask={handleClearTask}
         />
       </article>
     </div>

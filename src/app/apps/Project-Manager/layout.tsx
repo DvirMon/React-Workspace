@@ -1,22 +1,19 @@
 "use client";
 
 import PageContainer from "@/app/ui/layout/Container";
-import RouteGuard from "@/lib/route-guard";
-import { ReactNode } from "react";
-import { useHasProjects } from "./store/store";
+import { usePathThemeActions } from "@/hooks/usePathTheme";
+import { ReactNode, useEffect } from "react";
 
 export default function ProjectManagerLayout({
   children,
 }: {
   children: ReactNode;
 }) {
-  const hasProjects = useHasProjects();
+  const { setPathTheme } = usePathThemeActions();
 
-  return (
-    <RouteGuard
-      shouldRedirect={hasProjects}
-      destination="/apps/Project-Manager/projects">
-      <PageContainer>{children}</PageContainer>
-    </RouteGuard>
-  );
+  useEffect(() => {
+    setPathTheme("projectManaging");
+  });
+
+  return <PageContainer>{children}</PageContainer>;
 }

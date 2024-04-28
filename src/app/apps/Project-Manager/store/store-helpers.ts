@@ -4,7 +4,7 @@ import { State } from "./store";
 
 export const addProject = (state: State, newProject: Project): State => ({
   ...state,
-  projects: [...state.projects, { ...newProject, id: uuidv4() }],
+  projects: [...state.projects, { ...newProject, id: uuidv4(), tasks: [] }],
 });
 
 export const addTaskToProject = (

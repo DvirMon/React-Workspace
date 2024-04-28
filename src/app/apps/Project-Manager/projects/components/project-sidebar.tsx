@@ -1,4 +1,5 @@
 import {
+  Button,
   List,
   ListItem,
   ListItemButton,
@@ -7,12 +8,14 @@ import {
 } from "@mui/material";
 import { useProjectActions, useSelectedId } from "../../store/store";
 import { Project } from "../../util/types";
+import Link from "next/link";
+import { routes } from "../../routes";
 
 interface SidebarProps {
   projects: Project[];
 }
 
-export default function Sidebar({ projects }: SidebarProps) {
+export default function ProjectSidebar({ projects }: SidebarProps) {
   const selectedId = useSelectedId();
   const { setSelectedId } = useProjectActions();
 
@@ -22,13 +25,18 @@ export default function Sidebar({ projects }: SidebarProps) {
     setSelectedId(id);
   }
 
+  const title = projectsSize
+    ? "You have " + projectsSize + " Open Projects"
+    : "No Project Exist";
+  
   return (
     <>
-      <Typography className="text-2xl">
-        {projectsSize
-          ? "You have " + projectsSize + " Open Projects"
-          : "No Project Exist"}
-      </Typography>
+      <section className="flex flex-col gap-4">
+        <Typography className="text-2xl">{title}</Typography>
+        <Button variant="contained" className="text-lg">
+          <Link href={routes.new}>Add New Project</Link>
+        </Button>
+      </section>
       <List className="h-full">
         {projects.map(({ title, tasks, id }: Project, index) => (
           <ListItemButton
@@ -38,6 +46,7 @@ export default function Sidebar({ projects }: SidebarProps) {
             onClick={() => handleIemClick(id)}>
             <ListItem disablePadding>
               <ListItemText
+                className="capitalize"
                 primary={title}
                 secondary={
                   "open tasks " +

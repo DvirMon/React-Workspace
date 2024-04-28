@@ -1,11 +1,13 @@
 "use client";
 
 import MenuIcon from "@mui/icons-material/Menu";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
 import MuiAppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
+import { usePathname } from "next/navigation";
 
 interface AppBarProps {
   width?: number;
@@ -31,7 +33,11 @@ const AppBar = styled(MuiAppBar)<{ open: boolean; width: number }>(
   })
 );
 
-export default function AppHeader({
+function separateRoute(route: string) {
+  return route.split("/").filter((path) => !!path);
+}
+
+export default function AppToolbar({
   setOpen,
   isOpen = true,
   width = 240,
@@ -39,6 +45,11 @@ export default function AppHeader({
   const toggleDrawer = () => {
     setOpen(!isOpen);
   };
+
+  const pathname = usePathname();
+  const breadcrumbs = separateRoute(pathname);
+
+  console.log(breadcrumbs);
 
   return (
     <AppBar position="absolute" open={isOpen} width={width}>
@@ -63,7 +74,13 @@ export default function AppHeader({
           color="inherit"
           noWrap
           sx={{ flexGrow: 1 }}>
-          Dashboard
+          <Breadcrumbs separator="›" aria-label="breadcrumb">
+            {breadcrumbs.map((path) => (
+              <Typography className="capitalize text-lg" key={path}>
+                {path}
+              </Typography>
+            ))}
+          </Breadcrumbs>{" "}
         </Typography>
       </Toolbar>
     </AppBar>

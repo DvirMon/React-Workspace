@@ -9,8 +9,8 @@ import GameBoard from "./components/GameBoard";
 import GameOver from "./components/GameOver";
 import Log from "./components/Log";
 import PlayerTab from "./components/Players";
-import { GAME_STATE, PLAYERS } from "./constants";
-import { Symbol, Turn } from "./types";
+import { GAME_STATE, PLAYERS } from "./util/constants";
+import { Symbol, Turn } from "./util/types";
 
 import Image from "next/image";
 import {
@@ -20,7 +20,7 @@ import {
   computeHasWinner,
   computeWinner,
   updateGameTurns,
-} from "./page.helpers";
+} from "./util/helpers";
 
 const BoardWrapper = styled(MuiPaper)(({ theme }) => ({
   position: "relative",
@@ -72,7 +72,7 @@ export default function TicTacToe() {
 
   return (
     <div className="h-full flex justify-center">
-      <section className="h-full">
+      <section className="h-full flex flex-col justify-center">
         <Header />
 
         <BoardWrapper>

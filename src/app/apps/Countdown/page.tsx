@@ -7,12 +7,6 @@ import { CountdownForm } from "./components/Form";
 
 export default function CountdownPage() {
   const dialog = useRef<HTMLDialogElement>(null);
-
-  // setTimeout(() => {
-
-  //   dialog.current.opened();
-  // }, 1000)
-
   return (
     <>
       <ResultDialog ref={dialog} />

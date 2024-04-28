@@ -1,5 +1,8 @@
+"use client";
+
 import PageContainer from "@/app/ui/layout/Container";
-import { ReactNode } from "react";
+import { usePathThemeActions } from "@/hooks/usePathTheme";
+import { useEffect } from "react";
 import classes from "./layout.module.css";
 
 const Header = () => {
@@ -10,15 +13,19 @@ const Header = () => {
       </h1>
       <p>Stop the timer once you estimate that time is (almost) up</p>
     </header>
-
   );
 };
 
 export default function CountdownLayout({
   children,
 }: {
-  children: ReactNode;
+  children: React.ReactNode;
 }) {
+  const { setPathTheme } = usePathThemeActions();
+
+  useEffect(() => {
+    setPathTheme("countdown");
+  });
   return (
     <PageContainer className={classes.page}>
       <div className={classes.content}>
