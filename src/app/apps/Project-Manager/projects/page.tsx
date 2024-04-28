@@ -23,7 +23,7 @@ export default function ProjectsPage() {
     deleteTaskFromProject,
     deleteProject,
     setSelectedId,
-    setFirstItem,
+    setFirstItemId,
   } = useProjectActions();
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function ProjectsPage() {
 
   function onDeleteProject(id: string): void {
     deleteProject(id);
-    setFirstItem();
+    setFirstItemId();
   }
 
   return (
