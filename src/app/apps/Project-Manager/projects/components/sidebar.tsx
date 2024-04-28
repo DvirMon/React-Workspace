@@ -9,6 +9,7 @@ import {
 import { useProjectActions, useSelectedId } from "../../store/store";
 import { Project } from "../../util/types";
 import Link from "next/link";
+import { routes } from "../../routes";
 
 interface SidebarProps {
   projects: Project[];
@@ -33,7 +34,7 @@ export default function Sidebar({ projects }: SidebarProps) {
             : "No Project Exist"}
         </Typography>
         <Button variant="contained" className="text-lg">
-          <Link href={"/apps/Project-Manager/new"}>Add New Project</Link>
+          <Link href={routes.new}>Add New Project</Link>
         </Button>
       </section>
       <List className="h-full">

@@ -4,6 +4,7 @@ import PageContainer from "@/app/ui/layout/Container";
 import RouteGuard from "@/lib/route-guard";
 import { ReactNode } from "react";
 import { useHasProjects } from "./store/store";
+import { routes } from "./routes";
 
 export default function ProjectManagerLayout({
   children,
@@ -15,7 +16,7 @@ export default function ProjectManagerLayout({
   return (
     <RouteGuard
       shouldRedirect={hasProjects}
-      destination="/apps/Project-Manager/projects">
+      destination={routes.projects}>
       <PageContainer>{children}</PageContainer>
     </RouteGuard>
   );

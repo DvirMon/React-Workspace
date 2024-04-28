@@ -15,7 +15,7 @@ import { Control, Controller, ControllerProps } from "react-hook-form";
 export type InputFieldProps = TextFieldProps | DatePickerProps<any>;
 
 const InputWrapper = ({ children }: { children: React.ReactNode }) => {
-  return <section className="w-1/2 flex flex-col">{children}</section>;
+  return <section className="w-full flex flex-col">{children}</section>;
 };
 
 export default function InputField({

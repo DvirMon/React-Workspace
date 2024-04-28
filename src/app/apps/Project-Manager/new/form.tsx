@@ -2,7 +2,6 @@ import InputField, { InputFieldProps } from "@/app/ui/Form/input-field";
 import { Button } from "@mui/material";
 import { DateFieldProps } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Project } from "../util/types";
 
@@ -52,12 +51,12 @@ export default function ProjectForm({ setProjects }: ProjectFormProps) {
 
   return (
     <form
-      className="flex flex-col justify-center items-center gap-6"
+      className="w-full flex flex-col justify-center items-center gap-6"
       onSubmit={handleSubmit((val) => onSubmit(val))}>
       {formInputs.map((props) => (
         <InputField key={props.name} control={control} props={props} />
       ))}
-      <footer className="flex justify-end gap-4 w-1/2">
+      <footer className="w-full flex flex-row justify-end gap-4">
         <Button className="text-2xl" type="button" onClick={handleReset}>
           Reset
         </Button>
