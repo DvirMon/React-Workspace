@@ -10,6 +10,7 @@ import AppDrawer from "./ui/layout/Drawer";
 import AppHeader from "./ui/layout/Toolbar";
 import theme from "./ui/theme";
 import Page from "./ui/layout/Page";
+import { usePathname } from "next/navigation";
 
 const PageContainer = styled(MuiBox)(({ theme }) => ({
   display: "flex",
@@ -20,7 +21,9 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-}) {
+  }) {
+    const pathname = usePathname()
+
   const [open, setOpen] = useState(true);
 
   return (
@@ -30,7 +33,7 @@ export default function RootLayout({
         suppressHydrationWarning={true}>
         <ThemeProvider theme={theme}>
           <PageContainer>
-            {/* <AppHeader setOpen={setOpen} isOpen={open} width={240} /> */}
+            <AppHeader setOpen={setOpen} isOpen={open} width={240} />
             <AppDrawer setOpen={setOpen} isOpen={open} width={240} />
             <Page>{children}</Page>
           </PageContainer>
