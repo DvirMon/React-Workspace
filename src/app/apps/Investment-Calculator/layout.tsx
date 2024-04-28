@@ -6,6 +6,8 @@ import Image from "next/image";
 
 import PageContainer from "../../ui/layout/Container";
 import "./theme.css";
+import { useEffect } from "react";
+import { usePathThemeActions } from "@/hooks/usePathTheme";
 
 const theme = createTheme({
   typography: {
@@ -32,6 +34,12 @@ export default function InvestmentCalculatorLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const { setPathTheme } = usePathThemeActions();
+
+  useEffect(() => {
+    setPathTheme("investment");
+  });
+
   return (
     <ThemeProvider theme={theme}>
       <div className="h-full investment-calculator">

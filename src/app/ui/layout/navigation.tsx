@@ -21,7 +21,7 @@ export const routes = {
   ticTacToe: "/apps/Tic-Tac-Toe",
   investment: "/apps/Investment-Calculator",
   countdown: "/apps/Countdown",
-  managing: "/apps/Project-Manager",
+  projectManaging: "/apps/Project-Manager",
 };
 
 const menuItems = [
@@ -34,7 +34,7 @@ const secondaryItems = [
   { icon: <Grid3x3Icon />, text: "Tic Tac Toe", link: routes.ticTacToe },
   { icon: <CalculateIcon />, text: "Calculator", link: routes.investment },
   { icon: <HourglassBottomIcon />, text: "Countdown", link: routes.countdown },
-  { icon: <AppRegistrationIcon />, text: "Project Managing", link: routes.managing },
+  { icon: <AppRegistrationIcon />, text: "Project Managing", link: routes.projectManaging },
 ];
 
 export const mainListItems = (

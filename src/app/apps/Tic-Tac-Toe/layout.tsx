@@ -1,8 +1,16 @@
 "use client";
 
-import { AppBar, ThemeProvider, Toolbar, createTheme, styled } from "@mui/material";
+import {
+  AppBar,
+  ThemeProvider,
+  Toolbar,
+  createTheme,
+  styled,
+} from "@mui/material";
 import PageContainer from "../../ui/layout/Container";
 
+import { usePathThemeActions } from "@/hooks/usePathTheme";
+import { useEffect } from "react";
 import "./theme.css";
 
 const theme = createTheme({
@@ -33,12 +41,18 @@ export default function TicTacToeLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const { setPathTheme } = usePathThemeActions();
+
+  useEffect(() => {
+    setPathTheme("ticTacToe");
+  });
+
   return (
     <ThemeProvider theme={theme}>
       <PageWrapper>
-      <AppBar>
-        <Toolbar />
-      </AppBar>
+        <AppBar>
+          <Toolbar />
+        </AppBar>
         <PageContainer>{children}</PageContainer>
       </PageWrapper>
     </ThemeProvider>
