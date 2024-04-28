@@ -1,4 +1,6 @@
 import { create } from "zustand";
+
+import { PROJECTS } from "../util/data";
 import { Project, Task } from "../util/types";
 import {
   addProject,
@@ -7,7 +9,6 @@ import {
   deleteTaskFromProject,
   getCurrentProject,
 } from "./store-helpers";
-import { PROJECTS } from "../util/data";
 
 export type State = {
   projects: Project[];
@@ -56,6 +57,9 @@ export const useDisplayProject = () =>
   useProjectStore((state) =>
     getCurrentProject(state.projects, state.selectedId)
   ) as Project;
+
+export const useSelectedId = () =>
+  useProjectStore((state) => state.selectedId);
 
 export const useProjectActions = () =>
   useProjectStore((state) => state.actions);

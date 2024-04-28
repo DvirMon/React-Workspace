@@ -6,12 +6,15 @@ import {
   Typography,
 } from "@mui/material";
 import { Project } from "../../util/types";
+import { useSelectedId } from "../../store/store";
 
 interface SidebarProps {
   projects: Project[];
 }
 
 export default function Sidebar({ projects }: SidebarProps) {
+  const selectedId = useSelectedId();
+
   const projectsSize = projects.length;
 
   return (
@@ -22,8 +25,8 @@ export default function Sidebar({ projects }: SidebarProps) {
           : "No Project Exist"}
       </Typography>
       <List className="h-full">
-        {projects.map(({ title, tasks }: Project, index) => (
-          <ListItemButton key={index}>
+        {projects.map(({ title, tasks, id }: Project, index) => (
+          <ListItemButton key={index} selected={id === selectedId}>
             <ListItem disablePadding>
               <ListItemText
                 primary={title}
