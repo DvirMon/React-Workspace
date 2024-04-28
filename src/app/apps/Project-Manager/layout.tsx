@@ -15,16 +15,13 @@ const RouteGuard = ({ children }: { children: React.ReactNode }) => {
     }
   }, [hasProjects]);
 
-  if (!hasProjects) {
-    return <>{children}</>;
-  }
+  return <>{children}</>;
 };
 export default function ProjectManagerLayout({
   children,
 }: {
   children: ReactNode;
-  }) {
-  
+}) {
   return (
     <RouteGuard>
       <PageContainer>{children}</PageContainer>

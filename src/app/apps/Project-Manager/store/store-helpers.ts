@@ -14,7 +14,7 @@ export const addTaskToProject = (
 ): State => ({
   ...state,
   projects: [
-    ...updateProject(
+    ...updateProjects(
       state.projects,
       setProject(project, setTasks(project, newTask))
     ),
@@ -33,7 +33,7 @@ export const deleteTaskFromProject = (
 ): State => ({
   ...state,
   projects: [
-    ...updateProject(
+    ...updateProjects(
       state.projects,
       setProject(project, deleteItemByIndex(project.tasks, indexToDelete))
     ),
@@ -66,7 +66,7 @@ function setProject(project: Project, tasks: Task[]): Project {
   return { ...project, tasks };
 }
 
-function updateProject(items: Project[], project: Project): Project[] {
+function updateProjects(items: Project[], project: Project): Project[] {
   return items.map((p) => {
     if (compareById(p, project)) {
       return {
@@ -74,6 +74,7 @@ function updateProject(items: Project[], project: Project): Project[] {
         ...project,
       };
     }
+
     return p;
   });
 }

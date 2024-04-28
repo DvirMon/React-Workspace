@@ -28,14 +28,7 @@ type Action = {
 const useProjectStore = create<State & Action>((set) => ({
   projects: [
     {
-      id: uuidv4(),
-      title: "Learning React",
-      description: "Learn React from the group up",
-      dueDate: dayjs(new Date()),
-      tasks: [...TASKS],
-    },
-    {
-      id: uuidv4(),
+      id: "3285e09c-7D63-4a3c-8c05-25e6fc4d2a61",
       title: "Learning React",
       description: "Learn React from the group up",
       dueDate: dayjs(new Date()),

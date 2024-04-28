@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import {
   useDisplayProject,
+  useHasProjects,
   useProjectActions,
   useProjects,
 } from "../store/store";
@@ -16,9 +17,12 @@ import ProjectTasksList from "./components/project-tasks-list";
 export default function ProjectsPage() {
   const projects = useProjects();
   const displayProject = useDisplayProject();
-  
+  const router = useRouter();
+  const hasProjects = useHasProjects();
+
   const { addTaskToProject, deleteTaskFromProject, deleteProject } =
     useProjectActions();
+
 
   function onAddTask(task: Task): void {
     addTaskToProject(displayProject, task);

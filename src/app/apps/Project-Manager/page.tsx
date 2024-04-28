@@ -2,9 +2,11 @@
 
 import { Button, Typography } from "@mui/material";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useHasProjects } from "./store/store";
 
 export default function ProjectManagerPage() {
-  
   return (
     <div className="flex flex-col justify-center h-full">
       <section className="flex flex-col justify-center items-center gap-6">
