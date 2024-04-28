@@ -16,6 +16,7 @@ export type State = {
 
 type Action = {
   actions: {
+    setSelectedId: (id: string) => void;
     addProject: (newProject: Project) => void;
     addTaskToProject: (project: Project, newTask: Task) => void;
     deleteTaskFromProject: (project: Project, indexToDelete: number) => void;
@@ -24,11 +25,15 @@ type Action = {
 };
 
 const useProjectStore = create<State & Action>((set) => ({
-  projects: [
-   ...PROJECTS
-  ],
+  projects: [...PROJECTS],
   selectedId: "",
   actions: {
+    setSelectedId: (id: string) =>
+      set((state) => ({
+        ...state,
+        selectedId: id,
+      })),
+
     addProject: (newProject: Project) =>
       set((state) => addProject(state, newProject)),
 
