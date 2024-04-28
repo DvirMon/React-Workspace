@@ -9,6 +9,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import Link from "next/link";
 import * as React from "react";
 
@@ -20,6 +21,7 @@ export const routes = {
   ticTacToe: "/apps/Tic-Tac-Toe",
   investment: "/apps/Investment-Calculator",
   countdown: "/apps/Countdown",
+  managing: "/apps/Project-Manager",
 };
 
 const menuItems = [
@@ -32,6 +34,7 @@ const secondaryItems = [
   { icon: <Grid3x3Icon />, text: "Tic Tac Toe", link: routes.ticTacToe },
   { icon: <CalculateIcon />, text: "Calculator", link: routes.investment },
   { icon: <HourglassBottomIcon />, text: "Countdown", link: routes.countdown },
+  { icon: <AppRegistrationIcon />, text: "Project Managing", link: routes.managing },
 ];
 
 export const mainListItems = (

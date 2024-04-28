@@ -6,25 +6,12 @@ import {
   TableRow,
 } from "@mui/material";
 import TableContainer from "@mui/material/TableContainer";
-import { DataGrid, GridValidRowModel } from "@mui/x-data-grid";
+import { GridValidRowModel } from "@mui/x-data-grid";
 import { GridApiCommunity } from "@mui/x-data-grid/internals";
 import { MutableRefObject } from "react";
-import { Columns, FieldFormats } from "./types";
 import { v4 as uuidv4 } from "uuid";
+import { Columns, FieldFormats } from "./types";
 
-import {
-  GridRowsProp,
-  GridRowModesModel,
-  GridRowModes,
-  GridColDef,
-  GridToolbarContainer,
-  GridActionsCellItem,
-  GridEventListener,
-  GridRowId,
-  GridRowModel,
-  GridRowEditStopReasons,
-  GridSlots,
-} from '@mui/x-data-grid';
 
 function CellData<T>({
   col,
