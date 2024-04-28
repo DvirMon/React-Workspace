@@ -1,27 +1,32 @@
-import useGuard from "@/hooks/useGuard";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 interface RouteGuardProps {
   children: React.ReactNode;
-  useGuardState: () => boolean;
-  navigate: (isRoute: boolean, router: AppRouterInstance) => void;
+  shouldRedirect: boolean;
+  destination: string;
+  shouldRender?: boolean;
 }
-
 
 export default function RouteGuard({
   children,
   shouldRedirect,
   destination,
   shouldRender = true,
-}: {
-  children: React.ReactNode;
-  shouldRedirect: boolean;
-  destination: string;
-  shouldRender?: boolean;
-}) {
+}: RouteGuardProps) {
   useGuard(shouldRedirect, destination);
 
   if (shouldRender) {
     return <>{children}</>;
   }
 }
+
+const useGuard = (shouldRedirect: boolean, destination: string) => {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (shouldRedirect) {
+      router.push(destination);
+    }
+  }, [shouldRedirect, destination, router]);
+};
