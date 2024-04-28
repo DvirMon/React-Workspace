@@ -18,19 +18,15 @@ export default function NewProjectPage() {
   }
 
   return (
-    <div className="flex flex-row  h-full">
-      <article className="w-full flex flex-col justify-center items-center h-full">
-        <div className="w-1/2 flex flex-col gap-4">
-          <Button
-            className="text-2xl flex self-end"
-            variant="contained"
-            type="button"
-            onClick={() => router.push(routes.root)}>
-            Cancel
-          </Button>
-          <ProjectForm setProjects={handleSubmit} />
-        </div>
-      </article>
+    <div className="w-1/2 flex flex-col gap-4">
+      <Button
+        className="text-2xl flex self-end"
+        variant="contained"
+        type="button"
+        onClick={() => router.push(routes.root)}>
+        Cancel
+      </Button>
+      <ProjectForm setProjects={handleSubmit} />
     </div>
   );
 }
