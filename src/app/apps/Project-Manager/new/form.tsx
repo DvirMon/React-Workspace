@@ -1,14 +1,13 @@
 import FormField from "@/app/ui/Form/form-field";
-import { Button, Link } from "@mui/material";
-import { FieldError, useForm } from "react-hook-form";
-import { routes } from "../routes";
-import { DEFAULT_VALUES, FORM_INPUTS, NewProjectScheme } from "./constants";
-import { FormData } from "./types";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { FieldError, useForm } from "react-hook-form";
+import { DEFAULT_VALUES, FORM_INPUTS, NewProjectScheme } from "./constants";
+import { Project } from "../util/types";
 
 interface ProjectFormProps {
-  setProjects: (data: FormData) => void;
+  setProjects: (data: Project) => void;
 }
 
 export default function ProjectForm({ setProjects }: ProjectFormProps) {
@@ -18,13 +17,13 @@ export default function ProjectForm({ setProjects }: ProjectFormProps) {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm<Project>({
     mode: "onBlur",
     defaultValues: DEFAULT_VALUES,
     resolver: zodResolver(NewProjectScheme),
   });
 
-  function onSubmit(formData: FormData) {
+  function onSubmit(formData: Project) {
     setProjects(formData);
   }
 
@@ -37,7 +36,7 @@ export default function ProjectForm({ setProjects }: ProjectFormProps) {
           key={props.name}
           control={control}
           props={props}
-          error={errors[props.name as keyof FormData] as FieldError}
+          error={errors[props.name as keyof Project] as FieldError}
         />
       ))}
       <footer className="w-full flex flex-row justify-end gap-4">
