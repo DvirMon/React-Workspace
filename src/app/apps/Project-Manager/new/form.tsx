@@ -47,8 +47,6 @@ export default function ProjectForm({ setProjects }: ProjectFormProps) {
           onClick={() => router.back()}>
           Cancel
         </Button>
-        {/* <Link href={routes.root}>
-        </Link> */}
         <Button className="text-2xl" variant="contained" type="submit">
           Submit
         </Button>

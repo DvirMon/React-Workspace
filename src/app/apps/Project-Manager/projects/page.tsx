@@ -1,6 +1,6 @@
 "use client";
 
-import { Divider, Typography } from "@mui/material";
+import { Divider, Stack, Typography } from "@mui/material";
 import { useEffect } from "react";
 import {
   useDisplayProject,
@@ -43,11 +43,14 @@ export default function ProjectsPage() {
   }
 
   return (
-    <div className="flex flex-row h-full">
-      <nav className="w-1/3 flex flex-col justify-start p-4">
+    <Stack
+      direction="row"
+      divider={<Divider orientation="vertical" flexItem />}
+      spacing={2}>
+      <nav className="w-2/8 flex flex-col justify-start p-4">
         <ProjectSidebar projects={projects} />
       </nav>
-      <main className="w-full flex flex-col gap-4 h-full p-4">
+      <main className="w-2/3 flex flex-col gap-4 h-full p-4">
         <ProjectInfo
           {...displayProject}
           onDeleteProject={handleDeleteProject}
@@ -68,6 +71,6 @@ export default function ProjectsPage() {
           ))}
         </div>
       </main>
-    </div>
+    </Stack>
   );
 }
