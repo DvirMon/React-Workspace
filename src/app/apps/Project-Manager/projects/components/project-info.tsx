@@ -1,5 +1,5 @@
-import { Button, Typography } from "@mui/material";
-import React from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { IconButton, Typography } from "@mui/material";
 import { Project } from "../../util/types";
 
 interface ProjectInfoProps extends Project {
@@ -20,12 +20,13 @@ export default function ProjectInfo({
           <Typography className="capitalize" variant="h3">
             {title}
           </Typography>
-          <Button
-            className="text-lg"
-            variant="contained"
+
+          <IconButton
+            aria-label="delete"
+            className="self-center"
             onClick={() => onDeleteProject(id)}>
-            Delete
-          </Button>
+            <DeleteIcon />
+          </IconButton>
         </section>
         <Typography className="text-slate-400" variant="h6">
           {dueDate.format("MMM DD, YYYY")}

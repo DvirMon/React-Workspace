@@ -18,16 +18,21 @@ export default function ProjectTaskForm({ onAddTask }: TasksFormProps) {
     <form
       className="w-full flex justify-between"
       onSubmit={handleSubmit((data) => onSubmit(data))}>
-      <TextField
-        {...register("description")}
-        name="description"
-        label="new task"
-        type="text"
-        required
-      />
-      <Button type="submit" className="text-xl">
-        Add New Task
-      </Button>
+      <section className="w-3/4">
+        <TextField
+          {...register("description")}
+          fullWidth
+          multiline
+          minRows={3}
+          name="description"
+          label="new task"
+          type="text"
+          required
+        />
+      </section>
+        <Button type="submit" variant="contained" className="text-lg self-center">
+          Add New Task
+        </Button>
     </form>
   );
 }
