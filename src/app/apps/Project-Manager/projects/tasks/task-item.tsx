@@ -43,7 +43,7 @@ export default function ProjectTaskItem({ task, onClear }: TaskProps) {
           />
         )}
       </CardContent>
-      <CardActions>
+      <CardActions className="items-start">
         <IconButton aria-label="edit" onClick={handleEdit}>
           <EditIcon />
         </IconButton>
