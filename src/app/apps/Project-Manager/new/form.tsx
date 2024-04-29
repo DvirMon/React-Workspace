@@ -1,23 +1,22 @@
-import InputField from "@/app/ui/Form/input-field";
+import FormField from "@/app/ui/Form/input-field";
 import { Button, Link } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { routes } from "../routes";
-import { Project } from "../util/types";
 import { DEFAULT_VALUES, FORM_INPUTS } from "./constants";
+import { FormData } from "./types";
 
 interface ProjectFormProps {
-  setProjects: (data: Project) => void;
+  setProjects: (data: FormData) => void;
 }
 
 export default function ProjectForm({ setProjects }: ProjectFormProps) {
   const {
     control,
-    reset,
     handleSubmit,
     formState: { errors },
-  } = useForm<Project>({ defaultValues: DEFAULT_VALUES });
+  } = useForm<FormData>({ defaultValues: DEFAULT_VALUES });
 
-  function onSubmit(formData: Project) {
+  function onSubmit(formData: FormData) {
     setProjects(formData);
   }
 
@@ -26,7 +25,7 @@ export default function ProjectForm({ setProjects }: ProjectFormProps) {
       className="w-full flex flex-col justify-center items-center gap-6"
       onSubmit={handleSubmit((val) => onSubmit(val))}>
       {FORM_INPUTS.map((props) => (
-        <InputField key={props.name} control={control} props={props} />
+        <FormField key={props.name} control={control} props={props} />
       ))}
       <footer className="w-full flex flex-row justify-end gap-4">
         <Link href={routes.root}>

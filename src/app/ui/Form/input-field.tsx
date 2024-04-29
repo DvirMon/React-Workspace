@@ -1,7 +1,6 @@
 import {
-  StandardTextFieldProps,
   TextField,
-  TextFieldProps,
+  TextFieldProps
 } from "@mui/material";
 import {
   DatePickerProps,
@@ -10,22 +9,21 @@ import {
 } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
-import { Control, Controller, ControllerProps } from "react-hook-form";
-
-export type InputFieldProps = TextFieldProps | DatePickerProps<any>;
+import { Control, Controller } from "react-hook-form";
+import { FormFieldProps } from "./types";
 
 const InputWrapper = ({ children }: { children: React.ReactNode }) => {
   return <section className="w-full flex flex-col">{children}</section>;
 };
 
-export default function InputField({
+export default function FormField({
   props,
   control,
 }: {
-  props: InputFieldProps;
+  props: FormFieldProps;
   control: Control<any, any>;
 }) {
-  const { type, label, name } = props as TextFieldProps;
+  const { type, name, error } = props as TextFieldProps;
 
   switch (type) {
     case "date":
@@ -45,29 +43,15 @@ export default function InputField({
           </LocalizationProvider>
         </InputWrapper>
       );
-    case "number":
-      return (
-        <InputWrapper>
-          <Controller
-            render={({ field }) => (
-              <TextField
-                fullWidth
-                variant="outlined"
-                {...field}
-                {...(props as TextFieldProps)}
-              />
-            )}
-            control={control}
-            name={name as string}
-          />
-        </InputWrapper>
-      );
     default:
       return (
         <InputWrapper>
           <Controller
             render={({ field }) => (
               <TextField
+                type={type}
+                error={error}
+                helperText="error"
                 fullWidth
                 variant="outlined"
                 {...field}

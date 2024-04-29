@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 
-export interface Project {
+export interface Project  {
   id: string;
   title: string;
   description: string;

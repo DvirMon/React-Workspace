@@ -49,8 +49,6 @@ export default function AppToolbar({
   const pathname = usePathname();
   const breadcrumbs = separateRoute(pathname);
 
-  console.log(breadcrumbs);
-
   return (
     <AppBar position="absolute" open={isOpen} width={width}>
       <Toolbar
