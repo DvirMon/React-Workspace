@@ -1,6 +1,9 @@
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
+import Link from "next/link";
+import { routes } from "../../routes";
 import { Project } from "../../util/types";
 
 interface ProjectInfoProps extends Project {
@@ -21,13 +24,19 @@ export default function ProjectInfo({
           <Typography className="capitalize" variant="h3">
             {title}
           </Typography>
-
-          <IconButton
-            aria-label="delete"
-            className="self-center"
-            onClick={() => onDeleteProject(id)}>
-            <DeleteIcon />
-          </IconButton>
+          <section>
+            <IconButton aria-label="edit" className="self-center">
+              <Link href={routes.new}>
+                <EditIcon />
+              </Link>
+            </IconButton>
+            <IconButton
+              aria-label="delete"
+              className="self-center"
+              onClick={() => onDeleteProject(id)}>
+              <DeleteIcon />
+            </IconButton>
+          </section>
         </section>
         <Typography className="text-slate-400" variant="h6">
           {dueDate.format("MMM DD, YYYY")}

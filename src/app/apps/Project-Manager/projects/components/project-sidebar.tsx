@@ -44,13 +44,7 @@ export default function ProjectSidebar({ projects }: SidebarProps) {
           <ListItem
             key={index}
             disablePadding
-            secondaryAction={
-              <IconButton edge="end" aria-label="edit">
-                <Link href={routes.new}>
-                  <EditIcon />
-                </Link>
-              </IconButton>
-            }>
+     >
             <ListItemButton
               className="mb-4 mt-4"
               selected={id === selectedId}

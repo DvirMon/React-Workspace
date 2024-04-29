@@ -63,11 +63,11 @@ export default function AppDrawer({
   return (
     <Drawer variant="permanent" width={width} open={isOpen}>
       <Toolbar className="p-2">
-        <Stack className="w-full items-center" direction="row" spacing={1}>
+        <Stack className="w-full items-end" direction="row" spacing={1}>
           <Image
             alt="ReactJs"
-            width={40}
-            height={40}
+            width={35}
+            height={35}
             src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg"
           />
           <Typography variant="h6">React Workspace</Typography>
