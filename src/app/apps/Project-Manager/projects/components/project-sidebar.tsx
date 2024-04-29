@@ -45,7 +45,7 @@ export default function ProjectSidebar({ projects }: SidebarProps) {
             key={index}
             disablePadding
             secondaryAction={
-              <IconButton edge="end" aria-label="delete">
+              <IconButton edge="end" aria-label="edit">
                 <Link href={routes.new}>
                   <EditIcon />
                 </Link>

@@ -1,8 +1,10 @@
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import {
-  Button,
   Card,
   CardActions,
   CardContent,
+  IconButton,
   Typography,
 } from "@mui/material";
 import { Task } from "../../util/types";
@@ -22,14 +24,17 @@ export default function ProjectTaskItem({ task, onClear }: TaskProps) {
   return (
     <Card className="flex justify-between">
       <CardContent>
-        <Typography  sx={{ fontSize: 14 }} gutterBottom>
+        <Typography sx={{ fontSize: 14 }} gutterBottom>
           {description}{" "}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="large" onClick={handleClear}>
-          Clear
-        </Button>
+        <IconButton aria-label="edit">
+          <EditIcon />
+        </IconButton>
+        <IconButton aria-label="delete" onClick={handleClear}>
+          <DeleteIcon />
+        </IconButton>
       </CardActions>
     </Card>
   );
