@@ -1,7 +1,4 @@
-import {
-  TextField,
-  TextFieldProps
-} from "@mui/material";
+import { TextField, TextFieldProps } from "@mui/material";
 import {
   DatePickerProps,
   DesktopDatePicker,
@@ -9,21 +6,17 @@ import {
 } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
-import { Control, Controller } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import { FormFieldProps } from "./types";
 
 const InputWrapper = ({ children }: { children: React.ReactNode }) => {
   return <section className="w-full flex flex-col">{children}</section>;
 };
 
-export default function FormField({
-  props,
-  control,
-}: {
-  props: FormFieldProps;
-  control: Control<any, any>;
-}) {
-  const { type, name, error } = props as TextFieldProps;
+export default function FormField({ props, control, error }: FormFieldProps) {
+  const { type, name } = props as TextFieldProps;
+
+  const hasError = !!error
 
   switch (type) {
     case "date":
@@ -50,8 +43,8 @@ export default function FormField({
             render={({ field }) => (
               <TextField
                 type={type}
-                error={error}
-                helperText="error"
+                error={hasError}
+                helperText={error?.message}
                 fullWidth
                 variant="outlined"
                 {...field}
