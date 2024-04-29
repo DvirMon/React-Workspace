@@ -19,9 +19,9 @@ export default function ProjectManagerPage() {
     setPathTheme("projectManaging");
   });
 
-  // useEffect(() => {
-  //   loadProjects(PROJECTS);
-  // });
+  useEffect(() => {
+    loadProjects(PROJECTS);
+  });
 
   const titleText = projects.length
     ? "You have " + projects.length + " Open Projects"

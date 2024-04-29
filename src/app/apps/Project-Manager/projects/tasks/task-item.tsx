@@ -12,7 +12,7 @@ interface TaskProps {
   onClear: () => void;
 }
 
-export default function TaskItem({ task, onClear }: TaskProps) {
+export default function ProjectTaskItem({ task, onClear }: TaskProps) {
   const { id, description } = task;
 
   function handleClear() {

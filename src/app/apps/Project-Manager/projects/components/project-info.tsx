@@ -14,10 +14,12 @@ export default function ProjectInfo({
   onDeleteProject,
 }: ProjectInfoProps) {
   return (
-    <div className="w-full flex flex-col gap-4">
+    <article className="w-full flex flex-col gap-4">
       <section className="w-full flex flex-col gap-1">
         <section className="w-full flex justify-between">
-          <Typography className="capitalize" variant="h3">{title}</Typography>
+          <Typography className="capitalize" variant="h3">
+            {title}
+          </Typography>
           <Button
             className="text-lg"
             variant="contained"
@@ -25,9 +27,13 @@ export default function ProjectInfo({
             Delete
           </Button>
         </section>
-        <Typography className="text-slate-400" variant="h6">{dueDate.format("MMM DD, YYYY")}</Typography>
+        <Typography className="text-slate-400" variant="h6">
+          {dueDate.format("MMM DD, YYYY")}
+        </Typography>
       </section>
-      <Typography className="whitespace-pre-line"  variant="h6">{description}</Typography>
-    </div>
+      <Typography className="whitespace-pre-line" variant="h6">
+        {description}
+      </Typography>
+    </article>
   );
 }

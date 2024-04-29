@@ -1,16 +1,17 @@
 "use client";
 
-import { Divider } from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 import { useEffect } from "react";
 import {
   useDisplayProject,
   useProjectActions,
-  useProjects
+  useProjects,
 } from "../store/store";
 import { Task } from "../util/types";
 import ProjectInfo from "./components/project-info";
-import ProjectTasksList from "./components/project-tasks-list";
 import ProjectSidebar from "./components/project-sidebar";
+import ProjectTaskItem from "./tasks/task-item";
+import ProjectTaskForm from "./tasks/tasks-form";
 
 export default function ProjectsPage() {
   const projects = useProjects();
@@ -46,15 +47,27 @@ export default function ProjectsPage() {
       <nav className="w-1/3 flex flex-col justify-start p-4">
         <ProjectSidebar projects={projects} />
       </nav>
-      <article className="w-full flex flex-col gap-4 h-full p-4">
-        <ProjectInfo {...displayProject} onDeleteProject={handleDeleteProject} />
-        <Divider />
-        <ProjectTasksList
-          tasks={displayProject.tasks}
-          onAddTask={handleAddTask}
-          onClearTask={handleClearTask}
+      <main className="w-full flex flex-col gap-4 h-full p-4">
+        <ProjectInfo
+          {...displayProject}
+          onDeleteProject={handleDeleteProject}
         />
-      </article>
+        <Divider />
+
+        <Typography variant="h3">Tasks</Typography>
+
+        <ProjectTaskForm onAddTask={handleAddTask} />
+
+        <div className="flex flex-col gap-4">
+          {displayProject.tasks.map((task: Task, index) => (
+            <ProjectTaskItem
+              key={task.id}
+              task={task}
+              onClear={() => handleClearTask(index)}
+            />
+          ))}
+        </div>
+      </main>
     </div>
   );
 }

@@ -8,15 +8,18 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import { Controller } from "react-hook-form";
 import { FormFieldProps } from "./types";
+import { useMemo } from "react";
 
 const InputWrapper = ({ children }: { children: React.ReactNode }) => {
   return <section className="w-full flex flex-col">{children}</section>;
 };
 
 export default function FormField({ props, control, error }: FormFieldProps) {
+  
+  const hasError = useMemo(() => !!error, [error]);
+
   const { type, name } = props as TextFieldProps;
 
-  const hasError = !!error
 
   switch (type) {
     case "date":
