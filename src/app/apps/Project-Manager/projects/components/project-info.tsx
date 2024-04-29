@@ -1,5 +1,6 @@
 import DeleteIcon from "@mui/icons-material/Delete";
-import { IconButton, Typography } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
 import { Project } from "../../util/types";
 
 interface ProjectInfoProps extends Project {
