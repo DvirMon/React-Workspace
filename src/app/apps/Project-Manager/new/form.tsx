@@ -5,12 +5,15 @@ import { routes } from "../routes";
 import { DEFAULT_VALUES, FORM_INPUTS, NewProjectScheme } from "./constants";
 import { FormData } from "./types";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 
 interface ProjectFormProps {
   setProjects: (data: FormData) => void;
 }
 
 export default function ProjectForm({ setProjects }: ProjectFormProps) {
+  const router = useRouter();
+
   const {
     control,
     handleSubmit,
@@ -25,8 +28,6 @@ export default function ProjectForm({ setProjects }: ProjectFormProps) {
     setProjects(formData);
   }
 
-  console.log(errors);
-
   return (
     <form
       className="w-full flex flex-col justify-center items-center gap-6"
@@ -40,11 +41,14 @@ export default function ProjectForm({ setProjects }: ProjectFormProps) {
         />
       ))}
       <footer className="w-full flex flex-row justify-end gap-4">
-        <Link href={routes.root}>
-          <Button className="text-2xl " type="button">
-            Cancel
-          </Button>
-        </Link>
+        <Button
+          className="text-2xl "
+          type="button"
+          onClick={() => router.back()}>
+          Cancel
+        </Button>
+        {/* <Link href={routes.root}>
+        </Link> */}
         <Button className="text-2xl" variant="contained" type="submit">
           Submit
         </Button>
