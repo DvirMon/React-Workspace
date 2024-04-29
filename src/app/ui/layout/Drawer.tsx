@@ -1,10 +1,19 @@
 "use client";
+import { usePathname } from "next/navigation";
 
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import { Divider, IconButton, List, Toolbar } from "@mui/material";
+import {
+  Divider,
+  IconButton,
+  List,
+  Stack,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 import { styled } from "@mui/material/styles";
-import { mainListItems, secondaryListItems } from "./navigation";
+import Image from "next/image";
+import MenuItem, { secondaryItems } from "./MenuItem";
 
 interface AppDrawerProps {
   width?: number;
@@ -40,9 +49,11 @@ const Drawer = styled(MuiDrawer, {
 
 export default function AppDrawer({
   isOpen = true,
-  width = 240,
+  width = 260,
   setOpen,
 }: AppDrawerProps) {
+  const pathname = usePathname();
+
   const toggleDrawer = () => {
     if (setOpen) {
       setOpen(!isOpen);
@@ -51,13 +62,16 @@ export default function AppDrawer({
 
   return (
     <Drawer variant="permanent" width={width} open={isOpen}>
-      <Toolbar
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-end",
-          px: [1],
-        }}>
+      <Toolbar className="p-2">
+        <Stack className="w-full items-center" direction="row" spacing={1}>
+          <Image
+            alt="ReactJs"
+            width={40}
+            height={40}
+            src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg"
+          />
+          <Typography variant="h6">React Workspace</Typography>
+        </Stack>
         <IconButton onClick={toggleDrawer}>
           <ChevronLeftIcon />
         </IconButton>
@@ -66,7 +80,9 @@ export default function AppDrawer({
       <List component="nav">
         {/* {mainListItems}
         <Divider sx={{ my: 1 }} /> */}
-        {secondaryListItems}
+        {secondaryItems.map((item, index) => (
+          <MenuItem key={index} {...item} pathname={pathname} />
+        ))}
       </List>
     </Drawer>
   );
