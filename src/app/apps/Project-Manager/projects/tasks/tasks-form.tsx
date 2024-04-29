@@ -25,7 +25,7 @@ export default function ProjectTaskForm({ onAddTask }: TasksFormProps) {
           multiline
           minRows={3}
           name="description"
-          label="new task"
+          label="Add new task"
           type="text"
           required
         />

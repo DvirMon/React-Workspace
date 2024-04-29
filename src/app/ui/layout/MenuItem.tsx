@@ -1,3 +1,4 @@
+import { routes } from "@/app/routes";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import CalculateIcon from "@mui/icons-material/Calculate";
@@ -13,16 +14,6 @@ import ListItemText from "@mui/material/ListItemText";
 import Link from "next/link";
 import { useMemo } from "react";
 
-export const routes = {
-  dashboard: "/",
-  orders: "/orders",
-  customers: "/customers",
-  reports: "/reports",
-  ticTacToe: "/apps/Tic-Tac-Toe",
-  investment: "/apps/Investment-Calculator",
-  countdown: "/apps/Countdown",
-  projectManaging: "/apps/Project-Manager",
-};
 
 interface MenuItemProps {
   icon: JSX.Element;

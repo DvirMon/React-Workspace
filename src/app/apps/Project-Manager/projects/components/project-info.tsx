@@ -10,6 +10,9 @@ interface ProjectInfoProps extends Project {
   onDeleteProject: (id: string) => void;
 }
 
+
+//TODO - 1. ask danit on delete/edit location // 
+//TODO - 2. ask danit on edit form - inline or new page // 
 export default function ProjectInfo({
   id,
   title,
