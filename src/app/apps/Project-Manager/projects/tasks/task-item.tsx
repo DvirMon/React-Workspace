@@ -1,6 +1,7 @@
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import {
+  Button,
   Card,
   CardActions,
   CardContent,
@@ -8,48 +9,101 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Task } from "../../util/types";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Task } from "../../util/types";
 
 interface TaskProps {
   task: Task;
-  onClear: () => void;
+  index: number;
+  onDelete: () => void;
+  onUpdateTask: (task: Task, index: number) => void;
 }
 
-export default function ProjectTaskItem({ task, onClear }: TaskProps) {
+function isDescriptionEquals(task1: Task, task2: Task): boolean {
+  return task1.description.trim() === task2.description.trim();
+}
+function isDescriptionEmpty(task: Task): boolean {
+  return task.description === "";
+}
+
+export default function ProjectTaskItem({
+  task,
+  index,
+  onDelete,
+  onUpdateTask,
+}: TaskProps) {
   const [isEdit, setEdit] = useState(false);
+  const [taskState, setTaskState] = useState(task);
+  const { register, reset } = useForm({ defaultValues: task });
 
-  const { id, description } = task;
-
-  function handleClear() {
-    onClear();
+  function handleDelete() {
+    onDelete();
   }
 
   function handleEdit() {
-    setEdit((val) => !val);
+    setEdit(() => true);
+  }
+
+  function handleChange(value: string) {
+    setTaskState((task) => ({ ...task, description: value }));
+  }
+
+  function handleSave() {
+
+    if (isDescriptionEmpty(taskState)) {
+      onDelete();
+    } else if (!isDescriptionEquals(taskState, task)) {
+      onUpdateTask(taskState, index);
+    }
+
+    setEdit(() => false);
+  }
+
+  function handleCancel() {
+    reset(task);
+    setEdit(() => false);
   }
 
   return (
     <Card className="flex justify-between">
       <CardContent className="w-full">
         {!isEdit ? (
-          <Typography gutterBottom>{description}</Typography>
+          <Typography gutterBottom>{task.description}</Typography>
         ) : (
           <TextField
+            {...register("description", {
+              onChange: (e) => handleChange(e.target.value),
+            })}
             fullWidth
             multiline
             minRows={3}
-            defaultValue={description}
+            name="description"
+            type="text"
           />
         )}
       </CardContent>
       <CardActions className="items-start">
-        <IconButton aria-label="edit" onClick={handleEdit}>
-          <EditIcon />
-        </IconButton>
-        <IconButton aria-label="delete" onClick={handleClear}>
-          <DeleteIcon />
-        </IconButton>
+        {isEdit ? (
+          <>
+            <Button variant="outlined" onClick={handleSave}>
+              Save
+            </Button>
+
+            <Button variant="text" onClick={handleCancel}>
+              Cancel
+            </Button>
+          </>
+        ) : (
+          <>
+            <IconButton aria-label="edit" onClick={handleEdit}>
+              <EditIcon />
+            </IconButton>
+            <IconButton aria-label="delete" onClick={handleDelete}>
+              <DeleteIcon />
+            </IconButton>
+          </>
+        )}
       </CardActions>
     </Card>
   );

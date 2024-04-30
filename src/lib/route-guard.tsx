@@ -26,7 +26,6 @@ const useGuard = (shouldRedirect: boolean, destination: string) => {
 
   useEffect(() => {
     if (shouldRedirect) {
-      console.log("shouldRedirect", shouldRedirect);
       router.push(destination);
     }
   }, [shouldRedirect, destination, router]);
