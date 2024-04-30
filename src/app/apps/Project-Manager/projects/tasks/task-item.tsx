@@ -15,9 +15,8 @@ import { Task } from "../../util/types";
 
 interface TaskProps {
   task: Task;
-  index: number;
   onDelete: () => void;
-  onUpdateTask: (task: Task, index: number) => void;
+  onUpdateTask: (task: Task) => void;
 }
 
 function isDescriptionEquals(task1: Task, task2: Task): boolean {
@@ -29,7 +28,6 @@ function isDescriptionEmpty(task: Task): boolean {
 
 export default function ProjectTaskItem({
   task,
-  index,
   onDelete,
   onUpdateTask,
 }: TaskProps) {
@@ -50,11 +48,10 @@ export default function ProjectTaskItem({
   }
 
   function handleSave() {
-
     if (isDescriptionEmpty(taskState)) {
       onDelete();
     } else if (!isDescriptionEquals(taskState, task)) {
-      onUpdateTask(taskState, index);
+      onUpdateTask(taskState);
     }
 
     setEdit(() => false);

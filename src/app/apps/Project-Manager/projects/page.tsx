@@ -13,15 +13,14 @@ import ProjectSidebar from "./components/project-sidebar";
 import ProjectTaskItem from "./tasks/task-item";
 import ProjectTaskForm from "./tasks/tasks-form";
 
-
 export default function ProjectsPage() {
   const projects = useProjects();
   const displayProject = useDisplayProject();
 
   const {
     addTaskToProject,
-    
     deleteTaskFromProject,
+    updateProjectTasks,
     deleteProject,
     setSelectedId,
     setFirstItemId,
@@ -35,9 +34,8 @@ export default function ProjectsPage() {
     addTaskToProject(displayProject, task);
   }
 
-  function handleUpdateTask(task: Task, index : number): void {
-    console.log(task);
-    // addTaskToProject(displayProject, task);
+  function handleUpdateTask(task: Task): void {
+    updateProjectTasks(displayProject, task);
   }
 
   function handleDeleteTask(indexToDelete: number): void {
@@ -73,7 +71,6 @@ export default function ProjectsPage() {
             <ProjectTaskItem
               key={task.id}
               task={task}
-              index={index}
               onDelete={() => handleDeleteTask(index)}
               onUpdateTask={handleUpdateTask}
             />

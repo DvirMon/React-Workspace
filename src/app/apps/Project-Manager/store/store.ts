@@ -8,6 +8,7 @@ import {
   deleteTaskFromProject,
   getCurrentProject,
   setFirstItemId,
+  updateProjectTasks,
 } from "./store-helpers";
 
 export type State = {
@@ -21,9 +22,10 @@ type Action = {
     setSelectedId: (id: string) => void;
     setFirstItemId: () => void;
     addProject: (newProject: Project) => void;
+    deleteProject: (id: string) => void;
     addTaskToProject: (project: Project, newTask: Task) => void;
     deleteTaskFromProject: (project: Project, indexToDelete: number) => void;
-    deleteProject: (id: string) => void;
+    updateProjectTasks: (displayProject : Project, updateTask: Task) => void;
   };
 };
 
@@ -50,13 +52,16 @@ const useProjectStore = create<State & Action>((set) => ({
     addProject: (newProject: Project) =>
       set((state) => addProject(state, newProject)),
 
+    deleteProject: (id: string) => set((state) => deleteProject(state, id)),
+
     addTaskToProject: (project: Project, newTask: Task) =>
       set((state) => addTaskToProject(state, project, newTask)),
 
     deleteTaskFromProject: (project: Project, indexToDelete: number) =>
       set((state) => deleteTaskFromProject(state, project, indexToDelete)),
 
-    deleteProject: (id: string) => set((state) => deleteProject(state, id)),
+    updateProjectTasks: (displayProject : Project, updateTask: Task) =>
+      set((state) => updateProjectTasks(state, displayProject, updateTask) ),
   },
 }));
 

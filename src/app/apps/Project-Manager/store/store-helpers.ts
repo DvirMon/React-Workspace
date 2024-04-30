@@ -14,7 +14,7 @@ export const addTaskToProject = (
 ): State => ({
   ...state,
   projects: [
-    ...updateProjects(
+    ...updateItems(
       state.projects,
       setProject(project, setTasks(project, newTask))
     ),
@@ -33,9 +33,23 @@ export const deleteTaskFromProject = (
 ): State => ({
   ...state,
   projects: [
-    ...updateProjects(
+    ...updateItems(
       state.projects,
       setProject(project, deleteItemByIndex(project.tasks, indexToDelete))
+    ),
+  ],
+});
+
+export const updateProjectTasks = (
+  state: State,
+  project: Project,
+  task: Task
+): State => ({
+  ...state,
+  projects: [
+    ...updateProjects(
+      state.projects,
+      setProject(project, updateItems(project.tasks, task))
     ),
   ],
 });
@@ -68,7 +82,7 @@ function setProject(project: Project, tasks: Task[]): Project {
 
 function updateProjects(items: Project[], project: Project): Project[] {
   return items.map((p) => {
-    if (compareById(p, project)) {
+    if (isIdEqual(p, project)) {
       return {
         ...p,
         ...project,
@@ -79,8 +93,27 @@ function updateProjects(items: Project[], project: Project): Project[] {
   });
 }
 
-function compareById(p1: Project, p2: Project): boolean {
-  return p1.id === p2.id;
+function updateItems<Entity extends { id: string }>(
+  items: Entity[],
+  itemToUpdate: Entity
+) {
+  return items.map((item: Entity) => {
+    if (isIdEqual(item, itemToUpdate)) {
+      return {
+        ...item,
+        ...itemToUpdate,
+      };
+    }
+
+    return item;
+  });
+}
+
+function isIdEqual<Entity extends { id: string }>(
+  entity1: Entity,
+  entity2: Entity
+): boolean {
+  return entity1.id === entity2.id;
 }
 
 function findProjectById(projects: Project[], id: string): Project | undefined {
