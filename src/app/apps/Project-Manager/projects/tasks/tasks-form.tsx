@@ -7,11 +7,12 @@ interface TasksFormProps {
 }
 
 export default function ProjectTaskForm({ onAddTask }: TasksFormProps) {
-  const { register, handleSubmit } = useForm<Task>();
+  const { register, handleSubmit, reset } = useForm<Task>();
 
   function onSubmit(data: FieldValues) {
     const task = { ...data, id: "" } as Task;
     onAddTask(task);
+    reset();
   }
 
   return (
@@ -30,9 +31,9 @@ export default function ProjectTaskForm({ onAddTask }: TasksFormProps) {
           required
         />
       </section>
-        <Button type="submit" variant="contained" className="text-lg self-center">
-          Add New Task
-        </Button>
+      <Button type="submit" variant="contained" className="text-lg self-center">
+        Add New Task
+      </Button>
     </form>
   );
 }
