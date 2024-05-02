@@ -1,3 +1,11 @@
+import {
+  addEntity,
+  deleteEntityById,
+  deleteEntityByIndex,
+  findEntityById,
+  updateEntities,
+  updateEntityByKey,
+} from "@/lib/entity.helpers";
 import { v4 as uuidv4 } from "uuid";
 import { Project, Task } from "../util/types";
 import { State } from "./store";
@@ -14,16 +22,16 @@ export const addTaskToProject = (
 ): State => ({
   ...state,
   projects: [
-    ...updateItems(
+    ...updateEntities(
       state.projects,
-      setProject(project, setTasks(project, newTask))
+      setProjectTasks(project, addEntity(project.tasks, newTask))
     ),
   ],
 });
 
 export const deleteProject = (state: State, id: string): State => ({
   ...state,
-  projects: [...deleteItemById(state.projects, id)],
+  projects: [...deleteEntityById(state.projects, id)],
 });
 
 export const deleteTaskFromProject = (
@@ -33,9 +41,9 @@ export const deleteTaskFromProject = (
 ): State => ({
   ...state,
   projects: [
-    ...updateItems(
+    ...updateEntities(
       state.projects,
-      setProject(project, deleteItemByIndex(project.tasks, indexToDelete))
+      setProjectTasks(project, deleteEntityByIndex(project.tasks, indexToDelete))
     ),
   ],
 });
@@ -47,76 +55,24 @@ export const updateProjectTasks = (
 ): State => ({
   ...state,
   projects: [
-    ...updateItems(
+    ...updateEntities(
       state.projects,
-      setProject(project, updateItems(project.tasks, task))
+      setProjectTasks(project, updateEntities(project.tasks, task))
     ),
   ],
 });
 
-function deleteItemByIndex<T>(items: T[], indexToDelete: number): T[] {
-  items.splice(indexToDelete, 1);
-  return [...items];
+function setProjectTasks(project: Project, tasks: Task[]): Project {
+  return updateEntityByKey(project, "tasks", tasks);
 }
 
-function deleteItemById<Entity extends { id: string }>(
-  items: Entity[],
-  id: string
-): Entity[] {
-  const indexToDelete = items.findIndex((item) => item.id === id);
-
-  if (indexToDelete < 0) {
-    return items;
-  }
-
-  return deleteItemByIndex(items, indexToDelete);
-}
-
-function setTasks(project: Project, newTask: Task): Task[] {
-  return [...project.tasks, { ...newTask }];
-}
-
-function setProject(project: Project, tasks: Task[]): Project {
-  return { ...project, tasks };
-}
-
-function updateItems<Entity extends { id: string }>(
-  items: Entity[],
-  itemToUpdate: Entity
-) {
-  return items.map((item: Entity) => {
-    if (isIdEqual(item, itemToUpdate)) {
-      return {
-        ...item,
-        ...itemToUpdate,
-      };
-    }
-
-    return item;
-  });
-}
-
-function isIdEqual<Entity extends { id: string }>(
-  entity1: Entity,
-  entity2: Entity
-): boolean {
-  return entity1.id === entity2.id;
-}
-
-function findItemById<Entity extends { id: string }>(
-  items: Entity[],
-  id: string
-): Entity | undefined {
-  return items.find((item) => item.id === id);
-}
 
 export function getCurrentProject(
   projects: Project[],
   id: string
 ): Project | undefined {
-  
   if (projects && id) {
-    return findItemById(projects, id);
+    return findEntityById(projects, id);
   }
   return projects?.length > 0 ? projects[0] : undefined;
 }
