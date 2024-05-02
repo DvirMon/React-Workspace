@@ -13,7 +13,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Task } from "../../util/types";
 
-interface TaskProps {
+interface ProjectTaskProps {
   task: Task;
   onDelete: () => void;
   onUpdateTask: (task: Task) => void;
@@ -30,7 +30,7 @@ export default function ProjectTaskItem({
   task,
   onDelete,
   onUpdateTask,
-}: TaskProps) {
+}: ProjectTaskProps) {
   const [isEdit, setEdit] = useState(false);
   const [taskState, setTaskState] = useState(task);
   const { register, reset } = useForm({ defaultValues: task });
