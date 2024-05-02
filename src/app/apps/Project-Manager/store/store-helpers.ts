@@ -1,3 +1,11 @@
+import {
+  addEntity,
+  deleteEntityById,
+  deleteEntityByIndex,
+  findEntityById,
+  updateEntities,
+  updateEntityByKey,
+} from "@/lib/entity.helpers";
 import { v4 as uuidv4 } from "uuid";
 import { Project, Task } from "../util/types";
 import { State } from "./store";
@@ -14,16 +22,16 @@ export const addTaskToProject = (
 ): State => ({
   ...state,
   projects: [
-    ...updateProjects(
+    ...updateEntities(
       state.projects,
-      setProject(project, setTasks(project, newTask))
+      setProjectTasks(project, addEntity(project.tasks, newTask))
     ),
   ],
 });
 
 export const deleteProject = (state: State, id: string): State => ({
   ...state,
-  projects: [...deleteItemById(state.projects, id)],
+  projects: [...deleteEntityById(state.projects, id)],
 });
 
 export const deleteTaskFromProject = (
@@ -33,66 +41,38 @@ export const deleteTaskFromProject = (
 ): State => ({
   ...state,
   projects: [
-    ...updateProjects(
+    ...updateEntities(
       state.projects,
-      setProject(project, deleteItemByIndex(project.tasks, indexToDelete))
+      setProjectTasks(project, deleteEntityByIndex(project.tasks, indexToDelete))
     ),
   ],
 });
 
-function deleteItemByIndex<T>(items: T[], indexToDelete: number): T[] {
-  items.splice(indexToDelete, 1);
-  return [...items];
+export const updateProjectTasks = (
+  state: State,
+  project: Project,
+  task: Task
+): State => ({
+  ...state,
+  projects: [
+    ...updateEntities(
+      state.projects,
+      setProjectTasks(project, updateEntities(project.tasks, task))
+    ),
+  ],
+});
+
+function setProjectTasks(project: Project, tasks: Task[]): Project {
+  return updateEntityByKey(project, "tasks", tasks);
 }
 
-function deleteItemById<Entity extends { id: string }>(
-  items: Entity[],
-  id: string
-): Entity[] {
-  const indexToDelete = items.findIndex((item) => item.id === id);
-
-  if (indexToDelete < 0) {
-    return items;
-  }
-
-  return deleteItemByIndex(items, indexToDelete);
-}
-
-function setTasks(project: Project, newTask: Task): Task[] {
-  return [...project.tasks, { ...newTask }];
-}
-
-function setProject(project: Project, tasks: Task[]): Project {
-  return { ...project, tasks };
-}
-
-function updateProjects(items: Project[], project: Project): Project[] {
-  return items.map((p) => {
-    if (compareById(p, project)) {
-      return {
-        ...p,
-        ...project,
-      };
-    }
-
-    return p;
-  });
-}
-
-function compareById(p1: Project, p2: Project): boolean {
-  return p1.id === p2.id;
-}
-
-function findProjectById(projects: Project[], id: string): Project | undefined {
-  return projects.find((p) => p.id === id);
-}
 
 export function getCurrentProject(
   projects: Project[],
   id: string
 ): Project | undefined {
   if (projects && id) {
-    return findProjectById(projects, id);
+    return findEntityById(projects, id);
   }
   return projects?.length > 0 ? projects[0] : undefined;
 }

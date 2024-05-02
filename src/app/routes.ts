@@ -1,6 +1,10 @@
 export const routes = {
   dashboard: "/",
-  order: "order",
-  customers: "customers",
-  reports: "reports",
+  orders: "/orders",
+  customers: "/customers",
+  reports: "/reports",
+  ticTacToe: "/apps/Tic-Tac-Toe",
+  investment: "/apps/Investment-Calculator",
+  countdown: "/apps/Countdown",
+  projectManaging: "/apps/Project-Manager",
 };

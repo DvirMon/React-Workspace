@@ -5,7 +5,6 @@ import { useProjectActions } from "../store/store";
 import { Project } from "../util/types";
 import ProjectForm from "./form";
 import { routes } from "../routes";
-import { Button } from "@mui/material";
 
 export default function NewProjectPage() {
   const { addProject } = useProjectActions();

@@ -1,14 +1,27 @@
 "use client";
 
+import { usePathThemeActions } from "@/hooks/usePathTheme";
 import { Button, Typography } from "@mui/material";
-import Link from "next/link";
-import { useHasProjects, useProjects } from "./store/store";
-import { routes } from "./routes";
 import Image from "next/image";
+import Link from "next/link";
+import { useEffect } from "react";
+import { routes } from "./routes";
+import { useHasProjects, useProjectActions, useProjects } from "./store/store";
+import { PROJECTS } from "./util/data";
 
 export default function ProjectManagerPage() {
   const projects = useProjects();
   const hasProjects = useHasProjects();
+  const { loadProjects } = useProjectActions();
+  const { setPathTheme } = usePathThemeActions();
+
+  useEffect(() => {
+    setPathTheme("projectManaging");
+  });
+
+  useEffect(() => {
+    loadProjects(PROJECTS);
+  });
 
   const titleText = projects.length
     ? "You have " + projects.length + " Open Projects"

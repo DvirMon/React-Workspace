@@ -20,7 +20,7 @@ export default function ProjectManagerLayout({
       <div className="h-full">
         <header className="h-16"></header>
         <main className="flex justify-center">
-          <article className="w-3/4">{children}</article>
+          <article className="w-2/3">{children}</article>
         </main>
       </div>
     </RouteGuard>
