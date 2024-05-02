@@ -47,7 +47,7 @@ export const updateProjectTasks = (
 ): State => ({
   ...state,
   projects: [
-    ...updateProjects(
+    ...updateItems(
       state.projects,
       setProject(project, updateItems(project.tasks, task))
     ),
@@ -80,19 +80,6 @@ function setProject(project: Project, tasks: Task[]): Project {
   return { ...project, tasks };
 }
 
-function updateProjects(items: Project[], project: Project): Project[] {
-  return items.map((p) => {
-    if (isIdEqual(p, project)) {
-      return {
-        ...p,
-        ...project,
-      };
-    }
-
-    return p;
-  });
-}
-
 function updateItems<Entity extends { id: string }>(
   items: Entity[],
   itemToUpdate: Entity
@@ -116,16 +103,20 @@ function isIdEqual<Entity extends { id: string }>(
   return entity1.id === entity2.id;
 }
 
-function findProjectById(projects: Project[], id: string): Project | undefined {
-  return projects.find((p) => p.id === id);
+function findItemById<Entity extends { id: string }>(
+  items: Entity[],
+  id: string
+): Entity | undefined {
+  return items.find((item) => item.id === id);
 }
 
 export function getCurrentProject(
   projects: Project[],
   id: string
 ): Project | undefined {
+  
   if (projects && id) {
-    return findProjectById(projects, id);
+    return findItemById(projects, id);
   }
   return projects?.length > 0 ? projects[0] : undefined;
 }
