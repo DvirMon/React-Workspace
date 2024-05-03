@@ -37,7 +37,8 @@ export default function ProjectManagerPage() {
           width={100}
           src={"/no-projects.png"}
           alt="no-projects-logo"
-        />{" "}
+          priority
+        />
         <Typography className="text-3xl">{titleText}</Typography>
         <Button variant="contained" className="text-xl">
           <Link href={hasProjects ? routes.projects : routes.new}>

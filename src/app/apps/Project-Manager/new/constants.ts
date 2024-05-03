@@ -21,7 +21,7 @@ export const FORM_INPUTS: InputFieldProps[] = [
   } as DateFieldProps<Dayjs>,
 ];
 
-export const DEFAULT_VALUES: DefaultValues<Partial<Project>> = {
+export const DEFAULT_VALUES: Partial<Project> = {
   title: "",
   description: "",
   dueDate: dayjs(new Date()),
