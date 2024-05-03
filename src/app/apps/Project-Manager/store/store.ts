@@ -1,5 +1,6 @@
 import { create } from "zustand";
 
+import { useShallow } from "zustand/react/shallow";
 import { Project, Task } from "../util/types";
 import {
   addProject,
@@ -12,7 +13,6 @@ import {
   updateProject,
   updateProjectTasks,
 } from "./store-helpers";
-import { useShallow } from "zustand/react/shallow";
 
 export type State = {
   projects: Project[];
@@ -36,7 +36,6 @@ type Action = {
 const useProjectStore = create<State & Action>((set) => ({
   projects: [],
   selectedId: "",
-  currentProject: null,
   actions: {
     loadProjects: (data: Project[]) =>
       set(() => ({
@@ -93,6 +92,17 @@ const useProjectStore = create<State & Action>((set) => ({
 
 export const useProjects = () => useProjectStore((state) => state.projects);
 
+export const useProjectsSidenav = () =>
+  useProjectStore(
+    useShallow((state) =>
+      state.projects.map((p) => ({
+        id: p.id,
+        title: p.title,
+        tasks: p.tasks.length,
+      }))
+    )
+  );
+
 export const useCurrentProject = () =>
   useProjectStore(
     useShallow((state) => getCurrentProject(state.projects, state.selectedId))
@@ -103,15 +113,15 @@ export const useCurrentProjectTasks = () =>
     (state) => getCurrentProject(state.projects, state.selectedId)?.tasks
   ) as Task[];
 
-export const useHasProjects = () =>
-  useProjectStore(useShallow((state) => state.projects.length > 0));
-
 export const useDisplayProject = () =>
   useProjectStore(
     useShallow((state) =>
       getDisplayData(getCurrentProject(state.projects, state.selectedId))
     )
   ) as Project;
+
+export const useHasProjects = () =>
+  useProjectStore(useShallow((state) => state.projects.length > 0));
 
 export const useSelectedId = () => useProjectStore((state) => state.selectedId);
 

@@ -4,6 +4,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { useDisplayProject, useProjectActions } from "../../store/store";
+import { compareProjects } from "../../store/store-helpers";
 import { Project } from "../../util/types";
 import ProjectDialog from "./project-dialog";
 
@@ -19,7 +20,7 @@ export default function ProjectInfo() {
   const [open, setOpen] = useState(false);
 
   const { updateProject, deleteProject, setFirstItemId } = useProjectActions();
-  
+
   const { id, title, description, dueDate } = displayProject;
 
   function handleDialogOpen() {
@@ -31,7 +32,10 @@ export default function ProjectInfo() {
   }
 
   function handleDialogSubmit(data: Partial<Project>) {
-    updateProject({ ...displayProject, ...data });
+    if (!compareProjects(displayProject, data as Project)) {
+      updateProject({ ...displayProject, ...data });
+    }
+
     setOpen(false);
   }
 

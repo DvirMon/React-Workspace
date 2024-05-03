@@ -1,19 +1,17 @@
-import EditIcon from "@mui/icons-material/Edit";
 import {
   Button,
-  IconButton,
   List,
   ListItem,
   ListItemButton,
   ListItemText,
-  Typography,
+  Typography
 } from "@mui/material";
 import Link from "next/link";
 import { routes } from "../../routes";
 import {
   useProjectActions,
-  useProjects,
-  useSelectedId,
+  useProjectsSidenav,
+  useSelectedId
 } from "../../store/store";
 import { Project } from "../../util/types";
 
@@ -22,14 +20,15 @@ interface SidebarProps {
 }
 
 export default function ProjectSidebar() {
-  const projects: Project[] = useProjects();
+
+  const projectsItems = useProjectsSidenav();
 
   console.log("project sidebar called");
 
   const selectedId = useSelectedId();
   const { setSelectedId } = useProjectActions();
 
-  const projectsSize = projects.length;
+  const projectsSize = projectsItems.length;
 
   function handleItemClick(id: string) {
     if (selectedId !== id) {
@@ -50,7 +49,7 @@ export default function ProjectSidebar() {
         </Button>
       </section>
       <List className="h-full">
-        {projects.map(({ title, tasks, id }: Project, index) => (
+        {projectsItems.map(({ title, tasks, id }, index) => (
           <ListItem key={index} disablePadding>
             <ListItemButton
               className="mb-4 mt-4"
@@ -59,10 +58,7 @@ export default function ProjectSidebar() {
               <ListItemText
                 className="capitalize"
                 primary={title}
-                secondary={
-                  "open tasks " +
-                  (tasks?.length > 0 ? `(${tasks?.length})` : "")
-                }
+                secondary={"open tasks " + (tasks ? `(${tasks})` : "")}
               />
             </ListItemButton>
           </ListItem>

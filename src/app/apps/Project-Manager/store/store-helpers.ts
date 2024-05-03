@@ -77,7 +77,9 @@ function setProjectTasks(project: Project, tasks: Task[]): Project {
   return updateEntityByKey(project, "tasks", tasks);
 }
 
-export function getDisplayData(project: Project | null) {
+export function getDisplayData(
+  project: Project | null
+): Partial<Project> | null {
   if (project) {
     return {
       id: project.id,
@@ -86,6 +88,8 @@ export function getDisplayData(project: Project | null) {
       dueDate: project.dueDate,
     };
   }
+
+  return null;
 }
 
 export function getCurrentProject(
@@ -100,4 +104,12 @@ export function getCurrentProject(
 
 export function setFirstItemId(projects: Project[]): string {
   return projects.length > 0 ? projects[0].id : "";
+}
+
+export function compareProjects(p1: Project, p2: Project) {
+  return (
+    p1.description === p2.description &&
+    p1.title === p2.title &&
+    p1.dueDate.isSame(p2.dueDate)
+  );
 }
