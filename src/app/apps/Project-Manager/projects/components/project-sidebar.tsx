@@ -10,7 +10,11 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { routes } from "../../routes";
-import { useProjectActions, useProjects, useSelectedId } from "../../store/store";
+import {
+  useProjectActions,
+  useProjects,
+  useSelectedId,
+} from "../../store/store";
 import { Project } from "../../util/types";
 
 interface SidebarProps {
@@ -18,8 +22,9 @@ interface SidebarProps {
 }
 
 export default function ProjectSidebar() {
-
   const projects: Project[] = useProjects();
+
+  console.log("project sidebar called");
 
   const selectedId = useSelectedId();
   const { setSelectedId } = useProjectActions();
@@ -27,7 +32,9 @@ export default function ProjectSidebar() {
   const projectsSize = projects.length;
 
   function handleItemClick(id: string) {
-    setSelectedId(id);
+    if (selectedId !== id) {
+      setSelectedId(id);
+    }
   }
 
   const title = projectsSize
@@ -44,10 +51,7 @@ export default function ProjectSidebar() {
       </section>
       <List className="h-full">
         {projects.map(({ title, tasks, id }: Project, index) => (
-          <ListItem
-            key={index}
-            disablePadding
-     >
+          <ListItem key={index} disablePadding>
             <ListItemButton
               className="mb-4 mt-4"
               selected={id === selectedId}

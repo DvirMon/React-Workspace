@@ -3,23 +3,24 @@ import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
+import { useDisplayProject, useProjectActions } from "../../store/store";
 import { Project } from "../../util/types";
 import ProjectDialog from "./project-dialog";
-import { useProjectActions } from "../../store/store";
 
 interface ProjectInfoProps {
-  projectInfo: Project;
+  displayProject: Project;
 }
 
-export default function ProjectInfo({ projectInfo }: ProjectInfoProps) {
+export default function ProjectInfo() {
+  console.log("project info called");
 
-  console.log('project info called')
+  const displayProject: Project = useDisplayProject();
 
   const [open, setOpen] = useState(false);
 
   const { updateProject, deleteProject, setFirstItemId } = useProjectActions();
-
-  const { id, title, description, dueDate } = projectInfo;
+  
+  const { id, title, description, dueDate } = displayProject;
 
   function handleDialogOpen() {
     setOpen(true);
@@ -30,7 +31,7 @@ export default function ProjectInfo({ projectInfo }: ProjectInfoProps) {
   }
 
   function handleDialogSubmit(data: Partial<Project>) {
-    updateProject({ ...projectInfo, ...data });
+    updateProject({ ...displayProject, ...data });
     setOpen(false);
   }
 
@@ -42,7 +43,7 @@ export default function ProjectInfo({ projectInfo }: ProjectInfoProps) {
   return (
     <article className="w-full flex flex-col gap-4">
       <ProjectDialog
-        data={projectInfo}
+        data={displayProject}
         open={open}
         onClose={handleDialogClose}
         onSubmit={handleDialogSubmit}

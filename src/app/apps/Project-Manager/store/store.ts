@@ -7,10 +7,12 @@ import {
   deleteProject,
   deleteTaskFromProject,
   getCurrentProject,
+  getDisplayData,
   setFirstItemId,
   updateProject,
   updateProjectTasks,
 } from "./store-helpers";
+import { useShallow } from "zustand/react/shallow";
 
 export type State = {
   projects: Project[];
@@ -24,16 +26,17 @@ type Action = {
     setFirstItemId: () => void;
     addProject: (newProject: Project) => void;
     deleteProject: (id: string) => void;
-    updateProject : (project : Project) => void,
-    addTaskToProject: (project: Project, newTask: Task) => void;
-    deleteTaskFromProject: (project: Project, indexToDelete: number) => void;
-    updateProjectTasks: (displayProject : Project, updateTask: Task) => void;
+    updateProject: (project: Project) => void;
+    addTaskToProject: (newTask: Task) => void;
+    deleteTaskFromProject: (indexToDelete: number) => void;
+    updateProjectTasks: (updateTask: Task) => void;
   };
 };
 
 const useProjectStore = create<State & Action>((set) => ({
   projects: [],
   selectedId: "",
+  currentProject: null,
   actions: {
     loadProjects: (data: Project[]) =>
       set(() => ({
@@ -53,31 +56,61 @@ const useProjectStore = create<State & Action>((set) => ({
 
     addProject: (newProject: Project) =>
       set((state) => addProject(state, newProject)),
-    
+
     deleteProject: (id: string) => set((state) => deleteProject(state, id)),
-    
+
     updateProject: (project: Project) =>
-          set((state) => updateProject(state, project)),
+      set((state) => updateProject(state, project)),
 
-    addTaskToProject: (project: Project, newTask: Task) =>
-      set((state) => addTaskToProject(state, project, newTask)),
+    addTaskToProject: (newTask: Task) =>
+      set((state) =>
+        addTaskToProject(
+          state,
+          getCurrentProject(state.projects, state.selectedId) as Project,
+          newTask
+        )
+      ),
 
-    deleteTaskFromProject: (project: Project, indexToDelete: number) =>
-      set((state) => deleteTaskFromProject(state, project, indexToDelete)),
+    deleteTaskFromProject: (indexToDelete: number) =>
+      set((state) =>
+        deleteTaskFromProject(
+          state,
+          getCurrentProject(state.projects, state.selectedId) as Project,
+          indexToDelete
+        )
+      ),
 
-    updateProjectTasks: (displayProject : Project, updateTask: Task) =>
-      set((state) => updateProjectTasks(state, displayProject, updateTask) ),
+    updateProjectTasks: (updateTask: Task) =>
+      set((state) =>
+        updateProjectTasks(
+          state,
+          getCurrentProject(state.projects, state.selectedId) as Project,
+          updateTask
+        )
+      ),
   },
 }));
 
 export const useProjects = () => useProjectStore((state) => state.projects);
 
+export const useCurrentProject = () =>
+  useProjectStore(
+    useShallow((state) => getCurrentProject(state.projects, state.selectedId))
+  );
+
+export const useCurrentProjectTasks = () =>
+  useProjectStore(
+    (state) => getCurrentProject(state.projects, state.selectedId)?.tasks
+  ) as Task[];
+
 export const useHasProjects = () =>
-  useProjectStore((state) => state.projects.length > 0);
+  useProjectStore(useShallow((state) => state.projects.length > 0));
 
 export const useDisplayProject = () =>
-  useProjectStore((state) =>
-    getCurrentProject(state.projects, state.selectedId)
+  useProjectStore(
+    useShallow((state) =>
+      getDisplayData(getCurrentProject(state.projects, state.selectedId))
+    )
   ) as Project;
 
 export const useSelectedId = () => useProjectStore((state) => state.selectedId);

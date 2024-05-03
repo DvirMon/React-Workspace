@@ -1,17 +1,22 @@
 import { Button, TextField } from "@mui/material";
 import { FieldValues, useForm } from "react-hook-form";
-import { Task } from "../../util/types";
+import { Project, Task } from "../../util/types";
+import { useCurrentProject, useProjectActions } from "../../store/store";
 
 interface TasksFormProps {
   onAddTask: (task: Task) => void;
 }
 
-export default function ProjectTaskForm({ onAddTask }: TasksFormProps) {
+export default function ProjectTaskForm() {
+
+  console.log('Task form called')
+
+  const { addTaskToProject } = useProjectActions();
   const { register, handleSubmit, reset } = useForm<Task>();
 
   function onSubmit(data: FieldValues) {
     const task = { ...data } as Task;
-    onAddTask(task);
+    addTaskToProject(task);
     reset();
   }
 

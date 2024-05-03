@@ -77,14 +77,25 @@ function setProjectTasks(project: Project, tasks: Task[]): Project {
   return updateEntityByKey(project, "tasks", tasks);
 }
 
+export function getDisplayData(project: Project | null) {
+  if (project) {
+    return {
+      id: project.id,
+      description: project.description,
+      title: project.title,
+      dueDate: project.dueDate,
+    };
+  }
+}
+
 export function getCurrentProject(
   projects: Project[],
   id: string
-): Project | undefined {
+): Project | null {
   if (projects && id) {
-    return findEntityById(projects, id);
+    return findEntityById(projects, id) || null;
   }
-  return projects?.length > 0 ? projects[0] : undefined;
+  return projects?.length > 0 ? projects[0] : null;
 }
 
 export function setFirstItemId(projects: Project[]): string {
