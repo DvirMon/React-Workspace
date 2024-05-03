@@ -11,9 +11,9 @@ import { ListItem } from "@mui/material";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import QuizIcon from "@mui/icons-material/Quiz";
 import Link from "next/link";
 import { useMemo } from "react";
-
 
 interface MenuItemProps {
   icon: JSX.Element;
@@ -57,6 +57,11 @@ export const secondaryItems: MenuItemProps[] = [
     icon: <AppRegistrationIcon />,
     text: "Project Managing",
     link: routes.projectManaging,
+  },
+  {
+    icon: <QuizIcon />,
+    text: "Quizzz",
+    link: routes.quizzz,
   },
 ];
 
