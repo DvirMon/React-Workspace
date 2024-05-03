@@ -24,7 +24,10 @@ export const addTaskToProject = (
   projects: [
     ...updateEntities(
       state.projects,
-      setProjectTasks(project, addEntity(project.tasks, newTask))
+      setProjectTasks(
+        project,
+        addEntity(project.tasks, { ...newTask, id: uuidv4() })
+      )
     ),
   ],
 });
@@ -34,12 +37,10 @@ export const deleteProject = (state: State, id: string): State => ({
   projects: [...deleteEntityById(state.projects, id)],
 });
 
-
-export const updateProject = (state: State, project : Project): State => ({
+export const updateProject = (state: State, project: Project): State => ({
   ...state,
   projects: [...updateEntities(state.projects, project)],
 });
-
 
 export const deleteTaskFromProject = (
   state: State,
@@ -50,11 +51,13 @@ export const deleteTaskFromProject = (
   projects: [
     ...updateEntities(
       state.projects,
-      setProjectTasks(project, deleteEntityByIndex(project.tasks, indexToDelete))
+      setProjectTasks(
+        project,
+        deleteEntityByIndex(project.tasks, indexToDelete)
+      )
     ),
   ],
 });
-
 
 export const updateProjectTasks = (
   state: State,
@@ -73,7 +76,6 @@ export const updateProjectTasks = (
 function setProjectTasks(project: Project, tasks: Task[]): Project {
   return updateEntityByKey(project, "tasks", tasks);
 }
-
 
 export function getCurrentProject(
   projects: Project[],

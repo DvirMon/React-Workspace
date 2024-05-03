@@ -15,6 +15,7 @@ export default function ProjectDialog({
   onSubmit,
   onClose,
 }: ProjectsDialogProps) {
+  
   function handleClose() {
     onClose();
   }

@@ -10,7 +10,7 @@ export default function ProjectTaskForm({ onAddTask }: TasksFormProps) {
   const { register, handleSubmit, reset } = useForm<Task>();
 
   function onSubmit(data: FieldValues) {
-    const task = { ...data, id: "" } as Task;
+    const task = { ...data } as Task;
     onAddTask(task);
     reset();
   }

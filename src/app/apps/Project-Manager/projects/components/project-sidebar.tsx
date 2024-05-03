@@ -10,14 +10,17 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { routes } from "../../routes";
-import { useProjectActions, useSelectedId } from "../../store/store";
+import { useProjectActions, useProjects, useSelectedId } from "../../store/store";
 import { Project } from "../../util/types";
 
 interface SidebarProps {
   projects: Project[];
 }
 
-export default function ProjectSidebar({ projects }: SidebarProps) {
+export default function ProjectSidebar() {
+
+  const projects: Project[] = useProjects();
+
   const selectedId = useSelectedId();
   const { setSelectedId } = useProjectActions();
 

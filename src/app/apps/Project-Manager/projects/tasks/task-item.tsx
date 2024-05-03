@@ -35,6 +35,9 @@ export default function ProjectTaskItem({
   const [taskState, setTaskState] = useState(task);
   const { register, reset } = useForm({ defaultValues: task });
 
+  console.log("tasks called");
+
+
   function handleDelete() {
     onDelete();
   }

@@ -5,23 +5,21 @@ import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { Project } from "../../util/types";
 import ProjectDialog from "./project-dialog";
+import { useProjectActions } from "../../store/store";
 
-interface ProjectInfoProps extends Project {
-  onDeleteProject: (id: string) => void;
-  onEditProject: (project: Partial<Project>) => void;
+interface ProjectInfoProps {
+  projectInfo: Project;
 }
 
-export default function ProjectInfo({
-  id,
-  title,
-  dueDate,
-  description,
-  onDeleteProject,
-  onEditProject,
-}: ProjectInfoProps) {
+export default function ProjectInfo({ projectInfo }: ProjectInfoProps) {
+
+  console.log('project info called')
+
   const [open, setOpen] = useState(false);
 
-  const project = { title, description, dueDate } as Project;
+  const { updateProject, deleteProject, setFirstItemId } = useProjectActions();
+
+  const { id, title, description, dueDate } = projectInfo;
 
   function handleDialogOpen() {
     setOpen(true);
@@ -32,14 +30,19 @@ export default function ProjectInfo({
   }
 
   function handleDialogSubmit(data: Partial<Project>) {
-    onEditProject(data);
+    updateProject({ ...projectInfo, ...data });
     setOpen(false);
+  }
+
+  function handleDeleteProject(id: string): void {
+    deleteProject(id);
+    setFirstItemId();
   }
 
   return (
     <article className="w-full flex flex-col gap-4">
       <ProjectDialog
-        data={project}
+        data={projectInfo}
         open={open}
         onClose={handleDialogClose}
         onSubmit={handleDialogSubmit}
@@ -59,7 +62,7 @@ export default function ProjectInfo({
             <IconButton
               aria-label="delete"
               className="self-center"
-              onClick={() => onDeleteProject(id)}>
+              onClick={() => handleDeleteProject(id)}>
               <DeleteIcon />
             </IconButton>
           </section>
