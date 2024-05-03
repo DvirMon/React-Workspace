@@ -1,31 +1,30 @@
 import FormField from "@/app/ui/Form/form-field";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@mui/material";
-import { useRouter } from "next/navigation";
 import { FieldError, useForm } from "react-hook-form";
-import { DEFAULT_VALUES, FORM_INPUTS, NewProjectScheme } from "./constants";
 import { Project } from "../util/types";
+import { DEFAULT_VALUES, FORM_INPUTS, NewProjectScheme } from "./constants";
 
 interface ProjectFormProps {
-  setProjects: (data: Project) => void;
+  defaultValues?: Partial<Project>;
+  onSubmit: (data: Project) => void;
+  onCancel: () => void;
 }
 
-export default function ProjectForm({ setProjects }: ProjectFormProps) {
-  const router = useRouter();
-
+export default function ProjectForm({
+  onSubmit,
+  onCancel,
+  defaultValues = DEFAULT_VALUES,
+}: ProjectFormProps) {
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<Project>({
     mode: "onBlur",
-    defaultValues: DEFAULT_VALUES,
+    defaultValues,
     resolver: zodResolver(NewProjectScheme),
   });
-
-  function onSubmit(formData: Project) {
-    setProjects(formData);
-  }
 
   return (
     <form
@@ -40,13 +39,10 @@ export default function ProjectForm({ setProjects }: ProjectFormProps) {
         />
       ))}
       <footer className="w-full flex flex-row justify-end gap-4">
-        <Button
-          className="text-2xl "
-          type="button"
-          onClick={() => router.back()}>
+        <Button className="text-xl " type="button" onClick={onCancel}>
           Cancel
         </Button>
-        <Button className="text-2xl" variant="contained" type="submit">
+        <Button className="text-xl" variant="contained" type="submit">
           Submit
         </Button>
       </footer>

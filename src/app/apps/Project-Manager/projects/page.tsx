@@ -7,28 +7,27 @@ import {
   useProjectActions,
   useProjects,
 } from "../store/store";
-import { Task } from "../util/types";
+import { Project, Task } from "../util/types";
 import ProjectInfo from "./components/project-info";
 import ProjectSidebar from "./components/project-sidebar";
 import ProjectTaskItem from "./tasks/task-item";
 import ProjectTaskForm from "./tasks/tasks-form";
 
 export default function ProjectsPage() {
-  const projects = useProjects();
-  const displayProject = useDisplayProject();
+  const projects: Project[] = useProjects();
+  const displayProject: Project = useDisplayProject();
 
   const {
     addTaskToProject,
     deleteTaskFromProject,
     updateProjectTasks,
     deleteProject,
+    updateProject,
     setSelectedId,
     setFirstItemId,
   } = useProjectActions();
 
-  useEffect(() => {
-    setSelectedId(displayProject.id);
-  });
+  setSelectedId(displayProject.id);
 
   function handleAddTask(task: Task): void {
     addTaskToProject(displayProject, task);
@@ -47,6 +46,10 @@ export default function ProjectsPage() {
     setFirstItemId();
   }
 
+  function handleEditProject(data: Partial<Project>) {
+    updateProject({ ...displayProject, ...data } as Project);
+  }
+
   return (
     <Stack
       direction="row"
@@ -59,6 +62,7 @@ export default function ProjectsPage() {
         <ProjectInfo
           {...displayProject}
           onDeleteProject={handleDeleteProject}
+          onEditProject={handleEditProject}
         />
         <Divider />
 

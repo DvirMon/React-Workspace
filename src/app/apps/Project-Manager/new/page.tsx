@@ -1,14 +1,13 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { routes } from "../routes";
 import { useProjectActions } from "../store/store";
 import { Project } from "../util/types";
-import ProjectForm from "./form";
-import { routes } from "../routes";
+import ProjectForm from "./project-form";
 
 export default function NewProjectPage() {
   const { addProject } = useProjectActions();
-
   const router = useRouter();
 
   function handleSubmit(data: Project): void {
@@ -16,9 +15,13 @@ export default function NewProjectPage() {
     router.push(routes.projects);
   }
 
+  function handleCancel() {
+    router.back();
+  }
+
   return (
     <div className="w-1/2 flex flex-col gap-4">
-      <ProjectForm setProjects={handleSubmit} />
+      <ProjectForm onSubmit={handleSubmit} onCancel={handleCancel} />
     </div>
   );
 }

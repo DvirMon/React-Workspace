@@ -34,6 +34,13 @@ export const deleteProject = (state: State, id: string): State => ({
   projects: [...deleteEntityById(state.projects, id)],
 });
 
+
+export const updateProject = (state: State, project : Project): State => ({
+  ...state,
+  projects: [...updateEntities(state.projects, project)],
+});
+
+
 export const deleteTaskFromProject = (
   state: State,
   project: Project,
@@ -47,6 +54,7 @@ export const deleteTaskFromProject = (
     ),
   ],
 });
+
 
 export const updateProjectTasks = (
   state: State,

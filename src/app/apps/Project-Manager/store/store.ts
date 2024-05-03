@@ -8,6 +8,7 @@ import {
   deleteTaskFromProject,
   getCurrentProject,
   setFirstItemId,
+  updateProject,
   updateProjectTasks,
 } from "./store-helpers";
 
@@ -23,6 +24,7 @@ type Action = {
     setFirstItemId: () => void;
     addProject: (newProject: Project) => void;
     deleteProject: (id: string) => void;
+    updateProject : (project : Project) => void,
     addTaskToProject: (project: Project, newTask: Task) => void;
     deleteTaskFromProject: (project: Project, indexToDelete: number) => void;
     updateProjectTasks: (displayProject : Project, updateTask: Task) => void;
@@ -51,8 +53,11 @@ const useProjectStore = create<State & Action>((set) => ({
 
     addProject: (newProject: Project) =>
       set((state) => addProject(state, newProject)),
-
+    
     deleteProject: (id: string) => set((state) => deleteProject(state, id)),
+    
+    updateProject: (project: Project) =>
+          set((state) => updateProject(state, project)),
 
     addTaskToProject: (project: Project, newTask: Task) =>
       set((state) => addTaskToProject(state, project, newTask)),
