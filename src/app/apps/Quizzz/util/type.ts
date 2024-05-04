@@ -3,3 +3,7 @@ export interface Quiz {
   text: string;
   answers: string[];
 }
+export interface Result {
+  id: string;
+  index: number;
+}
