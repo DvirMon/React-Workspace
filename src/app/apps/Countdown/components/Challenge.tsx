@@ -1,6 +1,9 @@
 import { useState } from "react";
-import { useCount } from "../useInterval";
+import { useCount } from "../hooks/useCount";
 import classes from "./Challenge.module.css";
+
+
+
 
 export default function Challenge() {
   const [isTimerOn, setIsTimerOn] = useState(false);
