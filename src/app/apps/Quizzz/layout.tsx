@@ -1,8 +1,21 @@
 "use client";
 
 import PageContainer from "@/app/ui/layout/Container";
-import classes from "./layout.module.css";
 import { usePathThemeActions } from "@/hooks/usePathTheme";
+import Image from "next/image";
+import classes from "./layout.module.css";
+
+const PageHeder = () => {
+  const title = "REACT-QUIZ";
+
+  return (
+    <header
+      className={"w-full h-1/5 flex flex-col items-center justify-end gap-4"}>
+      <Image width={60} height={60} src={"/quiz-logo.png"} alt="quiz-logo" />
+      <h1 className={classes.title}>{title}</h1>
+    </header>
+  );
+};
 
 export default function QuizLayout({
   children,
@@ -13,5 +26,10 @@ export default function QuizLayout({
 
   setPathTheme("quiz");
 
-  return <PageContainer className={classes.page}>{children}</PageContainer>;
+  return (
+    <PageContainer className={classes.page}>
+      <PageHeder />
+      {children}
+    </PageContainer>
+  );
 }
