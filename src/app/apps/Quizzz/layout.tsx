@@ -29,7 +29,7 @@ export default function QuizLayout({
   return (
     <PageContainer className={classes.page}>
       <PageHeder />
-      <main className="flex-grow">{children}</main>
+      <main className="h-3/5 flex fle-col justify-center items-center">{children}</main>
     </PageContainer>
   );
 }
