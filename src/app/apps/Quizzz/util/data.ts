@@ -73,7 +73,7 @@ export const DATA: Quiz[] = [
   },
 ];
 
-export const RESULTS = {
+export const ANSWERS = {
   q1: 2,
   q2: 0,
   q3: 1,

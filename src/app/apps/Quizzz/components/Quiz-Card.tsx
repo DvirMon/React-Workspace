@@ -15,14 +15,14 @@ export default function QuizCard() {
 
   const { text, answers } = quiz;
 
-  function onProgress(value: boolean) {
-    setIsTimeout(value);
+  function onAnswerSelect(value: number) {
+    setIsTimeout(true);
   }
 
   return (
     <div className={classes.quiz}>
       <QuizQuestion text={text} isStop={isTimeout} />
-      <QuizAnswerList answers={answers} setProgress={onProgress} />
+      <QuizAnswerList answers={answers} onAnswerSelect={onAnswerSelect} />
     </div>
   );
 }

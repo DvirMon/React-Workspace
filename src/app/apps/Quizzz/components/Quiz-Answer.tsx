@@ -2,20 +2,20 @@ import classes from "./Quiz-Answer.module.css";
 
 export default function QuizAnswerList({
   answers,
-  setProgress,
+  onAnswerSelect,
 }: {
   answers: string[];
-  setProgress : (value : boolean) => void;
+  onAnswerSelect : (index : number) => void;
 }) {
-  function handleAnswer() {
-    setProgress(true);
+  function handleAnswer(index : number) {
+    onAnswerSelect(index);
   }
 
   return (
     <div className={classes.answers}>
       {answers.map((text, index) => (
         <div className={classes.answer} key={index}>
-          <button onClick={handleAnswer}>{text}</button>
+          <button onClick={() => handleAnswer(index)}>{text}</button>
         </div>
       ))}
     </div>
