@@ -73,10 +73,10 @@ export const DATA: Quiz[] = [
   },
 ];
 
-export const ANSWERS = {
-  q1: 2,
+export const ANSWERS : {[key : string] : number}  = {
+  q1: 0,
   q2: 0,
-  q3: 1,
+  q3: 0,
   q4: 1,
   q5: 0,
   q6: 2,

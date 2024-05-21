@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap");
 
-
 .answers {
   list-style: none;
   margin: 0;
@@ -30,8 +29,7 @@
   transition: all 0.2s ease-in-out;
 }
 
-.answer button:hover,
-.answer button:focus {
+.answer button:hover {
   /* background: linear-gradient(180deg, #bf48f6 0%, #9b50f2 100%); */
   background: #9d5af5;
   color: white;
@@ -44,7 +42,7 @@
   color: #2c203d;
 }
 
-.answer button.correct {
+div.answer .correct {
   /* background: linear-gradient(180deg, #a1fa61 0%, #52d482 100%); */
   background: #5af59d;
   color: #2c203d;

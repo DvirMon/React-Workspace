@@ -5,6 +5,7 @@ export function useInterval(
   delay: number | null,
   isTimerOn: boolean
 ): void {
+  
   const savedCallback = useRef<() => void>();
 
   useEffect(() => {

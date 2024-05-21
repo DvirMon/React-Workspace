@@ -1,28 +1,41 @@
 "use client";
 
-import { useState } from "react";
-import { DATA } from "../util/data";
+import { Typography } from "@mui/material";
+import { useCallback } from "react";
+import { ANSWERS } from "../util/data";
 import { Quiz } from "../util/type";
 import QuizAnswerList from "./Quiz-Answer";
-import QuizQuestion from "./Quiz-Question";
 import classes from "./Quiz-Card.module.css";
+import QuizProgressbar from "./Quiz-Progressbar";
 
-export default function QuizCard() {
-  const [questionIndex, setQuestionIndex] = useState(0);
-  const [isTimeout, setIsTimeout] = useState(false);
+const answers_map: { [key: string]: number } = ANSWERS;
 
-  const quiz: Quiz = DATA[questionIndex];
-
+export default function QuizCard({
+  quiz,
+  onAnswerSelect,
+}: {
+  quiz: Quiz;
+  onAnswerSelect: (value: number) => void;
+}) {
   const { text, answers } = quiz;
 
-  function onAnswerSelect(value: number) {
-    setIsTimeout(true);
-  }
+  const handleAnswerSelect = useCallback(
+    () => onAnswerSelect(-1),
+    [onAnswerSelect]
+  );
 
   return (
     <div className={classes.quiz}>
-      <QuizQuestion text={text} isStop={isTimeout} />
-      <QuizAnswerList answers={answers} onAnswerSelect={onAnswerSelect} />
+      <div className={classes.question}>
+        <QuizProgressbar duration={1000} onTimeout={ () => onAnswerSelect(-1)} />
+        <Typography variant="h2">{text}</Typography>;
+      </div>
+
+      <QuizAnswerList
+        questionId={quiz.id}
+        answers={answers}
+        onAnswerSelect={onAnswerSelect}
+      />
     </div>
   );
 }
