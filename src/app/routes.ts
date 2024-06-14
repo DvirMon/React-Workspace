@@ -7,4 +7,5 @@ export const routes = {
   investment: "/apps/Investment-Calculator",
   countdown: "/apps/Countdown",
   projectManaging: "/apps/Project-Manager",
+  quizzz: "/apps/Quizzz",
 };

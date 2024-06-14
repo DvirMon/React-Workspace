@@ -5,9 +5,8 @@ export function useInterval(
   delay: number | null,
   isTimerOn: boolean
 ): void {
-  const func = useCallback(callback, [callback]);
-
-  const savedCallback = useRef<() => void>(func);
+  
+  const savedCallback = useRef<() => void>();
 
   useEffect(() => {
     savedCallback.current = callback;
@@ -19,17 +18,18 @@ export function useInterval(
         savedCallback.current();
       }
     }
-
+    
     if (isTimerOn && delay !== null) {
       const id = setInterval(tick, delay);
-
-      return () => clearInterval(id);
+      
+      return () => {
+        const env = process.env.NODE_ENV;
+        console.log(env);
+        if (env === "development") {
+          console.log("clear interval");
+        }
+        clearInterval(id);
+      };
     }
   }, [delay, isTimerOn]);
-}
-
-export function useCount(delay: number | null, isTimerOn: boolean) {
-  const [count, setCount] = useState(0);
-  useInterval(() => setCount((value) => ++value), delay, isTimerOn);
-  return { count, setCount };
 }

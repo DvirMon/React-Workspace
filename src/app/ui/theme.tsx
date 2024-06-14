@@ -22,11 +22,19 @@ const investmentTheme = createTheme({
   },
 });
 
+const quizTheme = createTheme({
+  ...theme,
+  palette: {
+    primary: { main: "#8e76fa" },
+  },
+});
+
 export const appThemes: { [key: string]: Theme } = {
   ticTacToe: ticTckToeTheme,
   projectManaging: theme,
   investment: investmentTheme,
   countdown: investmentTheme,
+  quiz: quizTheme,
 };
 
 export default theme;
